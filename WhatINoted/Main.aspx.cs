@@ -36,19 +36,7 @@ namespace WhatINoted
             for (int i = 0; i < 8; i++)
             {
                 notebookDivs[i] = new HtmlGenericControl("div");
-                notebookDivs[i].Attributes["class"] = "mainNotebooksDiv";
-                switch (i % 3)
-                {
-                    case 0:
-                        notebookDivs[i].Attributes["class"] += " mainNotebooksColumn1";
-                        break;
-                    case 1:
-                        notebookDivs[i].Attributes["class"] += " mainNotebooksColumn2";
-                        break;
-                    case 2:
-                        notebookDivs[i].Attributes["class"] += " mainNotebooksColumn3";
-                        break;
-                }
+                notebookDivs[i].Attributes["class"] = "mainNotebooksDiv notebookColor";
 
                 HtmlGenericControl titleDiv = new HtmlGenericControl("div");
                 titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
