@@ -41,7 +41,7 @@ namespace WhatINoted.Tests2
                 {
                     if (Regex.IsMatch(s, ".*Packets:.*"))
                     {
-                        string[] split = Regex.Split(s, "(");
+                        string[] split = Regex.Split(s, "\\(");
                         lossPercentage = ParseInt(split[1]);
                     }
                     else if (Regex.IsMatch(s, ".*Minimum.*"))
