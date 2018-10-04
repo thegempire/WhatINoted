@@ -30,7 +30,7 @@ namespace WhatINoted.Tests2
                 }
                 sw.Close();
             }
-            using (StreamWriter sw = File.CreateText(dateTimeString + " Test Results.txt"))
+            using (StreamWriter sw = File.CreateText("TestResults" + Path.DirectorySeparatorChar + dateTimeString + " Test Results.txt"))
             {
                 sw.WriteLine("--------------TEST RESULTS--------------");
                 sw.WriteLine("  Tests Run: " + tests.Length);
