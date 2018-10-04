@@ -13,7 +13,8 @@
     </asp:PlaceHolder>
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" /> <!--tab icon-->
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <!--tab icon-->
 
 </head>
 <body>
@@ -40,7 +41,7 @@
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
-                <div class="navbar-header"> 
+                <div class="navbar-header">
                     <a class="navbar-brand" runat="server" href="~/">What I Noted</a>
                 </div>
                 <div>
@@ -52,7 +53,7 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>
-
+        <script src="Scripts/Helper.js"></script>
     </form>
 </body>
 </html>

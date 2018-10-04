@@ -1,14 +1,14 @@
 ﻿<%@ Page Title="Add Note" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddNote.aspx.cs" Inherits="WhatINoted.AddNote" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:UpdatePanel ID="LoginUpdatePanel" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="AddNoteUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <div runat="server">
                 <h2>Create New Note</h2>
-                <div runat="server" class="button" OnClick="ByImage_Click">
+                <div runat="server" class="button" onclick="ToggleElementHidden('ByImageGroupContainer');">
                     By Image
                 </div>
-                <div runat="server" id="ByImageGroupContainer" class="group_container">
+                <div runat="server" class="ByImageGroupContainer group_container hidden">
                     <img class="display_block" src="#" alt="Uploaded Image" />
                     <div runat="server" class="button display_inline-block fix_inline">
                         Select Image
@@ -30,11 +30,34 @@
                     <input type="text"></input>
                 </div>
                 <div runat="server" class="grid_5_columns">
-                    <div runat="server" class="grid_5_columns_right button">
+                    <div runat="server" class="grid_5_columns_right button" onclick="CreateNote_Click();">
                         Create Note
                     </div>
                 </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <script>
+        function CreateNote_Click() {
+            $.ajax({
+                type: "POST",
+                url: "AddNote.aspx/CreateNote",
+                data: {},
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Error - Status: " + textStatus + "\n" + "jqXHR Status: " + jqXHR.status + "\n" + "jqXHR Response Text: " + jqXHR.responseText) },
+                success: function (msg) {
+                    if (msg.d == true) {
+                        window.location.href = "Notes.aspx";
+                    }
+                    else {
+                        //show error
+                        alert('Note Creation Failed');
+                    }
+                }
+            });
+        }
+    </script>
 </asp:Content>

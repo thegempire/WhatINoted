@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.Script.Services;
+using System.Web.Services;
 
 namespace WhatINoted
 {
@@ -11,12 +8,13 @@ namespace WhatINoted
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ByImageGroupContainer.Visible = false;
+
         }
 
-        protected void ByImage_Click(object sender, EventArgs e)
+        [WebMethod, ScriptMethod]
+        public static bool CreateNote()
         {
-            ByImageGroupContainer.Visible = !ByImageGroupContainer.Visible;
+            return true;
         }
     }
 }
