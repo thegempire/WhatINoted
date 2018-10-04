@@ -1,42 +1,36 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WhatINoted._Default" %>
+﻿<%@ Page Title="Login Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WhatINoted._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
+    <asp:UpdatePanel ID="LoginUpdatePanel" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <div runat="server" id="LoginSignUp" class="loginSignUp">
+                <div class="loginDivButton">
+                    <asp:Button ID="Login" runat="server" Text="Login" Width="200" OnClick="Login_Click" />
+                </div>
+                <div class="signUpDivButton">
+                    <asp:Button ID="SignUp" runat="server" Text="Sign Up" Width="200" OnClick="SignUp_Click" />
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-            </p>
-        </div>
-    </div>
+            <div runat="server" id="LoginDiv" class="loginDiv">
+                <div class="loginGoogle">
+                    <asp:Button ID="LoginGoogle" runat="server" Text="Login with Google" Width="200" /><!-- Temporary link to next page until login/signup implemented: PostBackUrl="~/Main.aspx" -->
+                </div>
+                <div class="loginFacebook">
+                    <asp:Button ID="LoginFacebook" runat="server" Text="Login with Facebook" Width="200" />
+                </div>
+            </div>
+
+            <div runat="server" id="SignUpDiv" class="signUpDiv">
+                <div class="signUpGoogle">
+                    <asp:Button ID="SignUpGoogle" runat="server" Text="Sign Up with Google" Width="200" />
+                </div>
+                <div class="signUpFacebook">
+                    <asp:Button ID="SignUpFacebook" runat="server" Text="Sign Up with Facebook" Width="200" />
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
 </asp:Content>

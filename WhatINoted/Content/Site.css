@@ -29,3 +29,19 @@ textarea {
         padding: 0;
     }
 }
+
+.loginSignUp, .loginDiv, .signUpDiv {
+    margin: auto;
+    width: 200px;
+    padding: 50px 0px 0px 0px;
+}
+
+.loginDivButton, .loginGoogle, .signUpGoogle {
+    width: 200px;
+    padding: 0px 0px 0px 0px;
+}
+
+.signUpDivButton, .loginFacebook, .signUpFacebook {
+    width: 200px;
+    padding: 20px 0px 0px 0px;
+}
