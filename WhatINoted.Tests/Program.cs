@@ -10,7 +10,7 @@ namespace WhatINoted.Tests2
         static void Main(string[] args)
         {
             DateTime now = DateTime.Now;
-            string dateTimeString = now.ToShortDateString() + " " + now.ToShortTimeString();
+            string dateTimeString = now.ToString("yyyy-MM-dd HH\\hmm");
             List<Test> failedTests = new List<Test>();
             using (StreamWriter sw = File.CreateText("temptestresults.txt"))
             {
