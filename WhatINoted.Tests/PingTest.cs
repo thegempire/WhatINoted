@@ -17,8 +17,21 @@ namespace WhatINoted.Tests2
 
         private bool RunWindows(StreamWriter sw)
         {
-            string cmd = "/C ping 173.254.206.164 -n 50 >> pingtemp.txt";
-            System.Diagnostics.Process.Start("CMD.exe", cmd);
+            //string cmd = "/C ping 173.254.206.164 -n 50 >> pingtemp.txt";
+            //System.Diagnostics.Process.Start("CMD.exe", cmd);
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            using (StreamWriter tempsw = File.CreateText("pingtemp.txt"))
+            {
+                proc.StartInfo.FileName = "CMD.exe";
+                proc.StartInfo.Arguments = "/C ping 173.254.206.164 -n 50";
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.RedirectStandardOutput = true;
+                proc.Start();
+                while (!proc.StandardOutput.EndOfStream)
+                {
+                    tempsw.WriteLine(proc.StandardOutput.ReadLine());
+                }
+            }
             using (StreamReader sr = File.OpenText("pingtemp.txt"))
             {
                 string s = "";
