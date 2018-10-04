@@ -1,0 +1,11 @@
+--------------TEST RESULTS--------------
+  Tests Run: 1
+  Tests Failed: 0
+----------------------------------------
+
+-----------------OUTPUT-----------------
+    START TEST: PingTest
+  Loss Percentage: 0%
+  Average Time: 43ms
+    END TEST: PingTest
+----------------------------------------
