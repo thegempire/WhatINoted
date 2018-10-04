@@ -5,8 +5,15 @@ namespace WhatINoted.Tests2
 {
     class Program
     {
+        /*
+         * Every time you create a test class, add an instance of that test
+         * here in order to get the test to run.
+         */
         static readonly Test[] tests = { new PingTest() };
 
+        /*
+         * Runs every test and creates a file in TestResults.
+         */ 
         static void Main(string[] args)
         {
             DateTime now = DateTime.Now;
@@ -17,12 +24,17 @@ namespace WhatINoted.Tests2
                 for (int i = 0; i < tests.Length; i++)
                 {
                     Test test = tests[i];
-                    sw.WriteLine("  START TEST: " + test.GetType().Name);
+                    string name = test.GetType().Name;
+                    sw.WriteLine("  START TEST: " + name);
+                    Console.Write("Running " + name + "(" + (i+1) + "/" + tests.Length + ")...");
                     if (!test.Run(sw))
                     {
                         failedTests.Add(test);
+                        Console.WriteLine("failed");
+                    } else {
+                        Console.WriteLine("passed");
                     }
-                    sw.WriteLine("  END TEST: " + test.GetType().Name);
+                    sw.WriteLine("  END TEST: " + name);
                     if (i != tests.Length - 1)
                     {
                         sw.WriteLine();
