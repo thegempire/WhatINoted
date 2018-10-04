@@ -1,7 +1,7 @@
 ﻿/* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 80px;
 }
 
 /* Wrapping element */
@@ -17,7 +17,6 @@ select,
 textarea {
     max-width: 280px;
 }
-
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
@@ -44,4 +43,182 @@ textarea {
 .signUpDivButton, .loginFacebook, .signUpFacebook {
     width: 200px;
     padding: 20px 0px 0px 0px;
+}
+
+/*
+    Table styling
+*/
+table {
+    border-collapse: collapse;
+}
+
+table, tr {
+    border: solid 1px black;
+    width: 100%;
+}
+
+td {
+    padding: 1vw;
+    font-size: 1.3em;
+}
+
+    td input {
+        margin: 0 1vw;
+        font-size: 1.2em;
+    }
+
+/* 
+    Textarea styling
+*/
+textarea {
+    height: 10vh;
+}
+
+/*
+    Footer styling
+*/
+.footer_1_column {
+    left: 35vw;
+    bottom: 0;
+    width: 30vw;
+    display: inline-grid;
+}
+
+.footer_1_column_middle {
+    grid-column: 1 / 2;
+}
+
+.footer_2_columns {
+    left: 20vw;
+    bottom: 0;
+    width: 60vw;
+    display: inline-grid;
+    grid-template-columns: 50% 50%;
+}
+
+.footer_2_columns_left {
+    grid-column: 1 / 2;
+}
+
+.footer_2_columns_right {
+    grid-column: 2 / 3;
+}
+
+/*
+    Grid styling
+
+    An assortment of grid classes that can be used for layout
+*/
+.grid_1_column {
+    display: inline-grid;
+}
+
+.grid_1_column_middle {
+    grid-column: 1 / 2;
+}
+
+.grid_2_columns {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid_2_columns_left {
+    grid-column: 1 / 2;
+}
+
+.grid_2_columns_right {
+    grid-column: 2 / 3;
+}
+
+.grid_5_columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.grid_5_columns_left {
+    grid-column: 1 / 2;
+}
+
+.grid_5_columns_middle-left {
+    grid-column: 2 / 3;
+}
+
+.grid_5_columns_middle {
+    grid-column: 3 / 4;
+}
+
+.grid_5_columns_middle-right {
+    grid-column: 4 / 5;
+}
+
+.grid_5_columns_right {
+    grid-column: 5 / 6;
+}
+
+/* 
+    Component Classes
+
+    Classes that describe how a specific component should be styled
+*/
+.button {
+    border: solid black;
+    border-width: 1px 2px 2px 1px;
+    background-color: #d9d9d9;
+    font-size: 2em;
+    text-align: center;
+}
+
+    .button:hover {
+        background-color: #b7b7b7;
+    }
+
+.group_container {
+    border: solid black;
+    border-width: 1px 2px 2px 1px;
+    padding: 2vw;
+}
+
+/*
+    Helper Classes
+
+    Semantic classes that provide a specific behaviour
+*/
+.fixed {
+    position: fixed;
+}
+
+.hidden {
+    display: none;
+}
+
+.display_inline-block {
+    display: inline-block;
+    margin: 0vh 1vh 1vh 0;
+}
+
+.fix_inline {
+    padding: 0 1vw;
+}
+
+.display_block {
+    display: block;
+}
+
+.titled_field h4 {
+    margin-bottom: 0.5vh;
+}
+
+.full_width {
+    width: 100%;
+}
+
+/*
+    Fixes for inherited styling
+*/
+textarea {
+    max-width: none;
+}
+
+img {
+    margin-bottom: 1vh;
 }
