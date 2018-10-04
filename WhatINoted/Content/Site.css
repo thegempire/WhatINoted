@@ -45,6 +45,22 @@ textarea {
     padding: 20px 0px 0px 0px;
 }
 
+.mainNotebooksDiv {
+    width: 204px;
+    height: 264px;
+    margin: 40px;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: indigo;
+    display: inline-block;
+}
+
+.mainNotebookDiv {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
 /*
     Table styling
 */
