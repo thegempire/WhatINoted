@@ -10,10 +10,10 @@
                 </div>
                 <div runat="server" id="ByImageGroupContainer" class="group_container">
                     <img class="display_block" src="#" alt="Uploaded Image" />
-                    <div runat="server" class="button display_inline-block fix_inline">
+                    <div runat="server" class="button small_button display_inline-block fix_inline">
                         Select Image
                     </div>
-                    <div runat="server" class="button display_inline-block fix_inline">
+                    <div runat="server" class="button small_button display_inline-block fix_inline">
                         Extract Text
                     </div>
                 </div>

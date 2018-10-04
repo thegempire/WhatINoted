@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddNote.aspx" />
+    <Content Include="AddNotebook.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -169,6 +170,13 @@
     </Compile>
     <Compile Include="AddNote.aspx.designer.cs">
       <DependentUpon>AddNote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddNotebook.aspx.cs">
+      <DependentUpon>AddNotebook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddNotebook.aspx.designer.cs">
+      <DependentUpon>AddNotebook.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
