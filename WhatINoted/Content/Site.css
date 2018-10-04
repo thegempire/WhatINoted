@@ -51,14 +51,17 @@ textarea {
     margin: 40px;
     border: 2px solid black;
     border-radius: 15px;
-    background-color: rgb(1, 151, 214);
     display: inline-block;
     font-weight: bold;
 }
 
-.mainNotebooksDiv:hover, .mainNotebooksDiv:focus {
-    background-color: rgb(0, 121, 184);
+.notebookColor, .search_result:hover {
+    background-color: rgb(208, 229, 255);
 }
+
+    .notebookColor:hover, .notebookColor:focus {
+        background-color: rgb(148, 199, 225);
+    }
 
 .mainNotebookDiv {
     width: 80%;
@@ -90,6 +93,12 @@ textarea {
     width: 100%;
     height: 100%;
 }
+
+.search_grid {
+    padding-top: 20px;
+}
+
+
 /*
     Table styling
 */
@@ -207,7 +216,7 @@ textarea {
 */
 .button {
     border: solid grey;
-    border-width: 1px 1px 1px 1px;
+    border-width: 1px 2px 2px 1px;
     background-color: #d9d9d9;
     font-size: 2em;
     text-align: center;
@@ -223,7 +232,7 @@ textarea {
 
 .group_container {
     border: solid grey;
-    border-width: 0px 1px 1px 1px;
+    border-width: 0px 2px 2px 1px;
     padding: 2vw;
 }
 
@@ -259,6 +268,15 @@ textarea {
 
 .full_width {
     width: 100%;
+}
+
+.margin_top_bottom {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.align-right {
+    
 }
 
 /*
