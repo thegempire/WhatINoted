@@ -1,0 +1,8 @@
+﻿When creating a new test, create a class that implements the Test interface.
+This interface has one method, Run, which takes in a StreamWriter and returns a boolean.
+The StreamWriter is there for you to write any test output that you want in the Test Results file.
+The Run method should return true if the test completely passed and false if any part of it failed.
+Also make sure to include an instance of your test class in the static tests array in Program.cs.
+
+That's it - running this project will run that test automatically and add its results to the text file.
+Make sure you set the working directory to WhatINoted.Tests in your run configuration.
