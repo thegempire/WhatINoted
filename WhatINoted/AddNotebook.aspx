@@ -23,10 +23,10 @@
                         <input type="text" class="full_width"></input>
                     </div>
                     <br />
-                    <div class="button small_button display_inline-block fix_inline" onclick="SearchForBook_Click();">
+                    <div class="button small_button display_inline-block fix_inline" onclick="SearchForBook_Click('ISBN');">
                         Search for Book
                     </div>
-                    <div class="search_grid">
+                    <div runat="server" id="SearchGridISBN" class="search_grid">
                         <asp:Table runat="server">
                             <asp:TableRow>
                                 <asp:TableCell>Title</asp:TableCell>
@@ -65,10 +65,10 @@
                         <input type="text" class="full_width"></input>
                     </div>
                     <br />
-                    <div class="button small_button display_inline-block fix_inline" onclick="SearchForBook_Click();">
+                    <div class="button small_button display_inline-block fix_inline" onclick="SearchForBook_Click('details');">
                         Search for Book
                     </div>
-                    <div class="search_grid">
+                    <div runat="server" id="SearchGridDetails" class="search_grid">
                         <asp:Table runat="server">
                             <asp:TableRow>
                                 <asp:TableCell>Title</asp:TableCell>
