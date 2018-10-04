@@ -49,6 +49,25 @@ namespace WhatINoted
                         notebookDivs[i].Attributes["class"] += " mainNotebooksColumn3";
                         break;
                 }
+
+                HtmlGenericControl titleDiv = new HtmlGenericControl("div");
+                titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
+                titleDiv.InnerHtml = /*Notebook Title*/"Notebook for Science, 8th Edition";
+                notebookDivs[i].Controls.Add(titleDiv);
+
+                HtmlGenericControl imageDiv = new HtmlGenericControl("div");
+                imageDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookImageDiv";
+                HtmlGenericControl image = new HtmlGenericControl("img");
+                image.Attributes["src"] = "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api";
+                image.Attributes["alt"] = "";
+                image.Attributes["class"] = "mainNotebookImage";
+                imageDiv.Controls.Add(image);
+                notebookDivs[i].Controls.Add(imageDiv);
+
+                HtmlGenericControl numNotesDiv = new HtmlGenericControl("div");
+                numNotesDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookNumNotesDiv";
+                numNotesDiv.InnerHtml = /*Number of Notes*/"13 Notes";
+                notebookDivs[i].Controls.Add(numNotesDiv);
             }
             return notebookDivs;
         }
