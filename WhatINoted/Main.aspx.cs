@@ -36,19 +36,8 @@ namespace WhatINoted
             for (int i = 0; i < 8; i++)
             {
                 notebookDivs[i] = new HtmlGenericControl("div");
-                notebookDivs[i].Attributes["class"] = "mainNotebooksDiv";
-                switch (i % 3)
-                {
-                    case 0:
-                        notebookDivs[i].Attributes["class"] += " mainNotebooksColumn1";
-                        break;
-                    case 1:
-                        notebookDivs[i].Attributes["class"] += " mainNotebooksColumn2";
-                        break;
-                    case 2:
-                        notebookDivs[i].Attributes["class"] += " mainNotebooksColumn3";
-                        break;
-                }
+                notebookDivs[i].Attributes["class"] = "mainNotebooksDiv notebookColor";
+                notebookDivs[i].Attributes["onclick"] = "click_openNotebook()";
 
                 HtmlGenericControl titleDiv = new HtmlGenericControl("div");
                 titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
@@ -70,6 +59,21 @@ namespace WhatINoted
                 notebookDivs[i].Controls.Add(numNotesDiv);
             }
             return notebookDivs;
+        }
+
+        protected void CreateNotebook(object sender, EventArgs e)
+        {
+            Response.Redirect("AddNotebook.aspx", true);
+        }
+
+        protected void CreateNote(object sender, EventArgs e)
+        {
+            Response.Redirect("AddNote.aspx", true);
+        }
+
+        protected void OpenNotebook(object sender, EventArgs e)
+        {
+            Response.Redirect("Notes.aspx", true);
         }
     }
 }
