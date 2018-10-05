@@ -42,7 +42,7 @@
             $.ajax({
                 type: "POST",
                 url: "AddNote.aspx/CreateNote",
-                data: {},
+                data: "",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 async: true,
@@ -54,7 +54,10 @@
                     }
                     else {
                         //show error
-                        alert('Note Creation Failed');
+                        //alert('Note Creation Failed');
+                        let div = document.createElement('div');
+                        div.innerText = 'Testaddingcontent';
+                        document.getElementsByTagName('body')[0].appendChild(div);
                     }
                 }
             });
