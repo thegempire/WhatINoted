@@ -36,10 +36,15 @@
                 </asp:Table>
             </div>
             <div runat="server" class="footer_1_column fixed">
-                <div runat="server" class="footer_1_column_middle button">
+                <div runat="server" class="footer_1_column_middle button" onclick="NewNote_Click();">
                     New Note
                 </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <script>
+        function NewNote_Click() {
+            window.location.href = "AddNote.aspx";
+        }
+    </script>
 </asp:Content>

@@ -14,7 +14,7 @@ namespace WhatINoted
         [WebMethod, ScriptMethod]
         public static bool CreateNote()
         {
-            return false;
+            return true;
         }
     }
 }

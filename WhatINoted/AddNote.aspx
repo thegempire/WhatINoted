@@ -54,10 +54,10 @@
                     }
                     else {
                         //show error
-                        //alert('Note Creation Failed');
-                        let div = document.createElement('div');
-                        div.innerText = 'Testaddingcontent';
-                        document.getElementsByTagName('body')[0].appendChild(div);
+                        alert('Note Creation Failed');
+                        //let div = document.createElement('div');
+                        //div.innerText = 'Testaddingcontent';
+                        //document.getElementsByTagName('body')[0].appendChild(div);
                     }
                 }
             });
