@@ -9,7 +9,7 @@
                 <div runat="server" class="button" onclick="ToggleElementHidden('byISBNGroupContainer');">
                     By ISBN
                 </div>
-                <div runat="server" class="byISBNGroupContainer group_container hidden">
+                <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container hidden">
                     <img class="display_block" src="#" alt="Uploaded Image" />
                     <div runat="server" class="button small_button display_inline-block fix_inline">
                         Select Image
@@ -23,22 +23,18 @@
                         <input type="text" class="full_width"></input>
                     </div>
                     <br />
-                    <div class="button small_button display_inline-block fix_inline" onclick="SearchForBook_Click('ISBN');">
+                    <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
+                    <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnISBNPostback.ClientID %>').click()">
                         Search for Book
                     </div>
-                    <div runat="server" id="SearchGridISBN" class="search_grid">
-                        <asp:Table runat="server">
+                    <div runat="server" class="search_grid">
+                        <asp:Table runat="server" ID="SearchGridISBN">
                             <asp:TableRow>
                                 <asp:TableCell>Title</asp:TableCell>
                                 <asp:TableCell>Author</asp:TableCell>
                                 <asp:TableCell>ISBN</asp:TableCell>
                             </asp:TableRow>
                             <%--insert dynamic search results here--%>
-                            <%--<asp:TableRow CssClass="search_result">
-                                <asp:TableCell>Title</asp:TableCell>
-                                <asp:TableCell>Author</asp:TableCell>
-                                <asp:TableCell>ISBN</asp:TableCell>
-                            </asp:TableRow>--%>
                         </asp:Table>
                     </div>
                 </div>
@@ -47,7 +43,7 @@
                 <div runat="server" class="button" onclick="ToggleElementHidden('byBookDetailsGroupContainer');">
                     By Book Details
                 </div>
-                <div runat="server" class="group_container hidden byBookDetailsGroupContainer">
+                <div runat="server" id="ByBookDetailsGroupContainer" class="group_container byBookDetailsGroupContainer hidden">
                     <div runat="server" class="titled_field display_inline-block">
                         <h4>Title</h4>
                         <input type="text" class="full_width"></input>
@@ -65,11 +61,12 @@
                         <input type="text" class="full_width"></input>
                     </div>
                     <br />
-                    <div class="button small_button display_inline-block fix_inline" onclick="SearchForBook_Click('details');">
+                    <asp:Button runat="server" ID="btnBookDetailsPostback" Style="display: none" OnClick="SearchForBook" />
+                    <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnBookDetailsPostback.ClientID %>').click()">
                         Search for Book
                     </div>
-                    <div runat="server" id="SearchGridDetails" class="search_grid">
-                        <asp:Table runat="server">
+                    <div runat="server" class="search_grid">
+                        <asp:Table runat="server" ID="SearchGridDetails">
                             <asp:TableRow>
                                 <asp:TableCell>Title</asp:TableCell>
                                 <asp:TableCell>Author</asp:TableCell>
@@ -84,16 +81,14 @@
                         </asp:Table>
                     </div>
                 </div>
-                <div runat="server" class="grid_5_columns margin_top_bottom">
-                    <div runat="server" class="grid_5_columns_right button" onclick="CreateNotebook_Click();">
-                        Create Notebook
-                    </div>
-                </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
-    <script>
-    </script>
+    <div runat="server" class="grid_5_columns margin_top_bottom">
+        <asp:Button runat="server" ID="btnCreateNotebookPostback" Style="display: none" OnClick="CreateNotebook" />
+        <div class="grid_5_columns_right button" onclick="document.getElementById('<%= btnCreateNotebookPostback.ClientID %>').click()">
+            Create Notebook
+        </div>
+    </div>
 
 </asp:Content>

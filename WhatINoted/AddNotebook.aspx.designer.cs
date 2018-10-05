@@ -22,13 +22,49 @@ namespace WhatINoted {
         protected global::System.Web.UI.UpdatePanel AddNotebookUpdatePanel;
         
         /// <summary>
+        /// ByISBNGroupContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByISBNGroupContainer;
+        
+        /// <summary>
+        /// btnISBNPostback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnISBNPostback;
+        
+        /// <summary>
         /// SearchGridISBN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SearchGridISBN;
+        protected global::System.Web.UI.WebControls.Table SearchGridISBN;
+        
+        /// <summary>
+        /// ByBookDetailsGroupContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByBookDetailsGroupContainer;
+        
+        /// <summary>
+        /// btnBookDetailsPostback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBookDetailsPostback;
         
         /// <summary>
         /// SearchGridDetails control.
@@ -37,6 +73,15 @@ namespace WhatINoted {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SearchGridDetails;
+        protected global::System.Web.UI.WebControls.Table SearchGridDetails;
+        
+        /// <summary>
+        /// btnCreateNotebookPostback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateNotebookPostback;
     }
 }

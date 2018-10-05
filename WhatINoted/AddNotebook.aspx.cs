@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Web.Services;
+using System.Web.Script.Services;
 
 namespace WhatINoted
 {
@@ -15,13 +17,19 @@ namespace WhatINoted
 
         }
 
-        protected void SearchForBook_Click(string searchKey)
+        [WebMethod, ScriptMethod]
+        protected void SearchForBook(object sender, EventArgs e)
         {
-
+            string searchKey;
+            if (((WebControl)sender).ID == "btnISBNPostback")
+                searchKey = "ISBN";
+            else
+                searchKey = "details";
             //search for books
 
             //convert to elements
             TableRow result = new TableRow();
+            result.CssClass = "search_result";
 
             TableCell resultTitle = new TableCell();
             HtmlGenericControl innerDiv = new HtmlGenericControl("div");
@@ -42,7 +50,7 @@ namespace WhatINoted
             result.Controls.Add(resultISBN);
 
             //insert into element
-            HtmlGenericControl key;
+            WebControl key;
             if (searchKey == "details")
             {
                 key = SearchGridDetails;
@@ -53,6 +61,14 @@ namespace WhatINoted
             }
 
             key.Controls.Add(result);
+        }
+
+        protected void CreateNotebook(object sender, EventArgs e)
+        {
+            //Validation
+
+            //redirect
+            Server.Transfer("Notes.aspx", true);
         }
     }
 }
