@@ -15,7 +15,7 @@
 
             <div runat="server" id="LoginDiv" class="loginDiv">
                 <div class="loginGoogle">
-                    <asp:Button ID="LoginGoogle" runat="server" Text="Login with Google" Width="200" /><!-- Temporary link to next page until login/signup implemented: PostBackUrl="~/Main.aspx" -->
+                    <asp:Button ID="LoginGoogle" runat="server" Text="Login with Google" Width="200" OnClick="Redirect_Click" /><!-- Temporary link to next page until login/signup implemented: PostBackUrl="~/Main.aspx" -->
                 </div>
                 <div class="loginFacebook">
                     <asp:Button ID="LoginFacebook" runat="server" Text="Login with Facebook" Width="200" />

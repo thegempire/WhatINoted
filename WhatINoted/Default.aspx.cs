@@ -26,5 +26,10 @@ namespace WhatINoted
             LoginSignUp.Visible = false;
             SignUpDiv.Visible = true;
         }
+
+        protected void Redirect_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Main.aspx", true);
+        }
     }
 }

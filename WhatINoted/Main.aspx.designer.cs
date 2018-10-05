@@ -22,6 +22,15 @@ namespace WhatINoted {
         protected global::System.Web.UI.UpdatePanel MainUpdatePanel;
         
         /// <summary>
+        /// btnOpenNotebookPostback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnOpenNotebookPostback;
+        
+        /// <summary>
         /// MainNotebooks control.
         /// </summary>
         /// <remarks>
@@ -29,5 +38,23 @@ namespace WhatINoted {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MainNotebooks;
+        
+        /// <summary>
+        /// btnCreateNotebookPostback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateNotebookPostback;
+        
+        /// <summary>
+        /// btnCreateNotePostback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateNotePostback;
     }
 }

@@ -81,14 +81,14 @@
                         </asp:Table>
                     </div>
                 </div>
+                <div runat="server" class="grid_5_columns margin_top_bottom">
+                    <asp:Button runat="server" ID="btnCreateNotebookPostback" Style="display: none" OnClick="CreateNotebook" />
+                    <div class="grid_5_columns_right button" onclick="document.getElementById('<%= btnCreateNotebookPostback.ClientID %>').click()">
+                        Create Notebook
+                    </div>
+                </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <div runat="server" class="grid_5_columns margin_top_bottom">
-        <asp:Button runat="server" ID="btnCreateNotebookPostback" Style="display: none" OnClick="CreateNotebook" />
-        <div class="grid_5_columns_right button" onclick="document.getElementById('<%= btnCreateNotebookPostback.ClientID %>').click()">
-            Create Notebook
-        </div>
-    </div>
 
 </asp:Content>

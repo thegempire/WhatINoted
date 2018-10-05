@@ -68,7 +68,7 @@ namespace WhatINoted
             //Validation
 
             //redirect
-            Server.Transfer("Notes.aspx", true);
+            Response.Redirect("Notes.aspx", true);
         }
     }
 }
