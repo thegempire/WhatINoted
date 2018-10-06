@@ -1,0 +1,15 @@
+--------------TEST RESULTS--------------
+  Tests Run: 1
+  Tests Failed: 1
+----------------------------------------
+
+----------------FAILURES----------------
+  PingTest
+----------------------------------------
+
+-----------------OUTPUT-----------------
+    START TEST: PingTest
+  Loss Percentage: 0%
+  Average Time: 127ms<<< FAILURE - exceeds 50ms
+    END TEST: PingTest
+----------------------------------------
