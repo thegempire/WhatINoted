@@ -19,7 +19,7 @@ namespace WhatINoted.Tests2
         /*
          * The maximum acceptable average ping, in milliseconds.
          */
-        private const int MAXIMUM_AVERAGE_TIME = 50;
+        private const int MAXIMUM_AVERAGE_TIME = 200;
 
         /*
          * Since the command to ping the server is different depending on the
