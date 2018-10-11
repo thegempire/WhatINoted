@@ -13,15 +13,15 @@ namespace WhatINoted.Models
         /// <summary>
         /// String representation of the ISBN
         /// </summary>
-        public readonly String number;
+        public readonly String Number;
 
         /// <summary>
         /// Construct an IsbnModel with the given ISBN.
         /// </summary>
         /// <param name="number">String representation of the ISBN</param>
-        public IsbnModel(String number)
+        public IsbnModel(String Number)
         {
-            this.number = number;
+            this.Number = Number;
         }
 
         /// <summary>

@@ -43,7 +43,7 @@ namespace WhatINoted.Models
             this.Title = "";
             this.Author = "";
             this.Isbn = null;
-            this.Notes = new List<NoteModel>();
+            this.Notes = null;
             this.Id = "";
         }
 
