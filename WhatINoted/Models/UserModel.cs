@@ -13,14 +13,14 @@ namespace WhatINoted.Models
         /// <summary>
         /// User's display name
         /// </summary>
-        private readonly String Name;
+        public readonly String Name;
 
         /// <summary>
         /// User ID
         /// </summary>
-        private readonly String Uid;
+        public readonly String Uid;
 
-        // TODO: Add List<NotebookModel>
+        private List<NotebookModel> Notebooks { get; set; }
 
         /// <summary>
         /// Construct a UserModel given a display name and uid.
@@ -32,16 +32,15 @@ namespace WhatINoted.Models
         {
             this.Name = Name;
             this.Uid = Uid;
+
+            Notebooks = new List<NotebookModel>();
         }
 
-        public String GetName()
+        public UserModel(String Name, String Uid, List<NotebookModel> Notebooks)
         {
-            return Name;
-        }
-
-        public String GetUid()
-        {
-            return Uid;
+            this.Name = Name;
+            this.Uid = Uid;
+            this.Notebooks = Notebooks;
         }
     }
 }
