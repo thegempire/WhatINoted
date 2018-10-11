@@ -105,14 +105,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AddNote.aspx" />
-    <Content Include="AddNotebook.aspx" />
+    <Content Include="CreateEditNoteView.aspx" />
+    <Content Include="NotebookCreationView.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Default.aspx" />
+    <Content Include="LoginView.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -125,8 +125,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Main.aspx" />
-    <Content Include="Notes.aspx" />
+    <Content Include="NotebooksView.aspx" />
+    <Content Include="NotesView.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Helper.js" />
@@ -165,45 +165,45 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddNote.aspx.cs">
-      <DependentUpon>AddNote.aspx</DependentUpon>
+    <Compile Include="CreateEditNoteView.aspx.cs">
+      <DependentUpon>CreateEditNoteView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AddNote.aspx.designer.cs">
-      <DependentUpon>AddNote.aspx</DependentUpon>
+    <Compile Include="CreateEditNoteView.aspx.designer.cs">
+      <DependentUpon>CreateEditNoteView.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AddNotebook.aspx.cs">
-      <DependentUpon>AddNotebook.aspx</DependentUpon>
+    <Compile Include="NotebookCreationView.aspx.cs">
+      <DependentUpon>NotebookCreationView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AddNotebook.aspx.designer.cs">
-      <DependentUpon>AddNotebook.aspx</DependentUpon>
+    <Compile Include="NotebookCreationView.aspx.designer.cs">
+      <DependentUpon>NotebookCreationView.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="LoginView.aspx.cs">
+      <DependentUpon>LoginView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="LoginView.aspx.designer.cs">
+      <DependentUpon>LoginView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Main.aspx.cs">
-      <DependentUpon>Main.aspx</DependentUpon>
+    <Compile Include="NotebooksView.aspx.cs">
+      <DependentUpon>NotebooksView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Main.aspx.designer.cs">
-      <DependentUpon>Main.aspx</DependentUpon>
+    <Compile Include="NotebooksView.aspx.designer.cs">
+      <DependentUpon>NotebooksView.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Notes.aspx.cs">
-      <DependentUpon>Notes.aspx</DependentUpon>
+    <Compile Include="NotesView.aspx.cs">
+      <DependentUpon>NotesView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Notes.aspx.designer.cs">
-      <DependentUpon>Notes.aspx</DependentUpon>
+    <Compile Include="NotesView.aspx.designer.cs">
+      <DependentUpon>NotesView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -227,6 +227,9 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="View.cs" />
+    <Compile Include="AddNoteView.cs" />
+    <Compile Include="TextGenerationView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

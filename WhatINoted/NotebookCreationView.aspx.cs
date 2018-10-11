@@ -10,7 +10,10 @@ using System.Web.Script.Services;
 
 namespace WhatINoted
 {
-    public partial class AddNotebook : System.Web.UI.Page
+    /// <summary>
+    /// Allows the user to create a Notebook.
+    /// </summary>
+    public partial class NotebookCreationView : TextGenerationView
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,6 +72,43 @@ namespace WhatINoted
 
             //redirect
             Response.Redirect("Notes.aspx", true);
+        }
+
+        /// <summary>
+        /// Creates the notebook based on the search result with a particular index..
+        /// </summary>
+        /// <param name="searchResultIndex">Search result index.</param>
+        private void CreateNotebook(int searchResultIndex) {
+
+        }
+
+        protected override void GenerateText() {
+
+        }
+
+        /// <summary>
+        /// Searches for a book with the specified ISBN.
+        /// </summary>
+        /// <returns>The book with the specified ISBN.</returns>
+        private BookSearchResult SearchByIsbn(/*ISBN isbn*/) {
+            return new BookSearchResult();
+        }
+
+        /// <summary>
+        /// Searches for a book with the specified details.
+        /// </summary>
+        /// <returns>The books with the specified details.</returns>
+        /// <param name="title">Title.</param>
+        /// <param name="author">Author.</param>
+        private List<BookSearchResult> SearchByDetails(string title, string author) {
+            return new List<BookSearchResult>();
+        }
+
+        private struct BookSearchResult {
+            string Title;
+            string Author;
+            // ISBN Isbn;
+            int YearPublished;
         }
     }
 }
