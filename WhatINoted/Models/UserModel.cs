@@ -34,8 +34,7 @@ namespace WhatINoted.Models
         {
             this.Name = Name;
             this.Uid = Uid;
-
-            Notebooks = new List<NotebookModel>();
+            this.Notebooks = new List<NotebookModel>();
         }
 
         /// <summary>
