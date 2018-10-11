@@ -44,7 +44,7 @@ namespace WhatINoted.Models
             this.ParentNotebook = null;
             this.DateTimeCreated = DateTime.Now;
             this.DateTimeModified = DateTime.Now;
-            this.Id = null;
+            this.Id = "";
         }
 
         /// <summary>

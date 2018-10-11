@@ -44,7 +44,7 @@ namespace WhatINoted.Models
             this.Author = "";
             this.Isbn = null;
             this.Notes = new List<NoteModel>();
-            this.Id = null;
+            this.Id = "";
         }
 
         /// <summary>
