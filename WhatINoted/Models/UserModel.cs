@@ -6,7 +6,7 @@ using System.Web;
 namespace WhatINoted.Models
 {
     /// <summary>
-    /// UserModel: Stores user information
+    /// UserModel stores information representing an application user.
     /// </summary>
     public class UserModel
     {
@@ -20,11 +20,13 @@ namespace WhatINoted.Models
         /// </summary>
         public readonly String Uid;
 
+        /// <summary>
+        /// List of user's Notebooks
+        /// </summary>
         private List<NotebookModel> Notebooks { get; set; }
 
         /// <summary>
-        /// Construct a UserModel given a display name and uid.
-        /// 
+        /// Construct a UserModel given a display name and uid. Initialize Notebooks to empty list.
         /// </summary>
         /// <param name="Name">display name</param>
         /// <param name="Uid">uid</param>
@@ -36,6 +38,12 @@ namespace WhatINoted.Models
             Notebooks = new List<NotebookModel>();
         }
 
+        /// <summary>
+        /// Construct a UserModel with the given characteristics.
+        /// </summary>
+        /// <param name="Name">display name</param>
+        /// <param name="Uid">uid</param>
+        /// <param name="Notebooks">list of notebooks</param>
         public UserModel(String Name, String Uid, List<NotebookModel> Notebooks)
         {
             this.Name = Name;
