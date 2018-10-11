@@ -23,7 +23,7 @@ namespace WhatINoted.Models
         /// <summary>
         /// List of user's Notebooks
         /// </summary>
-        private List<NotebookModel> Notebooks { get; set; }
+        private List<NotebookModel> Notebooks { get; }
 
         /// <summary>
         /// Construct a UserModel given a display name and uid. Initialize Notebooks to empty list.
