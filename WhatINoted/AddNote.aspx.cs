@@ -6,7 +6,7 @@ namespace WhatINoted
 {
     public partial class CreateEditNoteView : TextGenerationView
     {
-        // private NoteModel Note;
+        private Models.NoteModel Note;
 
         /// <summary>
         /// Set to true if the text should be updated.

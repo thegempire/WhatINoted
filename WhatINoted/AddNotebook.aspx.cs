@@ -90,9 +90,9 @@ namespace WhatINoted
         /// Searches for a book with the specified ISBN.
         /// </summary>
         /// <returns>The book with the specified ISBN.</returns>
-        //private BookSearchResult SearchByIsbn(/*ISBN isbn*/) {
-        //    return new BookSearchResult();
-        //}
+        private Models.BookSearchResultsModel SearchByIsbn(Models.IsbnModel isbn) {
+            return new Models.BookSearchResultsModel("", "", isbn);
+        }
 
         /// <summary>
         /// Searches for a book with the specified details.
@@ -100,8 +100,8 @@ namespace WhatINoted
         /// <returns>The books with the specified details.</returns>
         /// <param name="title">Title.</param>
         /// <param name="author">Author.</param>
-        //private List<BookSearchResult> SearchByDetails(string title, string author) {
-        //    return new List<BookSearchResult>();
-        //}
+        private List<Models.BookSearchResultsModel> SearchByDetails(string title, string author) {
+            return new List<Models.BookSearchResultsModel>();
+        }
     }
 }
