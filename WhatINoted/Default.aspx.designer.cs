@@ -8,80 +8,98 @@
 //------------------------------------------------------------------------------
 
 namespace WhatINoted {
-
     
-    public partial class NotebookCreationView {
+    
+    public partial class _Default {
         
         /// <summary>
-        /// AddNotebookUpdatePanel control.
+        /// LoginUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel AddNotebookUpdatePanel;
+        protected global::System.Web.UI.UpdatePanel LoginUpdatePanel;
         
         /// <summary>
-        /// ByISBNGroupContainer control.
+        /// LoginSignUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByISBNGroupContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LoginSignUp;
         
         /// <summary>
-        /// btnISBNPostback control.
+        /// Login control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnISBNPostback;
+        protected global::System.Web.UI.WebControls.Button Login;
         
         /// <summary>
-        /// SearchGridISBN control.
+        /// SignUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table SearchGridISBN;
+        protected global::System.Web.UI.WebControls.Button SignUp;
         
         /// <summary>
-        /// ByBookDetailsGroupContainer control.
+        /// LoginDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByBookDetailsGroupContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LoginDiv;
         
         /// <summary>
-        /// btnBookDetailsPostback control.
+        /// LoginGoogle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBookDetailsPostback;
+        protected global::System.Web.UI.WebControls.Button LoginGoogle;
         
         /// <summary>
-        /// SearchGridDetails control.
+        /// LoginFacebook control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table SearchGridDetails;
+        protected global::System.Web.UI.WebControls.Button LoginFacebook;
         
         /// <summary>
-        /// btnCreateNotebookPostback control.
+        /// SignUpDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreateNotebookPostback;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SignUpDiv;
+        
+        /// <summary>
+        /// SignUpGoogle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SignUpGoogle;
+        
+        /// <summary>
+        /// SignUpFacebook control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SignUpFacebook;
     }
 }
