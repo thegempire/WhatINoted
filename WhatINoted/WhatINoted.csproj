@@ -198,6 +198,11 @@
     <Compile Include="Main.aspx.designer.cs">
       <DependentUpon>Main.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookSearchResultsModel.cs" />
+    <Compile Include="Models\IsbnModel.cs" />
+    <Compile Include="Models\NotebookModel.cs" />
+    <Compile Include="Models\NoteModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Notes.aspx.cs">
       <DependentUpon>Notes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
