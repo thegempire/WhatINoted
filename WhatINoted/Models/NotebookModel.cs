@@ -63,5 +63,14 @@ namespace WhatINoted.Models
             this.Notes = Notes;
             this.Id = Id;
         }
+
+        public override bool Equals(object obj)
+        {
+            var model = obj as NotebookModel;
+            return model != null &&
+                   Title == model.Title &&
+                   Author == model.Author &&
+                   EqualityComparer<IsbnModel>.Default.Equals(Isbn, model.Isbn);
+        }
     }
 }
