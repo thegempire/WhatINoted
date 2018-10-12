@@ -30,6 +30,8 @@
                     <asp:Button ID="SignUpFacebook" runat="server" Text="Sign Up with Facebook" Width="200" />
                 </div>
             </div>
+
+            <asp:TextBox ID="textbox" runat="server" />
         </ContentTemplate>
     </asp:UpdatePanel>
 
