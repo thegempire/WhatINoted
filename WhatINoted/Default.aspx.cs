@@ -10,7 +10,7 @@ namespace WhatINoted
     /// <summary>
     /// A view from which the user can log in.
     /// </summary>
-    public partial class _Default : View
+    public partial class LoginView : View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
