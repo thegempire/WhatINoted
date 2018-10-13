@@ -10,7 +10,7 @@
 namespace WhatINoted {
     
     
-    public partial class AddNotebook {
+    public partial class NotebookCreationView {
         
         /// <summary>
         /// AddNotebookUpdatePanel control.
