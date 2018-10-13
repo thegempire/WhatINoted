@@ -15,24 +15,24 @@ namespace WhatINoted.Tests2
         public const string userID2 = "GoogleFirestoreConnectionManagerTests_UserID2";
         public const string displayName2 = "GoogleFirestoreConnectionManagerTests_DisplayName2";
         public const string email2 = "GoogleFirestoreConnectionManagerTests_Email2";
+        public const string notebook1Title = "The Google Story";
+        public const string notebook1Author = "David A. Vise; Mark Malseed";
+        public const string notebook1Publisher = "Delacorte Press";
+        private DateTime notebook1PublishDate { get; } = new DateTime(2005, 11, 15);
         public const string isbn1 = "9780553804577";
         private string notebookID1;
-        private NotebookModel notebook1 = new NotebookModel("The Google Story", "David A. Vise; Mark Malseed", null, null, null); //ISBN Notebook
+        private NotebookModel notebook1; //ISBN Notebook
         private string notebookID2;
-        private  NotebookModel notebook2 = new NotebookModel("The Google Story", "David A. Vise; Mark Malseed", null, null, null); //Book details
+        private NotebookModel notebook2; //Book details
         private string notebookID3;
-        private NotebookModel notebook3 = new NotebookModel("The Google Story", "", null, null, null); // book details (no author)
+        private NotebookModel notebook3; // book details (no author)
         private string notebookID4; //same info as 3
         private string notebookID5;
-        private NotebookModel notebook5 = new NotebookModel("The Google Story", "David A. Vise; Mark Malseed", null, null, null); // Book details (no publisher)
+        private NotebookModel notebook5; // Book details (no publisher)
         private string notebookID6; //same info as 5
         private string notebookID7;
-        private NotebookModel notebook7 = new NotebookModel("The Google Story", "David A. Vise; Mark Malseed", null, null, null); //Book details (no publisher location)
+        private NotebookModel notebook7; //Book details (no publisher location)
         //Create the expected notebook object with below and more (no publish date)
-        //public const string notebook1Title = "The Google Story";
-        //public const string notebook1Author = "David A. Vise; Mark Malseed";
-        //public const string notebook1Publisher = "Delacorte Press";
-        //private DateTime notebook1PublishDate { get; } = new DateTime(2005, 11, 15);
         public const string noteText = "Test_CreateNote note text.";
         private string noteID1;
         private NoteModel note1;
@@ -116,6 +116,11 @@ namespace WhatINoted.Tests2
 
         private void SetupTestData(StreamWriter sw)
         {
+            notebook1 = new NotebookModel(notebook1Title, notebook1Author, new IsbnModel(isbn1), notebook1Publisher, notebook1PublishDate, null, null);
+            notebook2 = new NotebookModel(notebook1Title, notebook1Author, null, notebook1Publisher, notebook1PublishDate, null, null);
+            notebook3 = new NotebookModel(notebook1Title, "", null, notebook1Publisher, notebook1PublishDate, null, null);
+            notebook5 = new NotebookModel(notebook1Title, notebook1Author, null, "", notebook1PublishDate, null, null);
+            notebook7 = new NotebookModel(notebook1Title, notebook1Author, null, notebook1Publisher, DateTime.MinValue, null, null);
             note1 = new NoteModel(noteText, notebook1, DateTime.Now, DateTime.Now, null);
             note2 = new NoteModel("", notebook1, DateTime.Now, DateTime.Now, null);
         }
@@ -307,7 +312,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook Normal request - Book Details
             try
             {
-                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublishDate);
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 if (!temp.Equals(notebook2))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, DateTime publishDate): Normal Create Notebook by Book Details request.");
@@ -336,7 +341,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook User does not exist - Book Details
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1 + "NOTEXIST", notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublishDate);
+                GoogleFirestoreConnectionManager.CreateNotebook(userID1 + "NOTEXIST", notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by Book Details User does not exist test case.");
                 passed = false;
             }
@@ -354,7 +359,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook userID is null - Book Details
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(null, notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublishDate);
+                GoogleFirestoreConnectionManager.CreateNotebook(null, notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details userID is null test case.");
                 passed = false;
             }
@@ -372,7 +377,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook userID is empty - Book Details
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook("", notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublishDate);
+                GoogleFirestoreConnectionManager.CreateNotebook("", notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details userID is empty test case.");
                 passed = false;
             }
@@ -417,7 +422,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook title is null - Book Details
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1, null, notebook1.Author, notebook1.Publisher, notebook1.PublishDate);
+                GoogleFirestoreConnectionManager.CreateNotebook(userID1, null, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details title is null test case.");
                 passed = false;
             }
@@ -426,7 +431,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook title is empty- Book Details
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1, "", notebook1.Author, notebook1.Publisher, notebook1.PublishDate);
+                GoogleFirestoreConnectionManager.CreateNotebook(userID1, "", notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details title is empty test case.");
                 passed = false;
             }
@@ -435,7 +440,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook author is null - Book Details
             try
             {
-                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, null, notebook1.Publisher, notebook1.PublishDate);
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, null, notebook1.Publisher, notebook1.PublicationDate);
                 if (!temp.Equals(notebook3))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details author is null test case.");
@@ -455,7 +460,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook author is empty - Book Details
             try
             {
-                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, "", notebook1.Publisher, notebook1.PublishDate);
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, "", notebook1.Publisher, notebook1.PublicationDate);
                 if (!temp.Equals(notebook3))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details author is empty test case.");
@@ -475,7 +480,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook publisher is null - Book Details
             try
             {
-                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, null, notebook1.PublishDate);
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, null, notebook1.PublicationDate);
                 if (!temp.Equals(notebook5))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is null test case.");
@@ -495,7 +500,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook publisher is empty - Book Details
             try
             {
-                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, "", notebook1.PublishDate);
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, "", notebook1.PublicationDate);
                 if (!temp.Equals(notebook5))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is empty test case.");
