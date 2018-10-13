@@ -63,5 +63,15 @@ namespace WhatINoted.Models
             this.DateTimeCreated = DateTimeCreated;
             this.Id = Id;
         }
+
+        public override bool Equals(object obj)
+        {
+            var model = obj as NoteModel;
+            return model != null &&
+                   Text == model.Text &&
+                   EqualityComparer<NotebookModel>.Default.Equals(ParentNotebook, model.ParentNotebook) &&
+                   DateTimeModified == model.DateTimeModified &&
+                   DateTimeCreated == model.DateTimeCreated;
+        }
     }
 }
