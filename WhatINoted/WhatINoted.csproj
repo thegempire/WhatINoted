@@ -232,6 +232,9 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="View.cs" />
+    <Compile Include="AddNoteView.cs" />
+    <Compile Include="TextGenerationView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
