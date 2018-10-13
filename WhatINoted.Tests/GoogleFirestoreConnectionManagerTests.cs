@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using WhatINoted.Models;
 
 namespace WhatINoted.Tests2
 {
@@ -16,26 +17,27 @@ namespace WhatINoted.Tests2
         public const string email2 = "GoogleFirestoreConnectionManagerTests_Email2";
         public const string isbn1 = "9780553804577";
         private string notebookID1;
-        public const Notebook notebook1 = ; //Create the expected notebook object with below and more (isbn)
+        private NotebookModel notebook1 = new NotebookModel("The Google Story", "David A. Vise; Mark Malseed", null, null, null); //ISBN Notebook
         private string notebookID2;
-        public const Notebook notebook2 = ; //Create the expected notebook object with below and more (book details)
+        private  NotebookModel notebook2 = new NotebookModel("The Google Story", "David A. Vise; Mark Malseed", null, null, null); //Book details
         private string notebookID3;
-        public const Notebook notebook3 = ; //Create the expected notebook object with below and more (no author)
+        private NotebookModel notebook3 = new NotebookModel("The Google Story", "", null, null, null); // book details (no author)
         private string notebookID4; //same info as 3
         private string notebookID5;
-        public const Notebook notebook5 = ; //Create the expected notebook object with below and more (no publisher)
+        private NotebookModel notebook5 = new NotebookModel("The Google Story", "David A. Vise; Mark Malseed", null, null, null); // Book details (no publisher)
         private string notebookID6; //same info as 5
         private string notebookID7;
-        public const Notebook notebook7 = ; //Create the expected notebook object with below and more (no publish date)
-                                            //public const string notebook1Title = "The Google Story";
-                                            //public const string notebook1Author = "David A. Vise; Mark Malseed";
-                                            //public const string notebook1Publisher = "Delacorte Press";
-                                            //private DateTime notebook1PublishDate { get; } = new DateTime(2005, 11, 15);
+        private NotebookModel notebook7 = new NotebookModel("The Google Story", "David A. Vise; Mark Malseed", null, null, null); //Book details (no publisher location)
+        //Create the expected notebook object with below and more (no publish date)
+        //public const string notebook1Title = "The Google Story";
+        //public const string notebook1Author = "David A. Vise; Mark Malseed";
+        //public const string notebook1Publisher = "Delacorte Press";
+        //private DateTime notebook1PublishDate { get; } = new DateTime(2005, 11, 15);
         public const string noteText = "Test_CreateNote note text.";
         private string noteID1;
-        public const Note note1 = ; //same text as noteText
+        private NoteModel note1;
         private string noteID2;
-        public const Note note2 = ; //no text
+        private NoteModel note2;
         private string noteID3; //same info as 2
         public const string noteTextUpdated = "Test_UpdateNote note text.";
 
@@ -114,7 +116,8 @@ namespace WhatINoted.Tests2
 
         private void SetupTestData(StreamWriter sw)
         {
-
+            note1 = new NoteModel(noteText, notebook1, DateTime.Now, DateTime.Now, null);
+            note2 = new NoteModel("", notebook1, DateTime.Now, DateTime.Now, null);
         }
 
         private bool TestConnection(StreamWriter sw)
@@ -284,15 +287,15 @@ namespace WhatINoted.Tests2
             //CreateNotebook Normal request - ISBN
             try
             {
-                Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
-                if (!temp.equals(notebook1))
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
+                if (!temp.Equals(notebook1))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): Normal Create Notebook by ISBN request.");
                     passed = false;
                 }
                 else
                 {
-                    notebookID1 = temp.ID; //stored for deleting later (auto-generated)
+                    notebookID1 = temp.Id; //stored for deleting later (auto-generated)
                 }
             }
             catch
@@ -304,15 +307,15 @@ namespace WhatINoted.Tests2
             //CreateNotebook Normal request - Book Details
             try
             {
-                Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublishDate);
-                if (!temp.equals(notebook2))
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublishDate);
+                if (!temp.Equals(notebook2))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, DateTime publishDate): Normal Create Notebook by Book Details request.");
                     passed = false;
                 }
                 else
                 {
-                    notebookID2 = temp.ID;
+                    notebookID2 = temp.Id;
                 }
             }
             catch
@@ -432,15 +435,15 @@ namespace WhatINoted.Tests2
             //CreateNotebook author is null - Book Details
             try
             {
-                Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, null, notebook1.Publisher, notebook1.PublishDate);
-                if (!temp.equals(notebook3))
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, null, notebook1.Publisher, notebook1.PublishDate);
+                if (!temp.Equals(notebook3))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details author is null test case.");
                     passed = false;
                 }
                 else
                 {
-                    notebookID3 = temp.ID;
+                    notebookID3 = temp.Id;
                 }
             }
             catch
@@ -452,15 +455,15 @@ namespace WhatINoted.Tests2
             //CreateNotebook author is empty - Book Details
             try
             {
-                Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, "", notebook1.Publisher, notebook1.PublishDate);
-                if (!temp.equals(notebook3))
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, "", notebook1.Publisher, notebook1.PublishDate);
+                if (!temp.Equals(notebook3))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details author is empty test case.");
                     passed = false;
                 }
                 else
                 {
-                    notebookID4 = temp.ID;
+                    notebookID4 = temp.Id;
                 }
             }
             catch
@@ -472,15 +475,15 @@ namespace WhatINoted.Tests2
             //CreateNotebook publisher is null - Book Details
             try
             {
-                Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, null, notebook1.PublishDate);
-                if (!temp.equals(notebook5))
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, null, notebook1.PublishDate);
+                if (!temp.Equals(notebook5))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is null test case.");
                     passed = false;
                 }
                 else
                 {
-                    notebookID5 = temp.ID;
+                    notebookID5 = temp.Id;
                 }
             }
             catch
@@ -492,15 +495,15 @@ namespace WhatINoted.Tests2
             //CreateNotebook publisher is empty - Book Details
             try
             {
-                Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, "", notebook1.PublishDate);
-                if (!temp.equals(notebook5))
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, "", notebook1.PublishDate);
+                if (!temp.Equals(notebook5))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is empty test case.");
                     passed = false;
                 }
                 else
                 {
-                    notebookID6 = temp.ID;
+                    notebookID6 = temp.Id;
                 }
             }
             catch
@@ -512,15 +515,15 @@ namespace WhatINoted.Tests2
             //CreateNotebook publishDate is null - Book Details
             try
             {
-                Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Publisher, null);
-                if (!temp.equals(notebook7))
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Publisher, null);
+                if (!temp.Equals(notebook7))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publish date is null test case.");
                     passed = false;
                 }
                 else
                 {
-                    notebookID7 = temp.ID;
+                    notebookID7 = temp.Id;
                 }
             }
             catch
@@ -539,15 +542,15 @@ namespace WhatINoted.Tests2
             //CreateNote all parameters normal
             try
             {
-                Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, noteText);
-                if (!temp.equals(note1))
+                NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, noteText);
+                if (!temp.Equals(note1))
                 {
                     sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote normal test case.");
                     passed = false;
                 }
                 else
                 {
-                    noteID1 = temp.ID;
+                    noteID1 = temp.Id;
                 }
             }
             catch
@@ -613,15 +616,15 @@ namespace WhatINoted.Tests2
             //CreateNote noteText is null
             try
             {
-                Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, null);
-                if (!temp.equals(note2))
+                NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, null);
+                if (!temp.Equals(note2))
                 {
                     sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote noteText is null test case.");
                     passed = false;
                 }
                 else
                 {
-                    noteID2 = temp.ID;
+                    noteID2 = temp.Id;
                 }
             }
             catch
@@ -633,15 +636,15 @@ namespace WhatINoted.Tests2
             //CreateNote noteText is empty
             try
             {
-                Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, "");
-                if (!temp.equals(note2))
+                NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, "");
+                if (!temp.Equals(note2))
                 {
                     sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote noteText is empty test case.");
                     passed = false;
                 }
                 else
                 {
-                    noteID3 = temp.ID;
+                    noteID3 = temp.Id;
                 }
             }
             catch
@@ -660,7 +663,7 @@ namespace WhatINoted.Tests2
             //GetNotebooks all parameters valid
             try
             {
-                List<Notebook> compNotebooks = new List<Notebook>();
+                List<NotebookModel> compNotebooks = new List<NotebookModel>();
                 compNotebooks.Add(notebook1);
                 compNotebooks.Add(notebook2);
                 compNotebooks.Add(notebook3);
@@ -668,7 +671,7 @@ namespace WhatINoted.Tests2
                 compNotebooks.Add(notebook5);
                 compNotebooks.Add(notebook5);
                 compNotebooks.Add(notebook7);
-                List<Notebook> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
+                List<NotebookModel> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
                 if (tempNotebooks.Count != compNotebooks.Count)
                 {
                     sw.WriteLine("FAILED: GetNotebooks(string userID): Normal test case, count mismatch.");
@@ -676,11 +679,11 @@ namespace WhatINoted.Tests2
                 }
                 else
                 {
-                    foreach (Notebook n in tempNotebooks)
+                    foreach (NotebookModel n in tempNotebooks)
                     {
-                        foreach (Notebook t in compNotebooks)
+                        foreach (NotebookModel t in compNotebooks)
                         {
-                            if (t.equals(n))
+                            if (t.Equals(n))
                             {
                                 compNotebooks.Remove(t);
                                 break;
@@ -704,7 +707,7 @@ namespace WhatINoted.Tests2
             //GetNotebooks User has no notebooks
             try
             {
-                List<Notebook> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID2);
+                List<NotebookModel> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID2);
                 if (tempNotebooks == null || tempNotebooks.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotebooks(string userID): User has no notebooks test case.");
@@ -720,7 +723,7 @@ namespace WhatINoted.Tests2
             //GetNotebooks User does not exist
             try
             {
-                List<Notebook> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID1 + "NOTEXIST");
+                List<NotebookModel> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID1 + "NOTEXIST");
                 if (tempNotebooks == null || tempNotebooks.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotebooks(string userID): User does not exist test case.");
@@ -761,11 +764,11 @@ namespace WhatINoted.Tests2
             //GetNotes all parameters valid
             try
             {
-                List<Note> compNotes = new List<Note>();
+                List<NoteModel> compNotes = new List<NoteModel>();
                 compNotes.Add(note1);
                 compNotes.Add(note2);
                 compNotes.Add(note2);
-                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
                 if (tempNotes.Count != compNotes.Count)
                 {
                     sw.WriteLine("FAILED: GetNotes(string notebookID): Normal test case, count mismatch.");
@@ -773,11 +776,11 @@ namespace WhatINoted.Tests2
                 }
                 else
                 {
-                    foreach (Note n in tempNotes)
+                    foreach (NoteModel n in tempNotes)
                     {
-                        foreach (Note t in compNotes)
+                        foreach (NoteModel t in compNotes)
                         {
-                            if (t.equals(n))
+                            if (t.Equals(n))
                             {
                                 compNotes.Remove(t);
                                 break;
@@ -801,7 +804,7 @@ namespace WhatINoted.Tests2
             //GetNotes Notebook has no notes
             try
             {
-                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID2);
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID2);
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotes(string notebookID): Notebook has no notes test case.");
@@ -817,7 +820,7 @@ namespace WhatINoted.Tests2
             //GetNotes Notebook does not exist
             try
             {
-                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1 + "NOTEXIST");
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1 + "NOTEXIST");
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotes(string notebookID): Notebook has no notes test case.");
@@ -858,11 +861,11 @@ namespace WhatINoted.Tests2
             //GetUserNotes all parameters valid
             try
             {
-                List<Note> compNotes = new List<Note>();
+                List<NoteModel> compNotes = new List<NoteModel>();
                 compNotes.Add(note1);
                 compNotes.Add(note2);
                 compNotes.Add(note2);
-                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userId1);
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID1);
                 if (tempNotes.Count != compNotes.Count)
                 {
                     sw.WriteLine("FAILED: GetUserNotes(string userID): Normal test case, count mismatch.");
@@ -870,11 +873,11 @@ namespace WhatINoted.Tests2
                 }
                 else
                 {
-                    foreach (Note n in tempNotes)
+                    foreach (NoteModel n in tempNotes)
                     {
-                        foreach (Note t in compNotes)
+                        foreach (NoteModel t in compNotes)
                         {
-                            if (t.equals(n))
+                            if (t.Equals(n))
                             {
                                 compNotes.Remove(t);
                                 break;
@@ -898,7 +901,7 @@ namespace WhatINoted.Tests2
             //GetUserNotes User has no notes
             try
             {
-                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID2);
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID2);
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotes(string userID): User has no notes test case.");
@@ -914,7 +917,7 @@ namespace WhatINoted.Tests2
             //GetUserNotes User does not exist
             try
             {
-                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID1 + "NOTEXIST");
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID1 + "NOTEXIST");
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetUserNotes(string userID): User has no notes test case.");
@@ -955,7 +958,7 @@ namespace WhatINoted.Tests2
             //GetNote all parameters valid
             try
             {
-                if (!GoogleFirestoreConnectionManager.GetNote(noteID1).equals(note1))
+                if (!GoogleFirestoreConnectionManager.GetNote(noteID1).Equals(note1))
                 {
                     sw.WriteLine("FAILED: GetNote(string noteID): Normal test case.");
                     passed = false;
@@ -1165,7 +1168,7 @@ namespace WhatINoted.Tests2
             //DeleteNote validate notebook1 has no notes
             try
             {
-                List<Note> temp = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
+                List<NoteModel> temp = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
                 if (temp == null || temp.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteNote(string noteID): Delete 1-3 failed - Notes still exist.");
@@ -1326,7 +1329,7 @@ namespace WhatINoted.Tests2
             //DeleteNotebook validate user1 has no notebooks
             try
             {
-                List<Notebook> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
+                List<NotebookModel> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
                 if (temp == null || temp.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteNotebook(string notebookID): Delete 1-7 failed - Notebooks still exist.");
@@ -1345,7 +1348,7 @@ namespace WhatINoted.Tests2
                 notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).ID;
                 noteID1 = GoogleFirestoreConnectionManager.CreateNote(notebookID1, noteText).ID;
                 GoogleFirestoreConnectionManager.DeleteNotebook(notebookID1);
-                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteNotebook(string notebookID): Delete notebook with notes");
@@ -1429,7 +1432,7 @@ namespace WhatINoted.Tests2
             {
                 notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID2, isbn1);
                 GoogleFirestoreConnectionManager.DeleteUser(userID2);
-                List<Notebook> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID2);
+                List<NotebookModel> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID2);
                 if (temp == null || temp.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteUser(string userID): delete user with Notebooks.");
