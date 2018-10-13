@@ -958,7 +958,11 @@ namespace WhatINoted.Tests2
             //GetNote all parameters valid
             try
             {
+<<<<<<< HEAD
                 if (!GoogleFirestoreConnectionManager.GetNote(noteID1).Equals(note1))
+=======
+                if (!GoogleFirestoreConnectionManager.GetNote(noteID1).equals(note1))
+>>>>>>> 5a0529ffa468e069ca19327aa8c51665248e9179
                 {
                     sw.WriteLine("FAILED: GetNote(string noteID): Normal test case.");
                     passed = false;
