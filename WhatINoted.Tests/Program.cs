@@ -9,7 +9,7 @@ namespace WhatINoted.Tests2
          * Every time you create a test class, add an instance of that test
          * here in order to get the test to run.
          */
-        static readonly Test[] tests = { new PingTest() };
+        static readonly Test[] tests = { new PingTest(), new GoogleFirestoreConnectionManagerTests() };
 
         /*
          * Runs every test and creates a file in TestResults.
