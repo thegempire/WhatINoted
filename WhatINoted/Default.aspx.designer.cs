@@ -10,7 +10,7 @@
 namespace WhatINoted {
     
     
-    public partial class _Default {
+    public partial class LoginView {
         
         /// <summary>
         /// LoginUpdatePanel control.
