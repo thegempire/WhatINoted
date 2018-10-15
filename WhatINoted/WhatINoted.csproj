@@ -232,6 +232,8 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ConnectionManagers\GoogleBooksConnectionManager.cs" />
+    <Compile Include="ConnectionManagers\GoogleVisionConnectionManager.cs" />
     <Compile Include="View.cs" />
     <Compile Include="AddNoteView.cs" />
     <Compile Include="TextGenerationView.cs" />
