@@ -20,17 +20,25 @@ namespace WhatINoted.ConnectionManagers
         /// </summary>
         private static readonly String RedirectURI = ""; // TODO Set up a redirect URI for Google Books. Maybe read this from a config file?
 
-        // TODO return BookSearchResults
-        // TODO parameter: IsbnModel
-        public static void SearchByISBN()
+        /// <summary>
+        /// Searches for books by ISBN via the Google Books API.
+        /// </summary>
+        /// <returns>A list of matching books.</returns>
+        /// <param name="isbn">ISBN.</param>
+        public static List<Models.BookSearchResultsModel> SearchByISBN(Models.IsbnModel isbn)
         {
-
+            return new List<Models.BookSearchResultsModel>();
         }
 
-        // TODO return BookSearchResults
-        public static void SearchByDetails(String title, String author)
+        /// <summary>
+        /// Searches for books by title and author via the Google Books API.
+        /// </summary>
+        /// <returns>A list of matching books.</returns>
+        /// <param name="title">Title.</param>
+        /// <param name="author">Author.</param>
+        public static List<Models.BookSearchResultsModel> SearchByDetails(String title, String author)
         {
-
+            return new List<Models.BookSearchResultsModel>();
         }
     }
 }
