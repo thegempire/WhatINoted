@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WhatINoted.Tests": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Ian\\source\\repos\\WhatINoted\\WhatINoted.Tests"
+    }
+  }
+}
