@@ -8,4 +8,8 @@
   <ItemGroup>
     <Folder Include="TestResults\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WhatINoted\WhatINoted.csproj" />
+  </ItemGroup>
 </Project>
