@@ -64,6 +64,13 @@ namespace WhatINoted.Models
             this.Id = Id;
         }
 
+        public NoteModel(JsonNote jsonNote)
+        {
+            this.Text = jsonNote.Text;
+            this.DateTimeCreated = jsonNote.Created;
+            this.DateTimeModified = jsonNote.Modified;
+        }
+
         public override bool Equals(object obj)
         {
             var model = obj as NoteModel;

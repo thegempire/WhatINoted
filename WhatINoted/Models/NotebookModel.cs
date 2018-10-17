@@ -64,6 +64,13 @@ namespace WhatINoted.Models
             this.Id = Id;
         }
 
+        public NotebookModel(JsonNotebook jsonNotebook)
+        {
+            this.Title = jsonNotebook.Title;
+            this.Author = jsonNotebook.Author;
+            this.Isbn = new IsbnModel(jsonNotebook.ISBN);
+        }
+
         public override bool Equals(object obj)
         {
             var model = obj as NotebookModel;

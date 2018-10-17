@@ -49,5 +49,10 @@ namespace WhatINoted.Models
             this.Uid = Uid;
             this.Notebooks = Notebooks;
         }
+
+        public UserModel(JsonUser jsonUser)
+        {
+            Name = jsonUser.DisplayName;
+        }
     }
 }
