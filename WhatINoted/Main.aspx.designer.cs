@@ -10,7 +10,7 @@
 namespace WhatINoted {
     
     
-    public partial class Main {
+    public partial class NotebooksView {
         
         /// <summary>
         /// MainUpdatePanel control.

@@ -10,7 +10,7 @@
 namespace WhatINoted {
     
     
-    public partial class Notes {
+    public partial class NotesView {
         
         /// <summary>
         /// LoginUpdatePanel control.

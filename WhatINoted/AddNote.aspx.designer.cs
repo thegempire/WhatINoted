@@ -10,7 +10,7 @@
 namespace WhatINoted {
     
     
-    public partial class AddNote {
+    public partial class CreateEditNoteView {
         
         /// <summary>
         /// AddNoteUpdatePanel control.

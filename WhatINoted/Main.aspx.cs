@@ -8,8 +8,13 @@ using System.Web.UI.HtmlControls;
 
 namespace WhatINoted
 {
-    public partial class Main : System.Web.UI.Page
+    /// <summary>
+    /// Notebooks view. From here, the user can see all their notebooks and add another.
+    /// </summary>
+    public partial class NotebooksView : AddNoteView
     {
+        private List<Models.NotebookModel> Notebooks;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //get all (or some) notebooks from database

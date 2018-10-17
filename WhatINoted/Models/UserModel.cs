@@ -23,7 +23,12 @@ namespace WhatINoted.Models
         /// <summary>
         /// List of user's Notebooks
         /// </summary>
-        private List<NotebookModel> Notebooks { get; }
+        private List<NotebookModel> _notebooks;
+
+        /// <summary>
+        /// Notebook list accessor
+        /// </summary>
+        public List<NotebookModel> Notebooks { get { return _notebooks; } }
 
         /// <summary>
         /// Construct a UserModel given a display name and uid. Initialize Notebooks to empty list.
@@ -34,7 +39,7 @@ namespace WhatINoted.Models
         {
             this.Name = Name;
             this.Uid = Uid;
-            this.Notebooks = new List<NotebookModel>();
+            this._notebooks = new List<NotebookModel>();
         }
 
         /// <summary>
@@ -47,7 +52,7 @@ namespace WhatINoted.Models
         {
             this.Name = Name;
             this.Uid = Uid;
-            this.Notebooks = Notebooks;
+            this._notebooks = Notebooks;
         }
 
         public UserModel(JsonUser jsonUser)
