@@ -120,7 +120,7 @@ namespace WhatINoted
         /// <param name="displayName">the display name for the user</param>
         /// <param name="email">the email for the user</param>
         /// <returns>true if the user was created or if it already exists; false otherwise</returns>
-        public static UserModel CreateUser(string userID, string displayName, string email)
+        public static UserModel HandleLogin(string userID, string displayName, string email)
         {
             string path = "users?documentId=" + userID;
             string json = GenerateCreateUserJson(userID, displayName, email);
@@ -155,11 +155,10 @@ namespace WhatINoted
             return new NotebookModel(jsonNotebook);
         }
 
-        public static NotebookModel CreateNotebook(string isbn)
+        public static NotebookModel CreateNotebook(string userID, string isbn)
         {
             // TODO - Request book information from ISBN API
-
-            string userID = "";
+            
             string title = "";
             string author = "";
             string publisher = "";
@@ -210,9 +209,23 @@ namespace WhatINoted
             return new NoteModel(jsonNote);
         }
 
+        public static bool DeleteUser(string userID)
+        {
+            string path = "users/" + userID;
+            string result = WebClient.UploadString(path, "DELETE", "");
+            return true;
+        }
+
+        public static bool DeleteNotebook(string notebookID)
+        {
+            string path = "notebooks/" + notebookID;
+            string result = WebClient.UploadString(path, "DELETE", "");
+            return true;
+        }
+
         public static bool DeleteNote(string noteID)
         {
-            string path = "notes/" + noteID;// + "?currentDocument.exists=true";
+            string path = "notes/" + noteID;
             string result = WebClient.UploadString(path, "DELETE", "");
             return true;
         }

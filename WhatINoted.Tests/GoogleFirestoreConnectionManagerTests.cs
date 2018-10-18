@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using WhatINoted.Models;
 
-namespace WhatINoted.Tests2
+namespace WhatINoted.Tests
 {
     public class GoogleFirestoreConnectionManagerTests : Test
     {
@@ -127,7 +127,7 @@ namespace WhatINoted.Tests2
 
         private bool TestConnection(StreamWriter sw)
         {
-            return true;
+            return false;
         }
 
         private bool Test_HandleLogin(StreamWriter sw)
@@ -137,7 +137,7 @@ namespace WhatINoted.Tests2
             //HandleLogin Normal Account Creation
             try
             {
-                if (!GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1))
+                if (GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1) == null)
                 {
                     sw.WriteLine("FAILED: HandleLogin(string userID, string displayName, string email): Normal Account Creation.");
                     passed = false;
@@ -152,7 +152,7 @@ namespace WhatINoted.Tests2
             //HandleLogin Normal Account Creation 2
             try
             {
-                if (!GoogleFirestoreConnectionManager.HandleLogin(userID2, displayName2, email2))
+                if (GoogleFirestoreConnectionManager.HandleLogin(userID2, displayName2, email2) == null)
                 {
                     sw.WriteLine("FAILED: HandleLogin(string userID, string displayName, string email): Normal Account Creation 2.");
                     passed = false;
@@ -167,7 +167,7 @@ namespace WhatINoted.Tests2
             //HandleLogin Normal Account Login
             try
             {
-                if (!GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1))
+                if (GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1) == null)
                 {
                     sw.WriteLine("FAILED: HandleLogin(string userID, string displayName, string email): Normal Account Login.");
                     passed = false;
@@ -520,7 +520,7 @@ namespace WhatINoted.Tests2
             //CreateNotebook publishDate is null - Book Details
             try
             {
-                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Publisher, null);
+                NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Publisher, default(DateTime));
                 if (!temp.Equals(notebook7))
                 {
                     sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publish date is null test case.");
@@ -773,7 +773,7 @@ namespace WhatINoted.Tests2
                 compNotes.Add(note1);
                 compNotes.Add(note2);
                 compNotes.Add(note2);
-                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID1);
                 if (tempNotes.Count != compNotes.Count)
                 {
                     sw.WriteLine("FAILED: GetNotes(string notebookID): Normal test case, count mismatch.");
@@ -809,7 +809,7 @@ namespace WhatINoted.Tests2
             //GetNotes Notebook has no notes
             try
             {
-                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID2);
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID2);
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotes(string notebookID): Notebook has no notes test case.");
@@ -825,7 +825,7 @@ namespace WhatINoted.Tests2
             //GetNotes Notebook does not exist
             try
             {
-                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1 + "NOTEXIST");
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID1 + "NOTEXIST");
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotes(string notebookID): Notebook has no notes test case.");
@@ -841,7 +841,7 @@ namespace WhatINoted.Tests2
             //GetNotes notebookID is null
             try
             {
-                GoogleFirestoreConnectionManager.GetNotes(null);
+                GoogleFirestoreConnectionManager.GetNotebookNotes(null);
                 sw.WriteLine("FAILED: GetNotes(string notebookID): Notebook is null test case.");
                 passed = false;
             }
@@ -850,7 +850,7 @@ namespace WhatINoted.Tests2
             //GetNotes notebookID is empty
             try
             {
-                GoogleFirestoreConnectionManager.GetNotes("");
+                GoogleFirestoreConnectionManager.GetNotebookNotes("");
                 sw.WriteLine("FAILED: GetNotes(string notebookID): Notebook is empty test case.");
                 passed = false;
             }
@@ -1018,7 +1018,7 @@ namespace WhatINoted.Tests2
             //UpdateNote all parameters valid
             try
             {
-                if (!GoogleFirestoreConnectionManager.UpdateNote(noteID1, noteTextUpdated))
+                if (GoogleFirestoreConnectionManager.UpdateNote(noteID1, noteTextUpdated) == null)
                 {
                     sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): Normal test case.");
                     passed = false;
@@ -1066,7 +1066,7 @@ namespace WhatINoted.Tests2
             //UpdateNote noteText is null
             try
             {
-                if (!GoogleFirestoreConnectionManager.UpdateNote(noteID1, null))
+                if (GoogleFirestoreConnectionManager.UpdateNote(noteID1, null) != null)
                 {
                     sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is null.");
                     passed = false;
@@ -1086,7 +1086,7 @@ namespace WhatINoted.Tests2
             //UpdateNote noteText is empty
             try
             {
-                if (!GoogleFirestoreConnectionManager.UpdateNote(noteID1, ""))
+                if (GoogleFirestoreConnectionManager.UpdateNote(noteID1, "") != null)
                 {
                     sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is empty.");
                     passed = false;
@@ -1173,7 +1173,7 @@ namespace WhatINoted.Tests2
             //DeleteNote validate notebook1 has no notes
             try
             {
-                List<NoteModel> temp = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
+                List<NoteModel> temp = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID1);
                 if (temp == null || temp.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteNote(string noteID): Delete 1-3 failed - Notes still exist.");
@@ -1350,10 +1350,10 @@ namespace WhatINoted.Tests2
             //DeleteNotebook delete notebook with notes
             try
             {
-                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).ID;
-                noteID1 = GoogleFirestoreConnectionManager.CreateNote(notebookID1, noteText).ID;
+                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).Id;
+                noteID1 = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, noteText).Id;
                 GoogleFirestoreConnectionManager.DeleteNotebook(notebookID1);
-                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotes(notebookID1);
+                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID1);
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteNotebook(string notebookID): Delete notebook with notes");
@@ -1435,7 +1435,7 @@ namespace WhatINoted.Tests2
             //DeleteUser delete user with Notebooks
             try
             {
-                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID2, isbn1);
+                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID2, isbn1).Id;
                 GoogleFirestoreConnectionManager.DeleteUser(userID2);
                 List<NotebookModel> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID2);
                 if (temp == null || temp.Count != 0)

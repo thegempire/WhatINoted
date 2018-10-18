@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-namespace WhatINoted.Tests2
+namespace WhatINoted.Tests
 {
     class Program
     {
@@ -9,7 +9,7 @@ namespace WhatINoted.Tests2
          * Every time you create a test class, add an instance of that test
          * here in order to get the test to run.
          */
-        static readonly Test[] tests = { new PingTest(), new GoogleFirestoreConnectionManagerTests() };
+        static readonly Test[] tests = {/* new PingTest(),*/ new GoogleFirestoreConnectionManagerTests() };
 
         /*
          * Runs every test and creates a file in TestResults.
