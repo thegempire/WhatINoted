@@ -4,16 +4,55 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using WhatINoted.Tests2;
+using WhatINoted.ConnectionManagers;
 using Image = Google.Cloud.Vision.V1.Image;
 
 namespace WhatINoted.Tests
 {
-    class GoogleVisionConnectionTests : Test
+    class GoogleVisionConnectionTests
     {
+        public static List<Test> getTests()
+        {
+            List<Test> tests = new List<Test>();
+            tests.Add(new GoogleVisionTestConnection());
+            tests.Add(new GoogleVisionTestExtractText1());
+            return tests;
+        }
+
+        private class GoogleVisionTestConnection : Test
+        {
+            public bool Run(StreamWriter sw)
+            {
+                if (false /* TODO: Test connection */)
+                {
+                    sw.WriteLine("GoogleVisionTestConnection failed: Could not connect.");
+                    return false;
+                }
+
+                return true;
+            }
+        }
+        
+        private class GoogleVisionTestExtractText1 : Test
+        {
+
+            private static readonly Image TEST_TEXT_1_IMAGE;
+            private static readonly String TEST_TEXT_1_RESULT = "";
+
+            public bool Run(StreamWriter sw)
+            {
+                if (!GoogleVisionConnectionManager.ExtractText(TEST_TEXT_1_IMAGE).Equals(TEST_TEXT_1_RESULT))
+                {
+                    sw.WriteLine("GoogleVisionTestExtractText1 failed: Extracted text does not match expected result.");
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
         private static readonly int NUM_TESTS = 6;
 
-        private static readonly Image TEST_TEXT_1_IMAGE;
-        private static readonly String TEST_TEXT_1_RESULT = "";
 
         private static readonly Image TEST_TEXT_2_IMAGE;
         private static readonly String TEST_TEXT_2_RESULT = "";
@@ -29,18 +68,6 @@ namespace WhatINoted.Tests
 
         public bool Run(StreamWriter sw)
         {
-            int failed = 0;
-
-            //// TEST CONNECTION ////
-
-            if (!TestConnection(sw))
-            {
-                sw.WriteLine("GoogleVisionConnectionTests: Could not connect.");
-                ++failed;
-            }
-            
-
-
             //// TEST TEXT RESOLUTION ////
 
             if (!TestText1(sw))
