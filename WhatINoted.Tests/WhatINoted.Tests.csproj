@@ -16,4 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WhatINoted\WhatINoted.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="GoogleFirestoreConnectionManagerTests.cs" />
+  </ItemGroup>
 </Project>

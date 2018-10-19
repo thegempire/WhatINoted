@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using WhatINoted.Tests.GoogleFirestoreConnectionManager;
+
 namespace WhatINoted.Tests
 {
     class Program
@@ -9,7 +11,18 @@ namespace WhatINoted.Tests
          * Every time you create a test class, add an instance of that test
          * here in order to get the test to run.
          */
-        static readonly Test[] tests = {/* new PingTest(),*/ new GoogleFirestoreConnectionManagerTests() };
+        static readonly Test[] tests = {/* new PingTest(),*/ new GFCM_CreateNotebookTest(),
+            new GFCM_CreateNoteTest(),
+            new GFCM_DeleteNotebookTest(),
+            new GFCM_DeleteNoteTest(),
+            new GFCM_DeleteUserTest(),
+            new GFCM_GetDisplayNameTest(),
+            new GFCM_GetNotebooksTest(),
+            new GFCM_GetNotesTest(),
+            new GFCM_GetNoteTest(),
+            new GFCM_GetUserNotesTest(),
+            new GFCM_HandleLoginTest(),
+            new GFCM_UpdateNoteTest() };
 
         /*
          * Runs every test and creates a file in TestResults.
