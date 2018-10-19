@@ -2,6 +2,7 @@
 using System.Linq;
 using Google.Cloud.Vision.V1;
 using System.IO;
+using System;
 
 namespace WhatINoted.ConnectionManagers
 {
@@ -15,7 +16,7 @@ namespace WhatINoted.ConnectionManagers
         /// <summary>
         /// ***This is the location of the json credentials file for the Google Vision service account. Change this if the path is wrong or changes.***
         /// </summary>
-        private static readonly string JsonPath = "C:\\Users\\Ian\\source\\repos\\WhatINoted\\WhatINoted-5bba0c1ecaf8.json";
+        private static readonly string JsonPath = AppDomain.CurrentDomain.BaseDirectory + "Resources\\WhatINoted-5bba0c1ecaf8.json";
         public const string GOOGLE_APPLICATION_CREDENTIALS = "GOOGLE_APPLICATION_CREDENTIALS";
 
         /// <summary>
@@ -25,13 +26,13 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>A string extracted from the image, or null if the call failed.</returns>
         public static string ExtractText(System.Drawing.Image originalImage)
         {
-            //if (originalImage == null)
-            //    throw new NullReferenceException("GoogleVisionConnectionManager.ExtractText(Image): Image provided is null");
+            if (originalImage == null)
+                throw new NullReferenceException("GoogleVisionConnectionManager.ExtractText(Image): Image provided is null");
 
-            ////Convert originalImage to bytes
-            //byte[] imageBytes = ImageToByteArray(originalImage);
+            //Convert originalImage to bytes
+            byte[] imageBytes = ImageToByteArray(originalImage);
 
-            Image image = Image.FromUri("https://i.stack.imgur.com/vrkIj.png");
+            Image image = Image.FromBytes(imageBytes);
             System.Environment.SetEnvironmentVariable(GOOGLE_APPLICATION_CREDENTIALS, JsonPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
             IReadOnlyList<EntityAnnotation> textAnnotations = client.DetectText(image);
