@@ -9,24 +9,27 @@ namespace WhatINoted.Tests2
          * Every time you create a test class, add an instance of that test
          * here in order to get the test to run.
          */
-        static readonly Test[] tests = { new PingTest() };
+        static readonly List<Test> tests = new List<Test>();
 
         /*
          * Runs every test and creates a file in TestResults.
          */ 
         static void Main(string[] args)
         {
+            // Populate test list
+            tests.Add(new PingTest());
+
             DateTime now = DateTime.Now;
             string dateTimeString = now.ToString("yyyy-MM-dd HH\\hmm");
             List<Test> failedTests = new List<Test>();
             using (StreamWriter sw = File.CreateText("temptestresults.txt"))
             {
-                for (int i = 0; i < tests.Length; i++)
+                for (int i = 0; i < tests.Count; i++)
                 {
                     Test test = tests[i];
                     string name = test.GetType().Name;
                     sw.WriteLine("  START TEST: " + name);
-                    Console.Write("Running " + name + "(" + (i+1) + "/" + tests.Length + ")...");
+                    Console.Write("Running " + name + "(" + (i+1) + "/" + tests.Count + ")...");
                     if (!test.Run(sw))
                     {
                         failedTests.Add(test);
@@ -35,7 +38,7 @@ namespace WhatINoted.Tests2
                         Console.WriteLine("passed");
                     }
                     sw.WriteLine("  END TEST: " + name);
-                    if (i != tests.Length - 1)
+                    if (i != tests.Count - 1)
                     {
                         sw.WriteLine();
                     }
@@ -45,7 +48,7 @@ namespace WhatINoted.Tests2
             using (StreamWriter sw = File.CreateText("TestResults" + Path.DirectorySeparatorChar + dateTimeString + " Test Results.txt"))
             {
                 sw.WriteLine("--------------TEST RESULTS--------------");
-                sw.WriteLine("  Tests Run: " + tests.Length);
+                sw.WriteLine("  Tests Run: " + tests.Count);
                 sw.WriteLine("  Tests Failed: " + failedTests.Count);
                 sw.WriteLine("----------------------------------------");
                 sw.WriteLine();
