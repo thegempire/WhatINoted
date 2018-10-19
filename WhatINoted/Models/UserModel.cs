@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace WhatINoted.Models
 {
@@ -11,53 +8,46 @@ namespace WhatINoted.Models
     public class UserModel
     {
         /// <summary>
+        /// User's database ID
+        /// </summary>
+        public readonly string UserID;
+
+        /// <summary>
         /// User's display name
         /// </summary>
-        public readonly String Name;
+        public readonly string DisplayName;
 
         /// <summary>
-        /// User ID
+        /// User's email address
         /// </summary>
-        public readonly String Uid;
+        public readonly string Email;
 
         /// <summary>
-        /// List of user's Notebooks
+        /// List of User's Notebooks
         /// </summary>
-        private List<NotebookModel> _notebooks;
+        public List<NotebookModel> Notebooks { get; }
 
         /// <summary>
-        /// Notebook list accessor
+        /// Constructs a User from the provided information.
         /// </summary>
-        public List<NotebookModel> Notebooks { get { return _notebooks; } }
-
-        /// <summary>
-        /// Construct a UserModel given a display name and uid. Initialize Notebooks to empty list.
-        /// </summary>
-        /// <param name="Name">display name</param>
-        /// <param name="Uid">uid</param>
-        public UserModel(String Name, String Uid)
+        /// <param name="userID">user id</param>
+        /// <param name="displayName">display name</param>
+        /// <param name="email">email address</param>
+        /// <param name="notebooks">list of User's notebooks</param>
+        public UserModel(string userID, string displayName = "", string email = "", List<NotebookModel> notebooks = null)
         {
-            this.Name = Name;
-            this.Uid = Uid;
-            this._notebooks = new List<NotebookModel>();
-        }
-
-        /// <summary>
-        /// Construct a UserModel with the given characteristics.
-        /// </summary>
-        /// <param name="Name">display name</param>
-        /// <param name="Uid">uid</param>
-        /// <param name="Notebooks">list of notebooks</param>
-        public UserModel(String Name, String Uid, List<NotebookModel> Notebooks)
-        {
-            this.Name = Name;
-            this.Uid = Uid;
-            this._notebooks = Notebooks;
+            UserID = userID;
+            DisplayName = displayName;
+            Email = email;
+            Notebooks = notebooks ?? new List<NotebookModel>();
         }
 
         public UserModel(JsonUser jsonUser)
         {
-            Name = jsonUser.DisplayName;
+            UserID = jsonUser.UserID;
+            DisplayName = jsonUser.DisplayName;
+            Email = jsonUser.Email;
+            Notebooks = new List<NotebookModel>();
         }
     }
 }
