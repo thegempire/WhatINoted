@@ -21,7 +21,8 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool DeleteNotebookValidRequest(StreamWriter sw) {
             try
             {
-                if (!GoogleFirestoreConnectionManager.DeleteNotebook(notebookID1))
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
+                if (!GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id))
                 {
                     sw.WriteLine("FAILED: DeleteNotebook(string notebookID): Normal test case 1.");
                     return false;

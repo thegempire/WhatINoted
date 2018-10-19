@@ -21,6 +21,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool DeleteUserValidRequest(StreamWriter sw) {
             try
             {
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
                 if (!GoogleFirestoreConnectionManager.DeleteUser(userID1))
                 {
                     sw.WriteLine("FAILED: DeleteUser(string userID): Normal test case.");
@@ -47,12 +48,14 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool DeleteUserWithNotebooks(StreamWriter sw) {
             try
             {
-                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID2, isbn1).Id;
-                GoogleFirestoreConnectionManager.DeleteUser(userID2);
-                List<NotebookModel> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID2);
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
+                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).Id;
+                GoogleFirestoreConnectionManager.DeleteUser(userID1);
+                List<NotebookModel> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
                 if (temp == null || temp.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteUser(string userID): delete user with Notebooks.");
+                    GoogleFirestoreConnectionManager.DeleteNotebook(notebookID1);
                     return false;
                 }
             }

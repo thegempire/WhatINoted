@@ -28,10 +28,19 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
                 compNotebooks.Add(notebook5);
                 compNotebooks.Add(notebook5);
                 compNotebooks.Add(notebook7);
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook2.Isbn);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook3.Isbn);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook3.Isbn);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook5.Isbn);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook5.Isbn);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook7.Isbn);
                 List<Models.NotebookModel> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
                 if (tempNotebooks.Count != compNotebooks.Count)
                 {
                     sw.WriteLine("FAILED: GetNotebooks(string userID): Normal test case, count mismatch.");
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
                 }
                 else
@@ -51,9 +60,11 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
                     if (compNotebooks.Count > 0)
                     {
                         sw.WriteLine("FAILED: GetNotebooks(string userID): Normal test case, Notebooks not the same.");
+                        GoogleFirestoreConnectionManager.DeleteUser(userID1);
                         return false;
                     }
                 }
+                GoogleFirestoreConnectionManager.DeleteUser(userID1);
             }
             catch
             {
@@ -66,12 +77,15 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool GetNotebooksUserHasNoNotebooks(StreamWriter sw) {
             try
             {
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
                 List<Models.NotebookModel> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID2);
                 if (tempNotebooks == null || tempNotebooks.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotebooks(string userID): User has no notebooks test case.");
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
                 }
+                GoogleFirestoreConnectionManager.DeleteUser(userID1);
             }
             catch
             {

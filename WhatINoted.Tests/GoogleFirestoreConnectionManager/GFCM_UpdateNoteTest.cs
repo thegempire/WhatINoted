@@ -20,17 +20,23 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool UpdateNoteValidRequest(StreamWriter sw) {
             try
             {
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
+                GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, note1.Text);
                 if (GoogleFirestoreConnectionManager.UpdateNote(noteID1, noteTextUpdated) == null)
                 {
                     sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): Normal test case.");
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
                 }
                 else if (GoogleFirestoreConnectionManager.GetNote(noteID1).Text != noteTextUpdated)
                 {
                     sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): Normal test case, note not updated.");
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
 
                 }
+                GoogleFirestoreConnectionManager.DeleteUser(userID1);
             }
             catch
             {

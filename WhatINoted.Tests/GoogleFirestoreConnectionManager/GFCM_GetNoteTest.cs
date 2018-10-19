@@ -19,11 +19,16 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         {
             try
             {
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
+                GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, note1.Text);
                 if (!GoogleFirestoreConnectionManager.GetNote(noteID1).Equals(note1))
                 {
                     sw.WriteLine("FAILED: GetNote(string noteID): Normal test case.");
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
                 }
+                GoogleFirestoreConnectionManager.DeleteUser(userID1);
             }
             catch
             {

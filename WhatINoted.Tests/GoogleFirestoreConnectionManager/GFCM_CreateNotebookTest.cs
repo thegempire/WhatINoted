@@ -86,8 +86,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             //CreateNotebook User does not exist - ISBN
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1 + "NOTEXIST", isbn1);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1 + "NOTEXIST", isbn1);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by ISBN User does not exist test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -96,8 +97,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByDetailsUserDoesNotExist(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1 + "NOTEXIST", notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1 + "NOTEXIST", notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by Book Details User does not exist test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -106,8 +108,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByIsbnUserIdIsNull(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(null, isbn1);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(null, isbn1);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by ISBN userID is null test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -116,8 +119,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByDetailsUserIdIsNull(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(null, notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(null, notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details userID is null test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -126,8 +130,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByIsbnUserIdIsEmpty(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook("", isbn1);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook("", isbn1);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by ISBN userID is empty test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -136,8 +141,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByDetailsUserIdIsEmpty(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook("", notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook("", notebook1.Title, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details userID is empty test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -146,8 +152,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByIsbnIsbnIsNull(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1, null);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, null);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by ISBN isbn is null test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -156,8 +163,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByIsbnIsbnIsEmpty(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1, "");
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, "");
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by ISBN isbn is empty test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -166,8 +174,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByIsbnIsbnHasAlphabeticCharacters(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1, "01234Invalid5");
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, "01234Invalid5");
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by ISBN isbn is invalid test case 1.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -176,8 +185,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByIsbnIsbnIsInvalid(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1, "012345");
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, "012345");
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string isbn): CreateNotebook by ISBN isbn is invalid test case 2.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -186,8 +196,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByDetailsTitleIsNull(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1, null, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, null, notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details title is null test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
@@ -196,8 +207,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool CreateNotebookByDetailsTitleIsEmpty(StreamWriter sw) {
             try
             {
-                GoogleFirestoreConnectionManager.CreateNotebook(userID1, "", notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
+                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, "", notebook1.Author, notebook1.Publisher, notebook1.PublicationDate);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details title is empty test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id);
                 return false;
             }
             catch { return true; }
