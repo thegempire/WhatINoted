@@ -65,6 +65,7 @@ namespace WhatINoted
     {
         public JsonUserFields fields { get; set; }
 
+        public string ID { get { return name.Substring(name.LastIndexOf('/')); } }
         public string DisplayName
         {
             get
@@ -95,6 +96,7 @@ namespace WhatINoted
     {
         public JsonNotebookFields fields { get; set; }
 
+        public string ID { get { return name.Substring(name.LastIndexOf('/')); } }
         public string UserID
         {
             get
@@ -185,6 +187,7 @@ namespace WhatINoted
     {
         public JsonNoteFields fields { get; set; }
 
+        public string ID { get { return name.Substring(name.LastIndexOf('/')); } }
         public string NotebookID
         {
             get

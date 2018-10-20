@@ -11,7 +11,7 @@ namespace WhatINoted.Models
         /// <summary>
         /// Notebook's database ID.
         /// </summary>
-        public readonly string NotebookID;
+        public readonly string ID;
 
         /// <summary>
         /// Title of the Notebook.
@@ -55,7 +55,7 @@ namespace WhatINoted.Models
         /// <param name="notes">list of notebook's notes</param>
         public Notebook(string notebookID = "", string title = "", string author = "", string isbn = "", string publisher = "", DateTime publishDate = default(DateTime), List<Note> notes = null)
         {
-            NotebookID = notebookID;
+            ID = notebookID;
             Title = title;
             Author = author;
             Isbn = new IsbnModel(isbn);
@@ -70,7 +70,7 @@ namespace WhatINoted.Models
         /// <param name="jsonNotebook">Json object containing information related to a Notebook</param>
         public Notebook(JsonNotebook jsonNotebook)
         {
-            NotebookID = jsonNotebook.NotebookID;
+            ID = jsonNotebook.ID;
             Title = jsonNotebook.Title;
             Author = jsonNotebook.Author;
             Isbn = new IsbnModel(jsonNotebook.ISBN);
@@ -88,7 +88,7 @@ namespace WhatINoted.Models
         {
             var model = other as Notebook;
             return model != null
-                && (NotebookID == null || model.NotebookID == null || NotebookID == model.NotebookID)
+                && (ID == null || model.ID == null || ID == model.ID)
                 && Title == model.Title
                 && Author == model.Author
                 && Isbn == model.Isbn
@@ -103,7 +103,7 @@ namespace WhatINoted.Models
         public override int GetHashCode()
         {
             var hashCode = -907078312;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(NotebookID);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ID);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Title);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Author);
             hashCode = hashCode * -1521134295 + EqualityComparer<IsbnModel>.Default.GetHashCode(Isbn);

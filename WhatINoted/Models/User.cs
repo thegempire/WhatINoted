@@ -10,7 +10,7 @@ namespace WhatINoted.Models
         /// <summary>
         /// User's database ID
         /// </summary>
-        public readonly string UserID;
+        public readonly string ID;
 
         /// <summary>
         /// User's display name
@@ -36,7 +36,7 @@ namespace WhatINoted.Models
         /// <param name="notebooks">list of user's notebooks</param>
         public User(string userID = "", string displayName = "", string email = "", List<Notebook> notebooks = null)
         {
-            UserID = userID;
+            ID = userID;
             DisplayName = displayName;
             Email = email;
             Notebooks = notebooks ?? new List<Notebook>();
@@ -48,7 +48,7 @@ namespace WhatINoted.Models
         /// <param name="jsonUser">Json object containing information related to a User</param>
         public User(JsonUser jsonUser)
         {
-            UserID = jsonUser.UserID;
+            ID = jsonUser.ID;
             DisplayName = jsonUser.DisplayName;
             Email = jsonUser.Email;
             Notebooks = new List<Notebook>();
@@ -63,7 +63,7 @@ namespace WhatINoted.Models
         {
             var model = other as User;
             return model != null
-                && (UserID == null || model.UserID == null || UserID == model.UserID)
+                && (ID == null || model.ID == null || ID == model.ID)
                 && DisplayName == model.DisplayName
                 && Email == model.Email;
         }
@@ -75,7 +75,7 @@ namespace WhatINoted.Models
         public override int GetHashCode()
         {
             var hashCode = -464330532;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(UserID);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ID);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DisplayName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Email);
             return hashCode;

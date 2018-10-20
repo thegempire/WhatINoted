@@ -11,7 +11,7 @@ namespace WhatINoted.Models
         /// <summary>
         /// The Note's database ID.
         /// </summary>
-        public readonly string NoteID;
+        public readonly string ID;
 
         /// <summary>
         /// The Note's body text.
@@ -43,7 +43,7 @@ namespace WhatINoted.Models
         /// <param name="created">when this note was created</param>
         public Note(string noteID = "", string text = "", Notebook parentNotebook = null, DateTime modified = default(DateTime), DateTime created = default(DateTime))
         {
-            NoteID = noteID;
+            ID = noteID;
             Text = text;
             ParentNotebook = parentNotebook;
             Modified = modified;
@@ -56,7 +56,7 @@ namespace WhatINoted.Models
         /// <param name="jsonNote">Json object containing information related to a Note</param>
         public Note(JsonNote jsonNote)
         {
-            NoteID = jsonNote.NoteID;
+            ID = jsonNote.ID;
             Text = jsonNote.Text;
             ParentNotebook = new Notebook(jsonNote.NotebookID);
             Created = jsonNote.Created;
@@ -72,7 +72,7 @@ namespace WhatINoted.Models
         {
             var model = other as Note;
             return model != null
-                && (NoteID == null || model.NoteID == null || NoteID == model.NoteID)
+                && (ID == null || model.ID == null || ID == model.ID)
                 && Text == model.Text;
         }
 
@@ -83,7 +83,7 @@ namespace WhatINoted.Models
         public override int GetHashCode()
         {
             var hashCode = 1394997702;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(NoteID);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ID);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Text);
             return hashCode;
         }
