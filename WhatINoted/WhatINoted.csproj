@@ -240,7 +240,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GoogleFirestoreConnectionManager.cs" />
+    <Compile Include="ConnectionManagers\GoogleFirestoreConnectionManager.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="Main.aspx.cs">
       <DependentUpon>Main.aspx</DependentUpon>
@@ -251,9 +251,9 @@
     </Compile>
     <Compile Include="Models\BookSearchResultsModel.cs" />
     <Compile Include="Models\IsbnModel.cs" />
-    <Compile Include="Models\NotebookModel.cs" />
-    <Compile Include="Models\NoteModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\Notebook.cs" />
+    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Notes.aspx.cs">
       <DependentUpon>Notes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
