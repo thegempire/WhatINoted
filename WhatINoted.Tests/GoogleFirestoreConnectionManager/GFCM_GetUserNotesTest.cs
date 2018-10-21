@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using WhatINoted.Models;
 
-namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
+namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
     public class GFCM_GetUserNotesTest : GFCM_Test
     {
@@ -21,17 +21,20 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool GetUserNotesValidRequest(StreamWriter sw) {
             try
             {
-                List<NoteModel> compNotes = new List<NoteModel>();
-                compNotes.Add(note1);
-                compNotes.Add(note2);
-                compNotes.Add(note2);
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
-                GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, note1.Text);
-                GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, note2.Text);
-                GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, note2.Text);
-                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID1);
-                if (tempNotes.Count != compNotes.Count)
+                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
+
+                Note created1 = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note1.Text);
+                Note created2 = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note2.Text);
+                Note created3 = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note3.Text);
+                List<Models.Note> createdNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID1);
+
+                List<Models.Note> expectedNotes = new List<Models.Note>();
+                expectedNotes.Add(new Note(created1.ID, userID1, createdNotebook.ID, text1, DateTime.Now, DateTime.Now));
+                expectedNotes.Add(new Note(created2.ID, userID1, createdNotebook.ID, text2, DateTime.Now, DateTime.Now));
+                expectedNotes.Add(new Note(created3.ID, userID1, createdNotebook.ID, text3, DateTime.Now, DateTime.Now));
+
+                if (createdNotes.Count != expectedNotes.Count)
                 {
                     sw.WriteLine("FAILED: GetUserNotes(string userID): Normal test case, count mismatch.");
                     GoogleFirestoreConnectionManager.DeleteUser(userID1);
@@ -39,19 +42,19 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
                 }
                 else
                 {
-                    foreach (NoteModel n in tempNotes)
+                    foreach (Note n in createdNotes)
                     {
-                        foreach (NoteModel t in compNotes)
+                        foreach (Note t in expectedNotes)
                         {
                             if (t.Equals(n))
                             {
-                                compNotes.Remove(t);
+                                expectedNotes.Remove(t);
                                 break;
                             }
                         }
                     }
 
-                    if (compNotes.Count > 0)
+                    if (expectedNotes.Count > 0)
                     {
                         sw.WriteLine("FAILED: GetUserNotes(string userID): Normal test case, Notes not the same.");
                         GoogleFirestoreConnectionManager.DeleteUser(userID1);
@@ -71,7 +74,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool GetUserNotesUserHasNoNotes(StreamWriter sw) {
             try
             {
-                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID2);
+                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID2);
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetNotes(string userID): User has no notes test case.");
@@ -89,7 +92,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool GetUserNotesUserDoesNotExist(StreamWriter sw) {
             try
             {
-                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID1 + "NOTEXIST");
+                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID1 + "NOTEXIST");
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: GetUserNotes(string userID): User has no notes test case.");

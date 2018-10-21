@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
+namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
     public class GFCM_HandleLoginTest : GFCM_Test
     {
@@ -22,8 +22,10 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool NormalAccountCreation(StreamWriter sw)
         {
             bool passed = true;
-            Models.UserModel expected = new Models.UserModel(displayName1, userID1);
-            Models.UserModel result = null;
+            Models.User expected = new Models.User(userID1, displayName1, email1, DateTime.Now, DateTime.Now);
+            Models.User result = null;
+            GoogleFirestoreConnectionManager.DeleteUser(userID1);
+
             try
             {
                 result = GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
@@ -37,7 +39,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
                 sw.WriteLine("FAILED: Normal Account Creation; could not create user.");
                 return false;
             }
-            if (expected.Name != result.Name || expected.Uid != result.Uid)
+            if (expected.DisplayName != result.DisplayName || expected.ID != result.ID)
             {
                 sw.WriteLine("FAILED: Normal Account Creation; user not created as expected.");
                 passed = false;
@@ -49,7 +51,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool NormalAccountLogin(StreamWriter sw)
         {
             bool passed = true;
-            Models.UserModel expected = new Models.UserModel(displayName1, userID1);
+            Models.User expected = new Models.User(userID1, displayName1, email1, DateTime.Now, DateTime.Now);
             try
             {
                 if (GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1) == null)
@@ -62,7 +64,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
                 sw.WriteLine("FAILED: Normal Account Login; unexpected exception thrown on creation.");
                 return false;
             }
-            Models.UserModel result = null;
+            Models.User result = null;
             try
             {
                 result = GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
@@ -76,7 +78,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
                 sw.WriteLine("FAILED: Normal Account Login; could not log in.");
                 passed = false;
             }
-            else if (passed && (expected.Name != result.Name || expected.Uid != result.Uid))
+            else if (passed && (expected.DisplayName != result.DisplayName || expected.ID != result.ID))
             {
                 sw.WriteLine("FAILED: Normal Account Login; user not returned as expected.");
                 passed = false;

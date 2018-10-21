@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
-namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
+namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
-	public class GFCM_DeleteNoteTest : GFCM_Test
+    public class GFCM_DeleteNoteTest : GFCM_Test
     {
         public override bool Run(StreamWriter sw)
         {
@@ -15,34 +14,43 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             return passed;
         }
 
-        private bool DeleteNoteValidRequest(StreamWriter sw) {
+        private bool DeleteNoteValidRequest(StreamWriter sw)
+        {
             try
             {
-                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
-                Models.NoteModel tempNote = GoogleFirestoreConnectionManager.CreateNote(userID1, temp.Id, noteText);
-                if (!GoogleFirestoreConnectionManager.DeleteNote(tempNote.Id))
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
+                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
+                Models.Note createdNote = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, text1);
+                if (!GoogleFirestoreConnectionManager.DeleteNote(createdNote.ID))
                 {
                     sw.WriteLine("FAILED: DeleteNote(string noteID): Normal test case 1.");
-                    GoogleFirestoreConnectionManager.GFCM_DeleteNotebookTest(temp.Id);
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
                 }
-                else if (GoogleFirestoreConnectionManager.GetNote(noteID1) != null)
+                else
                 {
-                    sw.WriteLine("FAILED: DeleteNote(string noteID, string noteText): Normal test case 1, note not deleted.");
-                    GoogleFirestoreConnectionManager.GFCM_DeleteNotebookTest(temp.Id);
+                    try
+                    {
+                        GoogleFirestoreConnectionManager.GetNote(createdNote.ID);
+                    }
+                    catch (NotFoundException)
+                    {
+                        GoogleFirestoreConnectionManager.DeleteUser(userID1);
+                        return true;
+                    }
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
                 }
-                GoogleFirestoreConnectionManager.GFCM_DeleteNotebookTest(temp.Id);
             }
             catch
             {
                 sw.WriteLine("FAILED: DeleteNote(string noteID): Normal test case 1 - unexpected exception.");
                 return false;
             }
-            return true;
         }
 
-        private bool DeleteNoteNoteDoesNotExist(StreamWriter sw) {
+        private bool DeleteNoteNoteDoesNotExist(StreamWriter sw)
+        {
             try
             {
                 if (!GoogleFirestoreConnectionManager.DeleteNote(noteID1 + "NOTEXIST"))
@@ -59,7 +67,8 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             return true;
         }
 
-        private bool DeleteNoteNoteIdIsNull(StreamWriter sw) {
+        private bool DeleteNoteNoteIdIsNull(StreamWriter sw)
+        {
             try
             {
                 GoogleFirestoreConnectionManager.DeleteNote(null);
@@ -69,7 +78,8 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             catch { return true; }
         }
 
-        private bool DeleteNoteNoteIdIsEmpty(StreamWriter sw) {
+        private bool DeleteNoteNoteIdIsEmpty(StreamWriter sw)
+        {
             try
             {
                 GoogleFirestoreConnectionManager.DeleteNote("");

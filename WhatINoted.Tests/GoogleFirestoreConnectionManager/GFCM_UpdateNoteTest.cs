@@ -1,7 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using WhatINoted.Models;
 
-namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
+namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
     public class GFCM_UpdateNoteTest : GFCM_Test
     {
@@ -17,19 +17,16 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             return passed;
         }
 
-        private bool UpdateNoteValidRequest(StreamWriter sw) {
+        private bool UpdateNoteValidRequest(StreamWriter sw)
+        {
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
-                GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, note1.Text);
-                if (GoogleFirestoreConnectionManager.UpdateNote(noteID1, noteTextUpdated) == null)
-                {
-                    sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): Normal test case.");
-                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
-                    return false;
-                }
-                else if (GoogleFirestoreConnectionManager.GetNote(noteID1).Text != noteTextUpdated)
+                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
+                Note createdNote = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note1.Text);
+                Note updatedNote = GoogleFirestoreConnectionManager.UpdateNote(createdNote.ID, text2);
+                Note retrievedUpdatedNote = GoogleFirestoreConnectionManager.GetNote(updatedNote.ID);
+                if (retrievedUpdatedNote.Text != text2)
                 {
                     sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): Normal test case, note not updated.");
                     GoogleFirestoreConnectionManager.DeleteUser(userID1);
@@ -46,78 +43,59 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             return true;
         }
 
-        private bool UpdateNoteNoteDoesNotExist(StreamWriter sw) {
+        private bool UpdateNoteNoteDoesNotExist(StreamWriter sw)
+        {
             try
             {
-                GoogleFirestoreConnectionManager.UpdateNote(noteID1 + "NOTEXIST", noteTextUpdated);
+                GoogleFirestoreConnectionManager.UpdateNote(noteID1 + "NOTEXIST", text2);
                 sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): User does not exist.");
                 return false;
             }
             catch { return true; }
         }
 
-        private bool UpdateNoteNoteIdIsNull(StreamWriter sw) {
+        private bool UpdateNoteNoteIdIsNull(StreamWriter sw)
+        {
             try
             {
-                GoogleFirestoreConnectionManager.UpdateNote(null, noteTextUpdated);
+                GoogleFirestoreConnectionManager.UpdateNote(null, text2);
                 sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteID is null test case.");
                 return false;
             }
             catch { return true; }
         }
 
-        private bool UpdateNoteNoteIdIsEmpty(StreamWriter sw) {
+        private bool UpdateNoteNoteIdIsEmpty(StreamWriter sw)
+        {
             try
             {
-                GoogleFirestoreConnectionManager.UpdateNote("", noteTextUpdated);
+                GoogleFirestoreConnectionManager.UpdateNote("", text2);
                 sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteID is empty test case.");
                 return false;
             }
             catch { return true; }
         }
 
-        private bool UpdateNoteNoteTextIsNull(StreamWriter sw) {
+        private bool UpdateNoteNoteTextIsNull(StreamWriter sw)
+        {
             try
             {
-                if (GoogleFirestoreConnectionManager.UpdateNote(noteID1, null) != null)
-                {
-                    sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is null.");
-                    return false;
-                }
-                else if (GoogleFirestoreConnectionManager.GetNote(noteID1).Text != "")
-                {
-                    sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is null, note not updated.");
-                    return false;
-                }
-            }
-            catch
-            {
-                sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is null - unexpected exception.");
+                GoogleFirestoreConnectionManager.UpdateNote(noteID1, null);
+                sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is null.");
                 return false;
             }
-            return true;
+            catch { return true; }
         }
 
-        private bool UpdateNoteNoteTextIsEmpty(StreamWriter sw) {
+        private bool UpdateNoteNoteTextIsEmpty(StreamWriter sw)
+        {
             try
             {
-                if (GoogleFirestoreConnectionManager.UpdateNote(noteID1, "") != null)
-                {
-                    sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is empty.");
-                    return false;
-                }
-                else if (GoogleFirestoreConnectionManager.GetNote(noteID1).Text != "")
-                {
-                    sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is empty, note not updated.");
-                    return false;
-                }
-            }
-            catch
-            {
-                sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is empty - unexpected exception.");
+                GoogleFirestoreConnectionManager.UpdateNote(noteID1, "");
+                sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is empty.");
                 return false;
             }
-            return true;
+            catch { return true; }
         }
     }
 }

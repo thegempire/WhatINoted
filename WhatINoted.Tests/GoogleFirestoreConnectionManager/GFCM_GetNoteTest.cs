@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using WhatINoted.Models;
 
-namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
+namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
     public class GFCM_GetNoteTest : GFCM_Test
     {
@@ -20,9 +21,10 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
-                GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, note1.Text);
-                if (!GoogleFirestoreConnectionManager.GetNote(noteID1).Equals(note1))
+                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
+                Note createdNote = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note1.Text);
+                Note expectedNote = new Note(createdNote.ID, userID1, createdNotebook.ID, note1.Text, DateTime.Now, DateTime.Now);
+                if (!GoogleFirestoreConnectionManager.GetNote(createdNote.ID).Equals(expectedNote))
                 {
                     sw.WriteLine("FAILED: GetNote(string noteID): Normal test case.");
                     GoogleFirestoreConnectionManager.DeleteUser(userID1);
@@ -38,24 +40,26 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             return true;
         }
 
-        private bool GetNoteNoteDoesNotExist(StreamWriter sw) {
+        private bool GetNoteNoteDoesNotExist(StreamWriter sw)
+        {
             try
             {
-                if (GoogleFirestoreConnectionManager.GetNote(noteID1 + "NOTEXIST") != null)
-                {
-                    sw.WriteLine("FAILED: GetNote(string noteID): Note does not exist test case.");
-                    return false;
-                }
+                GoogleFirestoreConnectionManager.GetNote(noteID1 + "NOTEXIST");
+                return false;
+            }
+            catch (NotFoundException)
+            {
+                return true;
             }
             catch
             {
                 sw.WriteLine("FAILED: GetNote(string noteID): Note does not exist test case - unexpected exception.");
                 return false;
             }
-            return true;
         }
 
-        private bool GetNoteNoteIdIsNull(StreamWriter sw) {
+        private bool GetNoteNoteIdIsNull(StreamWriter sw)
+        {
             try
             {
                 GoogleFirestoreConnectionManager.GetNote(null);
@@ -65,7 +69,8 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             catch { return true; }
         }
 
-        private bool GetNoteNoteIdIsEmpty(StreamWriter sw) {
+        private bool GetNoteNoteIdIsEmpty(StreamWriter sw)
+        {
             try
             {
                 GoogleFirestoreConnectionManager.GetNote("");

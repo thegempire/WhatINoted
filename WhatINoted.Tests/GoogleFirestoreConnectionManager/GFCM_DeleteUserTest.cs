@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using WhatINoted.Models;
 
-namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
+namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
 	public class GFCM_DeleteUserTest : GFCM_Test
     {
@@ -31,7 +31,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
                 {
                     try
                     {
-                        GoogleFirestoreConnectionManager.GetDisplayName(userID1);
+                        GoogleFirestoreConnectionManager.GetUser(userID1);
                         sw.WriteLine("FAILED: DeleteUser(string userID): Normal test case - User still exists.");
                         return false;
                     }
@@ -49,9 +49,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).Id;
+                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).ID;
                 GoogleFirestoreConnectionManager.DeleteUser(userID1);
-                List<NotebookModel> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
+                List<Notebook> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
                 if (temp == null || temp.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteUser(string userID): delete user with Notebooks.");

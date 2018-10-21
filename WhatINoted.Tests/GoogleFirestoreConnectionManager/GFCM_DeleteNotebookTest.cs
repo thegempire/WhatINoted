@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using WhatINoted.Models;
 
-namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
+namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
     public class GFCM_DeleteNotebookTest : GFCM_Test
     {
@@ -21,8 +21,9 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool DeleteNotebookValidRequest(StreamWriter sw) {
             try
             {
-                Models.NotebookModel temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
-                if (!GoogleFirestoreConnectionManager.DeleteNotebook(temp.Id))
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
+                Models.Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
+                if (!GoogleFirestoreConnectionManager.DeleteNotebook(temp.ID))
                 {
                     sw.WriteLine("FAILED: DeleteNotebook(string notebookID): Normal test case 1.");
                     return false;
@@ -39,10 +40,11 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         private bool DeleteNotebookWithNotes(StreamWriter sw) {
             try
             {
-                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).Id;
-                noteID1 = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, noteText).Id;
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
+                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).ID;
+                noteID1 = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, text1).ID;
                 GoogleFirestoreConnectionManager.DeleteNotebook(notebookID1);
-                List<NoteModel> tempNotes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID1);
+                List<Note> tempNotes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID1);
                 if (tempNotes == null || tempNotes.Count != 0)
                 {
                     sw.WriteLine("FAILED: DeleteNotebook(string notebookID): Delete notebook with notes");
@@ -75,11 +77,12 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             return true;
         }
 
-        private bool DeleteNotebookNotebookIdIsNull(StreamWriter sw) {
+        private bool DeleteNotebookNotebookIdIsNull(StreamWriter sw)
+        {
             try
             {
-                GoogleFirestoreConnectionManager.DeleteNote(null);
-                sw.WriteLine("FAILED: DeleteNote(string noteID): noteID is null test case.");
+                GoogleFirestoreConnectionManager.DeleteNotebook(null);
+                sw.WriteLine("FAILED: DeleteNotebook(string notebookID): notebookID is null test case.");
                 return false;
             }
             catch { return true; }

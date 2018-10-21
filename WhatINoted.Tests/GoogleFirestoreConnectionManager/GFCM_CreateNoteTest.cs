@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using WhatINoted.Models;
 
-namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
+namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
     public class GFCM_CreateNoteTest : GFCM_Test
     {
@@ -24,17 +25,19 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
         {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, noteText);
-                if (!temp.Equals(note1))
+                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
+                Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, title1, author1, isbn1, publisher1, publishDate1, coverURL1);
+                Note actual = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, text1);
+                Note expected = new Note(actual.ID, userID1, createdNotebook.ID, text1, DateTime.Now, DateTime.Now);
+                if (!expected.Equals(actual))
                 {
                     sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote normal test case.");
-                    GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
                 }
                 else
                 {
-                    noteID1 = temp.Id;
-                    GoogleFirestoreConnectionManager.DeleteNote(noteID1);
+                    GoogleFirestoreConnectionManager.DeleteUser(userID1);
                 }
             }
             catch
@@ -45,123 +48,100 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManager
             return true;
         }
 
-        private bool CreateNoteUserDoesNotExist(StreamWriter sw) {
+        private bool CreateNoteUserDoesNotExist(StreamWriter sw)
+        {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1 + "NOTEXIST", notebookID1, noteText);
+                Models.Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1 + "NOTEXIST", notebookID1, text1);
                 sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote User does not exist test case.");
-                GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
+                GoogleFirestoreConnectionManager.DeleteNote(temp.ID);
                 return false;
             }
             catch { return true; }
         }
 
-        private bool CreateNoteUserIdIsNull(StreamWriter sw) {
+        private bool CreateNoteUserIdIsNull(StreamWriter sw)
+        {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(null, notebookID1, noteText);
+                Models.Note temp = GoogleFirestoreConnectionManager.CreateNote(null, notebookID1, text1);
                 sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote userID is null test case.");
-                GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
+                GoogleFirestoreConnectionManager.DeleteNote(temp.ID);
                 return false;
             }
             catch { return true; }
         }
 
-        private bool CreateNoteUserIdIsEmpty(StreamWriter sw) {
+        private bool CreateNoteUserIdIsEmpty(StreamWriter sw)
+        {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote("", notebookID1, noteText);
+                Models.Note temp = GoogleFirestoreConnectionManager.CreateNote("", notebookID1, text1);
                 sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote userID is empty test case.");
-                GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
+                GoogleFirestoreConnectionManager.DeleteNote(temp.ID);
                 return false;
             }
             catch { return true; }
         }
 
-        private bool CreateNoteNotebookDoesNotExist(StreamWriter sw) {
+        private bool CreateNoteNotebookDoesNotExist(StreamWriter sw)
+        {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1 + "NOTEXIST", noteText);
+                Models.Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1 + "NOTEXIST", text1);
                 sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote Notebook does not exist test case.");
-                GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
+                GoogleFirestoreConnectionManager.DeleteNote(temp.ID);
                 return false;
             }
             catch { return true; }
         }
 
-        private bool CreateNoteNotebookIdIsNull(StreamWriter sw) {
+        private bool CreateNoteNotebookIdIsNull(StreamWriter sw)
+        {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, null, noteText);
+                Models.Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1, null, text1);
                 sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote notebookID is null test case.");
-                GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
+                GoogleFirestoreConnectionManager.DeleteNote(temp.ID);
                 return false;
             }
             catch { return true; }
         }
 
-        private bool CreateNoteNotebookIdIsEmpty(StreamWriter sw) {
+        private bool CreateNoteNotebookIdIsEmpty(StreamWriter sw)
+        {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, "", noteText);
+                Models.Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1, "", text1);
                 sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote notebookID is empty test case.");
-                GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
+                GoogleFirestoreConnectionManager.DeleteNote(temp.ID);
                 return false;
             }
             catch { return true; }
         }
 
-        private bool CreateNoteNoteTextIsNull(StreamWriter sw) {
+        private bool CreateNoteNoteTextIsNull(StreamWriter sw)
+        {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, null);
-                if (!temp.Equals(note2))
-                {
-                    sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote noteText is null test case.");
-                    if (temp != null) {
-                        GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
-                    }
-                    return false;
-                }
-                else
-                {
-                    noteID2 = temp.Id;
-                    GoogleFirestoreConnectionManager.DeleteNote(noteID2);
-                }
-            }
-            catch
-            {
-                sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote noteText is null test case - unexpected exception.");
+                Models.Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, null);
+                sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote note text is null test case.");
+                GoogleFirestoreConnectionManager.DeleteNote(temp.ID);
                 return false;
             }
-            return true;
+            catch { return true; }
         }
 
-        private bool CreateNoteNoteTextIsEmpty(StreamWriter sw) {
+        private bool CreateNoteNoteTextIsEmpty(StreamWriter sw)
+        {
             try
             {
-                Models.NoteModel temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, "");
-                if (!temp.Equals(note2))
-                {
-                    sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote noteText is empty test case.");
-                    if (temp != null) {
-                        GoogleFirestoreConnectionManager.DeleteNote(temp.Id);
-                    }
-                    return false;
-                }
-                else
-                {
-                    noteID3 = temp.Id;
-                    GoogleFirestoreConnectionManager.DeleteNote(noteID3);
-                }
-            }
-            catch
-            {
-                sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote noteText is empty test case- unexpected exception.");
+                Models.Note temp = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, "");
+                sw.WriteLine("FAILED: CreateNote(string userID, string notebookID, string noteText): CreateNote note text is empty test case.");
+                GoogleFirestoreConnectionManager.DeleteNote(temp.ID);
                 return false;
             }
-            return true;
+            catch { return true; }
         }
     }
-
 }

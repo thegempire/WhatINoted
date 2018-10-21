@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using WhatINoted.Tests.GoogleFirestoreConnectionManager;
+using WhatINoted.Tests.GoogleFirestoreConnectionManagerTests;
 
 namespace WhatINoted.Tests
 {
@@ -11,18 +11,20 @@ namespace WhatINoted.Tests
          * Every time you create a test class, add an instance of that test
          * here in order to get the test to run.
          */
-        static readonly Test[] tests = {/* new PingTest(),*/ new GFCM_CreateNotebookTest(),
+        static readonly Test[] tests = {
+            new PingTest(),
+            new GFCM_HandleLoginTest(),
+            new GFCM_CreateNotebookTest(),
             new GFCM_CreateNoteTest(),
+            new GFCM_DeleteUserTest(),
             new GFCM_DeleteNotebookTest(),
             new GFCM_DeleteNoteTest(),
-            new GFCM_DeleteUserTest(),
-            new GFCM_GetDisplayNameTest(),
             new GFCM_GetNotebooksTest(),
-            new GFCM_GetNotesTest(),
-            new GFCM_GetNoteTest(),
+            new GFCM_GetNotebookNotesTest(),
             new GFCM_GetUserNotesTest(),
-            new GFCM_HandleLoginTest(),
-            new GFCM_UpdateNoteTest() };
+            new GFCM_GetNoteTest(),
+            new GFCM_UpdateNoteTest()
+        };
 
         /*
          * Runs every test and creates a file in TestResults.
@@ -38,7 +40,7 @@ namespace WhatINoted.Tests
                 {
                     Test test = tests[i];
                     string name = test.GetType().Name;
-                    sw.WriteLine("  START TEST: " + name);
+                    sw.WriteLine("START TEST: " + name);
                     Console.Write("Running " + name + "(" + (i+1) + "/" + tests.Length + ")...");
                     if (!test.Run(sw))
                     {
@@ -47,7 +49,7 @@ namespace WhatINoted.Tests
                     } else {
                         Console.WriteLine("passed");
                     }
-                    sw.WriteLine("  END TEST: " + name);
+                    sw.WriteLine("END TEST: " + name);
                     if (i != tests.Length - 1)
                     {
                         sw.WriteLine();
@@ -87,6 +89,7 @@ namespace WhatINoted.Tests
                 File.Delete("temptestresults.txt");
                 sw.Close();
             }
+            Console.ReadKey();
         }
     }
 }
