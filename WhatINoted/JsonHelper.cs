@@ -1,8 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace WhatINoted
 {
+    /*
+     * This file consists of classes to aid in reading from the Firestore database. These classes are used to deserialize the json result retrieved by the API call.
+     */
+
     public class JsonUserWrapper
     {
         public JsonUser document { get; set; }
@@ -31,41 +34,16 @@ namespace WhatINoted
 
     public class JsonEntity
     {
+        public string ID { get { return name.Substring(name.LastIndexOf('/') + 1); } }
         public string name { get; set; }
         public string createTime { get; set; }
         public string updateTime { get; set; }
-        private JsonUserFields fields { get; set; }
-        public DateTime Created
-        {
-            get
-            {
-                return fields.created.timeStampValue;
-            }
-
-            set
-            {
-                fields.created.timeStampValue = value;
-            }
-        }
-        public DateTime Modified
-        {
-            get
-            {
-                return fields.modified.timeStampValue;
-            }
-
-            set
-            {
-                fields.modified.timeStampValue = value;
-            }
-        }
     }
 
     public class JsonUser : JsonEntity
     {
         public JsonUserFields fields { get; set; }
 
-        public string ID { get { return name.Substring(name.LastIndexOf('/')); } }
         public string DisplayName
         {
             get
@@ -90,13 +68,36 @@ namespace WhatINoted
                 fields.email.stringValue = value;
             }
         }
+        public DateTime Created
+        {
+            get
+            {
+                return fields.created.TimeStamp;
+            }
+
+            set
+            {
+                fields.created.TimeStamp = value;
+            }
+        }
+        public DateTime Modified
+        {
+            get
+            {
+                return fields.modified.TimeStamp;
+            }
+
+            set
+            {
+                fields.modified.TimeStamp = value;
+            }
+        }
     }
 
     public class JsonNotebook : JsonEntity
     {
         public JsonNotebookFields fields { get; set; }
 
-        public string ID { get { return name.Substring(name.LastIndexOf('/')); } }
         public string UserID
         {
             get
@@ -161,12 +162,12 @@ namespace WhatINoted
         {
             get
             {
-                return fields.publishDate.timeStampValue;
+                return fields.publishDate.TimeStamp;
             }
 
             set
             {
-                fields.publishDate.timeStampValue = value;
+                fields.publishDate.TimeStamp = value;
             }
         }
         public string CoverURL
@@ -181,13 +182,36 @@ namespace WhatINoted
                 fields.coverURL.stringValue = value;
             }
         }
+        public DateTime Created
+        {
+            get
+            {
+                return fields.created.TimeStamp;
+            }
+
+            set
+            {
+                fields.created.TimeStamp = value;
+            }
+        }
+        public DateTime Modified
+        {
+            get
+            {
+                return fields.modified.TimeStamp;
+            }
+
+            set
+            {
+                fields.modified.TimeStamp = value;
+            }
+        }
     }
 
     public class JsonNote : JsonEntity
     {
         public JsonNoteFields fields { get; set; }
 
-        public string ID { get { return name.Substring(name.LastIndexOf('/')); } }
         public string NotebookID
         {
             get
@@ -216,12 +240,36 @@ namespace WhatINoted
         {
             get
             {
-                return fields.text.stringValue;
+                return fields.noteText.stringValue;
             }
 
             set
             {
-                fields.text.stringValue = value;
+                fields.noteText.stringValue = value;
+            }
+        }
+        public DateTime Created
+        {
+            get
+            {
+                return fields.created.TimeStamp;
+            }
+
+            set
+            {
+                fields.created.TimeStamp = value;
+            }
+        }
+        public DateTime Modified
+        {
+            get
+            {
+                return fields.modified.TimeStamp;
+            }
+
+            set
+            {
+                fields.modified.TimeStamp = value;
             }
         }
     }
@@ -253,7 +301,7 @@ namespace WhatINoted
     {
         public JsonStringField notebookID { get; set; }
         public JsonStringField userID { get; set; }
-        public JsonStringField text { get; set; }
+        public JsonStringField noteText { get; set; }
     }
 
     public class JsonStringField
@@ -269,6 +317,7 @@ namespace WhatINoted
 
     public class JsonDateTimeField
     {
-        public DateTime timeStampValue { get; set; }
+        public string timestampValue { get; set; }
+        public DateTime TimeStamp { get { return timestampValue == null ? default(DateTime) : DateTime.Parse(timestampValue); } set { TimeStamp = value; } }
     }
 }
