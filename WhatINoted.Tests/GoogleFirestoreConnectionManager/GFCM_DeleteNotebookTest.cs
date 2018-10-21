@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using WhatINoted.ConnectionManagers;
 using WhatINoted.Models;
 
 namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests

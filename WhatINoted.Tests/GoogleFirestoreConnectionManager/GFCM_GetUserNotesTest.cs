@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using WhatINoted.ConnectionManagers;
 using WhatINoted.Models;
 
 namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
@@ -29,10 +30,12 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
                 Note created3 = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note3.Text);
                 List<Models.Note> createdNotes = GoogleFirestoreConnectionManager.GetUserNotes(userID1);
 
-                List<Models.Note> expectedNotes = new List<Models.Note>();
-                expectedNotes.Add(new Note(created1.ID, userID1, createdNotebook.ID, text1, DateTime.Now, DateTime.Now));
-                expectedNotes.Add(new Note(created2.ID, userID1, createdNotebook.ID, text2, DateTime.Now, DateTime.Now));
-                expectedNotes.Add(new Note(created3.ID, userID1, createdNotebook.ID, text3, DateTime.Now, DateTime.Now));
+                List<Models.Note> expectedNotes = new List<Models.Note>
+                {
+                    new Note(created1.ID, userID1, createdNotebook.ID, text1, DateTime.Now, DateTime.Now),
+                    new Note(created2.ID, userID1, createdNotebook.ID, text2, DateTime.Now, DateTime.Now),
+                    new Note(created3.ID, userID1, createdNotebook.ID, text3, DateTime.Now, DateTime.Now)
+                };
 
                 if (createdNotes.Count != expectedNotes.Count)
                 {

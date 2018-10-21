@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using WhatINoted.ConnectionManagers;
 
 namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {

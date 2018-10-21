@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using WhatINoted.ConnectionManagers;
 using WhatINoted.Models;
-using static WhatINoted.GoogleFirestoreConnectionManager;
+using static WhatINoted.ConnectionManagers.GoogleFirestoreConnectionManager;
 
 namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {

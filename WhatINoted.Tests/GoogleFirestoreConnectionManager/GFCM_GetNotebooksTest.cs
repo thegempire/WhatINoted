@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using WhatINoted.ConnectionManagers;
 
 namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 {
@@ -21,12 +22,14 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 GoogleFirestoreConnectionManager.DeleteUser(userID1);
-                List<Models.Notebook> compNotebooks = new List<Models.Notebook>();
-                compNotebooks.Add(notebook1);
-                compNotebooks.Add(notebook2);
-                compNotebooks.Add(notebook3);
-                compNotebooks.Add(notebook4);
-                compNotebooks.Add(notebook5);
+                List<Models.Notebook> compNotebooks = new List<Models.Notebook>
+                {
+                    notebook1,
+                    notebook2,
+                    notebook3,
+                    notebook4,
+                    notebook5
+                };
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
                 GoogleFirestoreConnectionManager.CreateNotebook(userID1, title1, author1, isbn1, publisher1, publishDate1, coverURL1);
                 GoogleFirestoreConnectionManager.CreateNotebook(userID1, title2, author2, isbn2, publisher2, publishDate2, coverURL2);
