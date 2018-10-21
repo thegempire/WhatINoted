@@ -26,7 +26,7 @@ namespace WhatINoted.Models
         /// <summary>
         /// ISBN of the Notebook.
         /// </summary>
-        public readonly IsbnModel Isbn;
+        public readonly string Isbn;
 
         /// <summary>
         /// Publisher of the Notebook.
@@ -37,6 +37,21 @@ namespace WhatINoted.Models
         /// Publish Date of the Notebook.
         /// </summary>
         public readonly DateTime PublishDate;
+
+        /// <summary>
+        /// The URL for an image of the Notebook cover.
+        /// </summary>
+        public readonly string CoverURL;
+
+        /// <summary>
+        /// The time that this Notebook was last modified.
+        /// </summary>
+        public DateTime Modified { get; private set; }
+
+        /// <summary>
+        /// The time that this Notebook was created.
+        /// </summary>
+        public DateTime Created { get; private set; }
 
         /// <summary>
         /// List of Notes filed under the Notebook.
@@ -52,16 +67,21 @@ namespace WhatINoted.Models
         /// <param name="isbn">notebook isbn</param>
         /// <param name="publisher">notebook publisher</param>
         /// <param name="publishDate">notebook publishing date</param>
-        /// <param name="notes">list of notebook's notes</param>
-        public Notebook(string notebookID = "", string title = "", string author = "", string isbn = "", string publisher = "", DateTime publishDate = default(DateTime), List<Note> notes = null)
+        /// <param name="coverURL">url for an image of the notebook's cover</param>
+        /// <param name="modified">when this notebook was last modified</param>
+        /// <param name="created">when this notebook was created</param>
+        public Notebook(string notebookID, string title, string author, string isbn, string publisher, DateTime publishDate, string coverURL, DateTime modified, DateTime created)
         {
             ID = notebookID;
             Title = title;
             Author = author;
-            Isbn = new IsbnModel(isbn);
+            Isbn = isbn;
             Publisher = publisher;
             PublishDate = publishDate;
-            Notes = notes ?? new List<Note>();
+            CoverURL = coverURL;
+            Modified = modified;
+            Created = created;
+            Notes = new List<Note>();
         }
 
         /// <summary>
@@ -73,27 +93,32 @@ namespace WhatINoted.Models
             ID = jsonNotebook.ID;
             Title = jsonNotebook.Title;
             Author = jsonNotebook.Author;
-            Isbn = new IsbnModel(jsonNotebook.ISBN);
+            Isbn = jsonNotebook.ISBN;
             Publisher = jsonNotebook.Publisher;
             PublishDate = jsonNotebook.PublishDate;
+            CoverURL = jsonNotebook.CoverURL;
+            Modified = jsonNotebook.Modified;
+            Created = jsonNotebook.Created;
             Notes = new List<Note>();
         }
 
         /// <summary>
         /// Checks for equality between the calling Notebook and the passed object.
+        /// 
+        /// Currently compares Title, Author, Isbn, Publisher, PublishDate, CoverURL.
         /// </summary>
         /// <param name="other">other object</param>
-        /// <returns>true if the calling and passed objects are equal ignoring note list</returns>
+        /// <returns>true if the calling and passed objects are equal</returns>
         public override bool Equals(object other)
         {
             var model = other as Notebook;
             return model != null
-                && (ID == null || model.ID == null || ID == model.ID)
                 && Title == model.Title
                 && Author == model.Author
                 && Isbn == model.Isbn
                 && Publisher == model.Publisher
-                && PublishDate == model.PublishDate;
+                && PublishDate == model.PublishDate
+                && CoverURL == model.CoverURL;
         }
 
         /// <summary>
@@ -103,35 +128,13 @@ namespace WhatINoted.Models
         public override int GetHashCode()
         {
             var hashCode = -907078312;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ID);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Title);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Author);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IsbnModel>.Default.GetHashCode(Isbn);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Isbn);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Publisher);
             hashCode = hashCode * -1521134295 + PublishDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(CoverURL);
             return hashCode;
-        }
-
-        /// <summary>
-        /// Overloads the == operator.
-        /// </summary>
-        /// <param name="first">the first notebook to compare</param>
-        /// <param name="second">the second notebook to compare</param>
-        /// <returns>true if the notebooks are equal</returns>
-        public static bool operator ==(Notebook first, Notebook second)
-        {
-            return first.Equals(second);
-        }
-
-        /// <summary>
-        /// Overloads the != operator.
-        /// </summary>
-        /// <param name="first">the first notebook to compare</param>
-        /// <param name="second">the second notebook to compare</param>
-        /// <returns>true if the notebooks are not equal</returns>
-        public static bool operator !=(Notebook first, Notebook second)
-        {
-            return !first.Equals(second);
         }
     }
 }

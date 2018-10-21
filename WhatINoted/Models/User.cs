@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WhatINoted.Models
 {
@@ -23,6 +24,16 @@ namespace WhatINoted.Models
         public readonly string Email;
 
         /// <summary>
+        /// The time that this User was last modified.
+        /// </summary>
+        public DateTime Modified { get; private set; }
+
+        /// <summary>
+        /// The time that this User was created.
+        /// </summary>
+        public DateTime Created { get; private set; }
+
+        /// <summary>
         /// List of User's Notebooks
         /// </summary>
         public List<Notebook> Notebooks { get; }
@@ -33,13 +44,16 @@ namespace WhatINoted.Models
         /// <param name="userID">user id</param>
         /// <param name="displayName">display name</param>
         /// <param name="email">email address</param>
-        /// <param name="notebooks">list of user's notebooks</param>
-        public User(string userID = "", string displayName = "", string email = "", List<Notebook> notebooks = null)
+        /// <param name="modified">when this user was last modified</param>
+        /// <param name="created">when this user was created</param>
+        public User(string userID, string displayName, string email, DateTime modified, DateTime created)
         {
             ID = userID;
             DisplayName = displayName;
             Email = email;
-            Notebooks = notebooks ?? new List<Notebook>();
+            Modified = modified;
+            Created = created;
+            Notebooks = new List<Notebook>();
         }
 
         /// <summary>
@@ -51,19 +65,22 @@ namespace WhatINoted.Models
             ID = jsonUser.ID;
             DisplayName = jsonUser.DisplayName;
             Email = jsonUser.Email;
+            Created = jsonUser.Created;
+            Modified = jsonUser.Modified;
             Notebooks = new List<Notebook>();
         }
 
         /// <summary>
         /// Checks for equality between the calling User and the passed object.
+        /// 
+        /// Currently compares DisplayName and Email.
         /// </summary>
         /// <param name="other">other object</param>
-        /// <returns>true if the calling and passed objects are equal ignoring notebook list</returns>
+        /// <returns>true if the calling and passed objects are equal</returns>
         public override bool Equals(object other)
         {
             var model = other as User;
             return model != null
-                && (ID == null || model.ID == null || ID == model.ID)
                 && DisplayName == model.DisplayName
                 && Email == model.Email;
         }
@@ -75,32 +92,9 @@ namespace WhatINoted.Models
         public override int GetHashCode()
         {
             var hashCode = -464330532;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ID);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DisplayName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Email);
             return hashCode;
-        }
-
-        /// <summary>
-        /// Overloads the == operator.
-        /// </summary>
-        /// <param name="first">the first user to compare</param>
-        /// <param name="second">the second user to compare</param>
-        /// <returns>true if the users are equal</returns>
-        public static bool operator ==(User first, User second)
-        {
-            return first.Equals(second);
-        }
-
-        /// <summary>
-        /// Overloads the != operator.
-        /// </summary>
-        /// <param name="first">the first user to compare</param>
-        /// <param name="second">the second user to compare</param>
-        /// <returns>true if the users are not equal</returns>
-        public static bool operator !=(User first, User second)
-        {
-            return !first.Equals(second);
         }
     }
 }
