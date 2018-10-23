@@ -19,18 +19,18 @@ namespace WhatINoted.Tests
         static void Main(string[] args)
         {
             // Populate test list
-            //tests.Add(new PingTest());
-            //tests.Add(new GFCM_HandleLoginTest());
-            //tests.Add(new GFCM_CreateNotebookTest());
-            //tests.Add(new GFCM_CreateNoteTest());
-            //tests.Add(new GFCM_DeleteUserTest());
-            //tests.Add(new GFCM_DeleteNotebookTest());
-            //tests.Add(new GFCM_DeleteNoteTest());
-            //tests.Add(new GFCM_GetNotebooksTest());
-            //tests.Add(new GFCM_GetNotebookNotesTest());
-            //tests.Add(new GFCM_GetUserNotesTest());
-            //tests.Add(new GFCM_GetNoteTest());
-            //tests.Add(new GFCM_UpdateNoteTest());
+            tests.Add(new PingTest());
+            tests.Add(new GFCM_HandleLoginTest());
+            tests.Add(new GFCM_CreateNotebookTest());
+            tests.Add(new GFCM_CreateNoteTest());
+            tests.Add(new GFCM_DeleteUserTest());
+            tests.Add(new GFCM_DeleteNotebookTest());
+            tests.Add(new GFCM_DeleteNoteTest());
+            tests.Add(new GFCM_GetNotebooksTest());
+            tests.Add(new GFCM_GetNotebookNotesTest());
+            tests.Add(new GFCM_GetUserNotesTest());
+            tests.Add(new GFCM_GetNoteTest());
+            tests.Add(new GFCM_UpdateNoteTest());
             tests.Add(new GFCM_GenerateFieldsJsonTest());
 
             DateTime now = DateTime.Now;
