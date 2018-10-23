@@ -72,24 +72,24 @@ namespace WhatINoted
         {
             get
             {
-                return fields.created.TimeStamp;
+                return fields.created.TimestampValue;
             }
 
             set
             {
-                fields.created.TimeStamp = value;
+                fields.created.TimestampValue = value;
             }
         }
         public DateTime Modified
         {
             get
             {
-                return fields.modified.TimeStamp;
+                return fields.modified.TimestampValue;
             }
 
             set
             {
-                fields.modified.TimeStamp = value;
+                fields.modified.TimestampValue = value;
             }
         }
     }
@@ -162,12 +162,12 @@ namespace WhatINoted
         {
             get
             {
-                return fields.publishDate.TimeStamp;
+                return fields.publishDate.TimestampValue;
             }
 
             set
             {
-                fields.publishDate.TimeStamp = value;
+                fields.publishDate.TimestampValue = value;
             }
         }
         public string CoverURL
@@ -186,24 +186,24 @@ namespace WhatINoted
         {
             get
             {
-                return fields.created.TimeStamp;
+                return fields.created.TimestampValue;
             }
 
             set
             {
-                fields.created.TimeStamp = value;
+                fields.created.TimestampValue = value;
             }
         }
         public DateTime Modified
         {
             get
             {
-                return fields.modified.TimeStamp;
+                return fields.modified.TimestampValue;
             }
 
             set
             {
-                fields.modified.TimeStamp = value;
+                fields.modified.TimestampValue = value;
             }
         }
     }
@@ -252,24 +252,24 @@ namespace WhatINoted
         {
             get
             {
-                return fields.created.TimeStamp;
+                return fields.created.TimestampValue;
             }
 
             set
             {
-                fields.created.TimeStamp = value;
+                fields.created.TimestampValue = value;
             }
         }
         public DateTime Modified
         {
             get
             {
-                return fields.modified.TimeStamp;
+                return fields.modified.TimestampValue;
             }
 
             set
             {
-                fields.modified.TimeStamp = value;
+                fields.modified.TimestampValue = value;
             }
         }
     }
@@ -311,13 +311,37 @@ namespace WhatINoted
 
     public class JsonNumericField
     {
-        public int integerValue { get; set; }
-        public double doubleValue { get; set; }
+        public string integerValue { get; set; }
+        public string doubleValue { get; set; }
+        public int IntegerValue
+        {
+            get
+            {
+                return integerValue == null ? default(int) : int.Parse(integerValue);
+            }
+
+            set
+            {
+                integerValue = value.ToString();
+            }
+        }
+        public double DoubleValue
+        {
+            get
+            {
+                return doubleValue == null ? default(double) : double.Parse(doubleValue);
+            }
+
+            set
+            {
+                doubleValue = value.ToString();
+            }
+        }
     }
 
     public class JsonDateTimeField
     {
         public string timestampValue { get; set; }
-        public DateTime TimeStamp { get { return timestampValue == null ? default(DateTime) : DateTime.Parse(timestampValue); } set { TimeStamp = value; } }
+        public DateTime TimestampValue { get { return timestampValue == null ? default(DateTime) : DateTime.Parse(timestampValue); } set { timestampValue = value.ToString("o"); } }
     }
 }

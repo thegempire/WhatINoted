@@ -474,10 +474,9 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>the Json string response from the Database</returns>
         private static string RunQuery(string collectionID, string fieldName, string fieldValue)
         {
-            string valueType = "stringValue";
             string structuredQuery = "{\"structuredQuery\":{\"where\":{\"fieldFilter\":{\"field\":{\"fieldPath\":\""
                 + fieldName + "\"},\"op\":\"EQUAL\",\"value\":{\""
-                + valueType + "\":\""
+                + FieldTypesClass.GetString(FieldTypes.StringValue) + "\":\""
                 + fieldValue + "\"}}},\"from\":[{\"collectionId\":\""
                 + collectionID + "\"}]}}";
             string path = ":runQuery";
@@ -491,12 +490,12 @@ namespace WhatINoted.ConnectionManagers
         {
             string createTimeUTC = DateTime.UtcNow.ToString("o");
 
-            List<Tuple<string, string, string>> fieldConfigList = new List<Tuple<string, string, string>>
+            List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
-                new Tuple<string, string, string>("displayName", "stringValue", displayName),
-                new Tuple<string, string, string>("email", "stringValue", email),
-                new Tuple<string, string, string>("created", "timestampValue", createTimeUTC),
-                new Tuple<string, string, string>("modified", "timestampValue", createTimeUTC)
+                new Tuple<string, FieldTypes, string>("displayName", FieldTypes.StringValue, displayName),
+                new Tuple<string, FieldTypes, string>("email", FieldTypes.StringValue, email),
+                new Tuple<string, FieldTypes, string>("created", FieldTypes.TimestampValue, createTimeUTC),
+                new Tuple<string, FieldTypes, string>("modified", FieldTypes.TimestampValue, createTimeUTC)
             };
 
             return GenerateFieldsJson(fieldConfigList);
@@ -510,17 +509,17 @@ namespace WhatINoted.ConnectionManagers
             string publishDateUTC = publishDate.ToUniversalTime().ToString("o");
             string createTimeUTC = DateTime.UtcNow.ToString("o");
 
-            List<Tuple<string, string, string>> fieldConfigList = new List<Tuple<string, string, string>>
+            List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
-                new Tuple<string, string, string>("userID", "stringValue", userID),
-                new Tuple<string, string, string>("title", "stringValue", title),
-                new Tuple<string, string, string>("author", "stringValue", author),
-                new Tuple<string, string, string>("isbn", "stringValue", isbn),
-                new Tuple<string, string, string>("publisher", "stringValue", publisher),
-                new Tuple<string, string, string>("publishDate", "timestampValue", publishDateUTC),
-                new Tuple<string, string, string>("coverURL", "stringValue", coverURL),
-                new Tuple<string, string, string>("created", "timestampValue", createTimeUTC),
-                new Tuple<string, string, string>("modified", "timestampValue", createTimeUTC)
+                new Tuple<string, FieldTypes, string>("userID", FieldTypes.StringValue, userID),
+                new Tuple<string, FieldTypes, string>("title", FieldTypes.StringValue, title),
+                new Tuple<string, FieldTypes, string>("author", FieldTypes.StringValue, author),
+                new Tuple<string, FieldTypes, string>("isbn", FieldTypes.StringValue, isbn),
+                new Tuple<string, FieldTypes, string>("publisher", FieldTypes.StringValue, publisher),
+                new Tuple<string, FieldTypes, string>("publishDate", FieldTypes.TimestampValue, publishDateUTC),
+                new Tuple<string, FieldTypes, string>("coverURL", FieldTypes.StringValue, coverURL),
+                new Tuple<string, FieldTypes, string>("created", FieldTypes.TimestampValue, createTimeUTC),
+                new Tuple<string, FieldTypes, string>("modified", FieldTypes.TimestampValue, createTimeUTC)
             };
 
             return GenerateFieldsJson(fieldConfigList);
@@ -533,13 +532,13 @@ namespace WhatINoted.ConnectionManagers
         {
             string createTimeUTC = DateTime.UtcNow.ToString("o");
 
-            List<Tuple<string, string, string>> fieldConfigList = new List<Tuple<string, string, string>>
+            List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
-                new Tuple<string, string, string>("userID", "stringValue", userID),
-                new Tuple<string, string, string>("notebookID", "stringValue", notebookID),
-                new Tuple<string, string, string>("noteText", "stringValue", noteText),
-                new Tuple<string, string, string>("created", "timestampValue", createTimeUTC),
-                new Tuple<string, string, string>("modified", "timestampValue", createTimeUTC)
+                new Tuple<string, FieldTypes, string>("userID", FieldTypes.StringValue, userID),
+                new Tuple<string, FieldTypes, string>("notebookID", FieldTypes.StringValue, notebookID),
+                new Tuple<string, FieldTypes, string>("noteText", FieldTypes.StringValue, noteText),
+                new Tuple<string, FieldTypes, string>("created", FieldTypes.TimestampValue, createTimeUTC),
+                new Tuple<string, FieldTypes, string>("modified", FieldTypes.TimestampValue, createTimeUTC)
             };
 
             return GenerateFieldsJson(fieldConfigList);
@@ -552,38 +551,16 @@ namespace WhatINoted.ConnectionManagers
         {
             string updateTimeUTC = DateTime.UtcNow.ToString("o");
 
-            List<Tuple<string, string, string>> fieldConfigList = new List<Tuple<string, string, string>>
+            List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
-                new Tuple<string, string, string>("userID", "stringValue", userID),
-                new Tuple<string, string, string>("notebookID", "stringValue", notebookID),
-                new Tuple<string, string, string>("noteText", "stringValue", noteText),
-                new Tuple<string, string, string>("created", "timestampValue", created.ToString("o")),
-                new Tuple<string, string, string>("modified", "timestampValue", updateTimeUTC)
+                new Tuple<string, FieldTypes, string>("userID", FieldTypes.StringValue, userID),
+                new Tuple<string, FieldTypes, string>("notebookID", FieldTypes.StringValue, notebookID),
+                new Tuple<string, FieldTypes, string>("noteText", FieldTypes.StringValue, noteText),
+                new Tuple<string, FieldTypes, string>("created", FieldTypes.TimestampValue, created.ToString("o")),
+                new Tuple<string, FieldTypes, string>("modified", FieldTypes.TimestampValue, updateTimeUTC)
             };
 
             return GenerateFieldsJson(fieldConfigList);
-        }
-
-        // TODO - Move to test project
-        public static void TestGenerateFieldsJson()
-        {
-            List<Tuple<string, string, string>> fieldConfigList = new List<Tuple<string, string, string>>();
-            string noConfigs = GenerateFieldsJson(fieldConfigList);
-            string noConfigsExpected = "{\"fields\":{}}";
-
-            fieldConfigList.Add(new Tuple<string, string, string>("fieldName1", "fieldType1", "fieldValue1"));
-            string oneConfig = GenerateFieldsJson(fieldConfigList);
-            string oneConfigExpected = "{\"fields\":{\"fieldName1\":{\"fieldType1\":\"fieldValue1\"}}}";
-
-            fieldConfigList.Add(new Tuple<string, string, string>("fieldName2", "fieldType2", "fieldValue2"));
-            string multipleConfigs = GenerateFieldsJson(fieldConfigList);
-            string multipleConfigsExpected = "{\"fields\":{\"fieldName1\":{\"fieldType1\":\"fieldValue1\"},\"fieldName2\":{\"fieldType2\":\"fieldValue2\"}}}";
-
-            // Test fieldConfigList not null
-            // Test fieldConfig values not null
-            // Test fieldConfig.Item2 value in ValueType enumeration
-
-            Console.WriteLine();
         }
 
         /// <summary>
@@ -591,19 +568,28 @@ namespace WhatINoted.ConnectionManagers
         /// </summary>
         /// <param name="fieldConfigList">a list of configurations</param>
         /// <returns></returns>
-        private static string GenerateFieldsJson(List<Tuple<string, string, string>> fieldConfigList)
+        public static string GenerateFieldsJson(List<Tuple<string, FieldTypes, string>> fieldConfigList)
         {
+            if (fieldConfigList == null)
+            {
+                throw new ArgumentNullException("Field Config List cannot be null");
+            }
+
             StringBuilder json = new StringBuilder();
             json.Append("{\"fields\":{");
             int extraCommaIndex = json.Length;
             if (fieldConfigList.Count > 0)
             {
-                foreach (Tuple<string, string, string> fieldConfig in fieldConfigList)
+                foreach (Tuple<string, FieldTypes, string> fieldConfig in fieldConfigList)
                 {
+                    if (fieldConfig.Item1 == null || fieldConfig.Item3 == null)
+                    {
+                        throw new ArgumentException("Field Config Values cannot be null");
+                    }
                     json.Append(",\"");
                     json.Append(fieldConfig.Item1);
                     json.Append("\":{\"");
-                    json.Append(fieldConfig.Item2);
+                    json.Append(FieldTypesClass.GetString(fieldConfig.Item2));
                     json.Append("\":\"");
                     json.Append(fieldConfig.Item3);
                     json.Append("\"}");
@@ -612,6 +598,34 @@ namespace WhatINoted.ConnectionManagers
             }
             json.Append("}}");
             return json.ToString();
+        }
+    }
+
+    public enum FieldTypes
+    {
+        StringValue = 0,
+        IntegerValue = 1,
+        DoubleValue = 2,
+        TimestampValue = 3
+    }
+
+    public static class FieldTypesClass
+    {
+        public static string GetString(FieldTypes type)
+        {
+            switch (type)
+            {
+                case FieldTypes.StringValue:
+                    return "stringValue";
+                case FieldTypes.IntegerValue:
+                    return "integerValue";
+                case FieldTypes.DoubleValue:
+                    return "doubleValue";
+                case FieldTypes.TimestampValue:
+                    return "timestampValue";
+                default:
+                    return "";
+            }
         }
     }
 
