@@ -117,7 +117,15 @@ namespace WhatINoted.Models
                 && Author == model.Author
                 && Isbn == model.Isbn
                 && Publisher == model.Publisher
-                && PublishDate == model.PublishDate
+                // Dates returned from database have rounding errors making comparison with == inconsistent
+                // Eg. PublishDate == model.PublishDate does not always return true when it should
+                // This should be sufficient
+                && PublishDate.Year == model.PublishDate.Year
+                && PublishDate.Month == model.PublishDate.Month
+                && PublishDate.Day == model.PublishDate.Day
+                && PublishDate.Hour == model.PublishDate.Hour
+                && PublishDate.Minute == model.PublishDate.Minute
+                && PublishDate.Second == model.PublishDate.Second
                 && CoverURL == model.CoverURL;
         }
 
