@@ -49,8 +49,9 @@
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert("Error - Status: " + textStatus + "\n" + "jqXHR Status: " + jqXHR.status + "\n" + "jqXHR Response Text: " + jqXHR.responseText) },
                 success: function (msg) {
+                    console.log(msg);
                     if (msg.d == true) {
-                        window.location.href = "Notes.aspx";
+                        //window.location.href = "Notes.aspx";
                     }
                     else {
                         //show error

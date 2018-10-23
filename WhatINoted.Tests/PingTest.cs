@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-namespace WhatINoted.Tests2
+namespace WhatINoted.Tests
 {
     public class PingTest : Test
     {

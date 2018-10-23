@@ -8,4 +8,15 @@
   <ItemGroup>
     <Folder Include="TestResults\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WhatINoted\WhatINoted.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="GoogleFirestoreConnectionManagerTests.cs" />
+  </ItemGroup>
 </Project>

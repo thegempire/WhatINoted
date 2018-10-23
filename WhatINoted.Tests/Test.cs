@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-namespace WhatINoted.Tests2
+namespace WhatINoted.Tests
 {
     public interface Test
     {
