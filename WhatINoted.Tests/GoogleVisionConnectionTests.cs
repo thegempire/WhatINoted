@@ -27,11 +27,14 @@ namespace WhatINoted.Tests
 
         private class GoogleVisionTestConnection : Test
         {
+
+            private static readonly System.Drawing.Image TEST_INPUT_IMAGE;
+
             public bool Run(StreamWriter sw)
             {
-                if (false /* TODO: Test connection */)
+                if (GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE) == null)
                 {
-                    sw.WriteLine("GoogleVisionTestConnection failed: Could not connect.");
+                    sw.WriteLine("GoogleVisionTestConnection failed: No response from API.");
                     return false;
                 }
 
