@@ -17,7 +17,7 @@ namespace WhatINoted.ConnectionManagers
         /// ***This is the location of the json credentials file for the Google Vision service account. Change this if the path is wrong or changes.***
         /// </summary>
 
-        private static readonly string JsonPath = AppDomain.CurrentDomain.BaseDirectory + "Resources\\WhatINoted-5bba0c1ecaf8.json";
+        private static readonly string JsonPath = "Resources\\WhatINoted-5bba0c1ecaf8.json";
         public const string GOOGLE_APPLICATION_CREDENTIALS = "GOOGLE_APPLICATION_CREDENTIALS";
 
         /// <summary>

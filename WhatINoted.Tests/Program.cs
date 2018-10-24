@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-namespace WhatINoted.Tests2
+namespace WhatINoted.Tests
 {
     class Program
     {
@@ -17,7 +17,8 @@ namespace WhatINoted.Tests2
         static void Main(string[] args)
         {
             // Populate test list
-            tests.Add(new PingTest());
+            //tests.Add(new PingTest());
+            tests.AddRange(GoogleVisionConnectionTests.GetTests());
 
             DateTime now = DateTime.Now;
             string dateTimeString = now.ToString("yyyy-MM-dd HH\\hmm");
