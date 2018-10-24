@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Drawing;
-using WhatINoted.Tests2;
 using WhatINoted.ConnectionManagers;
-using Image = Google.Cloud.Vision.V1.Image;
 
 namespace WhatINoted.Tests
 {
     class GoogleVisionConnectionTests
     {
-        public static List<Test> getTests()
+        /// <summary>
+        /// Get a list of Google Vision tests.
+        /// </summary>
+        /// <returns>list of Google Vision tests</returns>
+        public static List<Test> GetTests()
         {
             List<Test> tests = new List<Test>();
             tests.Add(new GoogleVisionTestConnection());
             tests.Add(new GoogleVisionTestExtractText1());
+            tests.Add(new GoogleVisionTestExtractText2());
+            tests.Add(new GoogleVisionTestExtractText3());
+            tests.Add(new GoogleVisionTestExtractIsbn1());
+            tests.Add(new GoogleVisionTestExtractIsbn2());
             return tests;
         }
 
@@ -32,16 +38,16 @@ namespace WhatINoted.Tests
                 return true;
             }
         }
-        
+
         private class GoogleVisionTestExtractText1 : Test
         {
 
-            private static readonly Image TEST_TEXT_1_IMAGE;
-            private static readonly String TEST_TEXT_1_RESULT = "";
+            private static readonly System.Drawing.Image TEST_INPUT_IMAGE;
+            private static readonly String TEST_RESULT_TEXT = "";
 
             public bool Run(StreamWriter sw)
             {
-                if (!GoogleVisionConnectionManager.ExtractText(TEST_TEXT_1_IMAGE).Equals(TEST_TEXT_1_RESULT))
+                if (!GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE).Equals(TEST_RESULT_TEXT))
                 {
                     sw.WriteLine("GoogleVisionTestExtractText1 failed: Extracted text does not match expected result.");
                     return false;
@@ -51,98 +57,76 @@ namespace WhatINoted.Tests
             }
         }
 
-        private static readonly int NUM_TESTS = 6;
-
-
-        private static readonly Image TEST_TEXT_2_IMAGE;
-        private static readonly String TEST_TEXT_2_RESULT = "";
-
-        private static readonly Image TEST_TEXT_3_IMAGE;
-        private static readonly String TEST_TEXT_3_RESULT = "";
-
-        private static readonly Image TEST_ISBN_1_IMAGE;
-        private static readonly String TEST_ISBN_1_RESULT = "";
-
-        private static readonly Image TEST_ISBN_2_IMAGE;
-        private static readonly String TEST_ISBN_2_RESULT = "";
-
-        public bool Run(StreamWriter sw)
+        private class GoogleVisionTestExtractText2 : Test
         {
-            //// TEST TEXT RESOLUTION ////
 
-            if (!TestText1(sw))
+            private static readonly Image TEST_INPUT_IMAGE;
+            private static readonly String TEST_RESULT_TEXT = "";
+
+            public bool Run(StreamWriter sw)
             {
-                sw.WriteLine("GoogleVisionConnectionTests: Text resolution test 1 failed.");
-                ++failed;
-            }
+                if (!GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE).Equals(TEST_RESULT_TEXT))
+                {
+                    sw.WriteLine("GoogleVisionTestExtractText2 failed: Extracted text does not match expected result.");
+                    return false;
+                }
 
-            if (!TestText2(sw))
+                return true;
+            }
+        }
+
+        private class GoogleVisionTestExtractText3 : Test
+        {
+
+            private static readonly Image TEST_INPUT_IMAGE;
+            private static readonly String TEST_RESULT_TEXT = "";
+
+            public bool Run(StreamWriter sw)
             {
-                sw.WriteLine("GoogleVisionConnectionTests: Text resolution test 2 failed.");
-                ++failed;
-            }
+                if (!GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE).Equals(TEST_RESULT_TEXT))
+                {
+                    sw.WriteLine("GoogleVisionTestExtractText3 failed: Extracted text does not match expected result.");
+                    return false;
+                }
 
-            if (!TestText3(sw))
+                return true;
+            }
+        }
+
+        private class GoogleVisionTestExtractIsbn1 : Test
+        {
+
+            private static readonly Image TEST_INPUT_IMAGE;
+            private static readonly string TEST_RESULT_TEXT = "";
+
+            public bool Run(StreamWriter sw)
             {
-                sw.WriteLine("GoogleVisionConnectionTests: Text resolution test 3 failed.");
-                ++failed;
+                if (!GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE).equals(TEST_RESULT_TEXT))
+                {
+                    sw.WriteLine("GoogleVisionTestExtractIsbn1 failed: Extracted ISBN does not match expected result.");
+                    return false;
+                }
+
+                return true;
             }
+        }
 
+        private class GoogleVisionTestExtractIsbn2 : Test
+        {
 
+            private static readonly Image TEST_INPUT_IMAGE;
+            private static readonly string TEST_RESULT_TEXT = "";
 
-            //// TEST ISBN RESOLUTION ////
-
-            if (!TestIsbn1(sw))
+            public bool Run(StreamWriter sw)
             {
-                sw.WriteLine("GoogleVisionConnectionTests: ISBN resolution test 1 failed.");
-                ++failed;
+                if (!GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE).equals(TEST_RESULT_TEXT))
+                {
+                    sw.WriteLine("GoogleVisionTestExtractIsbn2 failed: Extracted ISBN does not match expected result.");
+                    return false;
+                }
+
+                return true;
             }
-
-            if (!TestIsbn1(sw))
-            {
-                sw.WriteLine("GoogleVisionConnectionTests: ISBN resolution test 2 failed.");
-                ++failed;
-            }
-
-            sw.WriteLine("GoogleVisionConnectionTests: (" + failed + "/" + NUM_TESTS + ") tests failed.");
-            return (failed == 0);
-        }
-
-        private bool TestConnection(StreamWriter sw)
-        {
-            
-
-            return true;
-        }
-
-        private bool TestText1(StreamWriter sw)
-        {
-            String resolved = "";//GoogleVisionConnectionManager.ExtractText(TEST_TEXT_1_IMAGE);
-            return resolved.Equals(TEST_TEXT_1_RESULT);
-        }
-
-        private bool TestText2(StreamWriter sw)
-        {
-            String resolved = "";//GoogleVisionConnectionManager.ExtractText(TEST_TEXT_2_IMAGE);
-            return resolved.Equals(TEST_TEXT_2_RESULT);
-        }
-
-        private bool TestText3(StreamWriter sw)
-        {
-            String resolved = "";//GoogleVisionConnectionManager.ExtractText(TEST_TEXT_3_IMAGE);
-            return resolved.Equals(TEST_TEXT_3_RESULT);
-        }
-
-        private bool TestIsbn1(StreamWriter sw)
-        {
-            String resolved = "";//GoogleVisionConnectionManager.ExtractText(TEST_ISBN_1_IMAGE);
-            return resolved.Equals(TEST_ISBN_1_RESULT);
-        }
-
-        private bool TestIsbn2(StreamWriter sw)
-        {
-            String resolved = "";//GoogleVisionConnectionManager.ExtractText(TEST_ISBN_2_IMAGE);
-            return resolved.Equals(TEST_ISBN_2_RESULT);
         }
     }
 }
