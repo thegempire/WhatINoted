@@ -13,7 +13,7 @@ namespace WhatINoted
     /// </summary>
     public partial class NotebooksView : AddNoteView
     {
-        private List<Models.NotebookModel> Notebooks;
+        private List<Models.Notebook> Notebooks;
 
         protected void Page_Load(object sender, EventArgs e)
         {
