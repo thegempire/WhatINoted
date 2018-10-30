@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Script.Services;
 using System.Web.Services;
+using WhatINoted.ConnectionManagers;
 
 namespace WhatINoted
 {
@@ -22,6 +23,7 @@ namespace WhatINoted
         {
             UpdateText = false;
             UpdateNotebook = false;
+            GoogleVisionConnectionManager.ExtractText(null);
         }
 
         [WebMethod, ScriptMethod]
