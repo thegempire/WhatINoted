@@ -11,6 +11,9 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.43.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,5 +21,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="GoogleFirestoreConnectionManagerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\netcoreapp2.1\geckodriver" />
+    <None Include="bin\Debug\netcoreapp2.1\chromedriver" />
   </ItemGroup>
 </Project>

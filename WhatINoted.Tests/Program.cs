@@ -19,7 +19,7 @@ namespace WhatINoted.Tests
         static void Main(string[] args)
         {
             // Populate test list
-            tests.Add(new PingTest());
+            /*tests.Add(new PingTest());
             tests.Add(new GFCM_HandleLoginTest());
             tests.Add(new GFCM_CreateNotebookTest());
             tests.Add(new GFCM_CreateNoteTest());
@@ -31,7 +31,8 @@ namespace WhatINoted.Tests
             tests.Add(new GFCM_GetUserNotesTest());
             tests.Add(new GFCM_GetNoteTest());
             tests.Add(new GFCM_UpdateNoteTest());
-            tests.Add(new GFCM_GenerateFieldsJsonTest());
+            tests.Add(new GFCM_GenerateFieldsJsonTest());*/
+            tests.Add(new ExampleKatalonTest());
 
             DateTime now = DateTime.Now;
             string dateTimeString = now.ToString("yyyy-MM-dd HH\\hmm");
