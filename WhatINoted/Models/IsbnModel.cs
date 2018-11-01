@@ -17,16 +17,37 @@ namespace WhatINoted.Models
         /// </summary>
         public readonly String Number;
 
+        /// <summary>
+        /// ISBN Type
+        /// </summary>
         public readonly IsbnType Type;
 
         /// <summary>
         /// Construct an IsbnModel with the given ISBN.
         /// </summary>
         /// <param name="number">String representation of the ISBN</param>
-        public IsbnModel(String Number, IsbnType Type)
+        public IsbnModel(String Number)
         {
             this.Number = Number;
-            this.Type = Type;
+
+            if (Number.Length == 10)
+                this.Type = IsbnType.ISBN_10;
+
+            else if (Number.Length == 13)
+                this.Type = IsbnType.ISBN_13;
+
+            else throw new ArgumentException("IsbnModel: Number is not 10 or 13 characters in length.");
+
+            try
+            {
+                if (!IsValid())
+                    throw new ArgumentException("IsbnModel: Validation failed.");
+            }
+            catch (ArgumentException e)
+            {
+                throw e;
+            }
+
         }
 
         /// <summary>
@@ -48,6 +69,10 @@ namespace WhatINoted.Models
             }
         }
 
+        /// <summary>
+        /// ISBN 10 validation
+        /// </summary>
+        /// <returns>True if Number is a valid ISBN 10</returns>
         private bool isValidIsbn10()
         {
             int sum = 0;
@@ -56,24 +81,38 @@ namespace WhatINoted.Models
             for (int i = 0; i < 9; i++)
             {
                 if (Int32.TryParse(Number.Substring(i, i + 1), out digit))
+                {
                     sum += (10 - i) * digit;
+                }
 
                 else
-                    throw new ArgumentException("");
+                {
+                    throw new ArgumentException("IsbnModel: String contains an invalid character.");
+                }
             }
 
             if (Int32.TryParse(Number.Substring(9, 10), out digit))
+            {
                 sum += 10 * digit;
+            }
 
             else if (Number[9] == 'X')
+            {
                 sum += 10;
+            }
 
             else
-                ;// throw an exception
+            {
+                throw new ArgumentException("IsbnModel: String contains an invalid character.");
+            }
 
             return (sum % 11) == 0;
         }
-
+        
+        /// <summary>
+        /// ISBN 13 validation
+        /// </summary>
+        /// <returns>True if Number is a valid ISBN 13</returns>
         private bool isValidIsbn13()
         {
             int sum = 0;
@@ -81,17 +120,21 @@ namespace WhatINoted.Models
 
             for (int i = 0; i < 13; i++)
             {
-                if (Int32.TryParse(Number.Substring(i, i+1), out digit))
+                if (Int32.TryParse(Number.Substring(i, i + 1), out digit))
                 {
                     if (i % 2 == 1)
+                    {
                         sum += digit;
+                    }
 
                     else
+                    {
                         sum += 3 * digit;
+                    }
                 }
                 else
                 {
-                    // throw an exception
+                    throw new ArgumentException("IsbnModel: String contains an invalid character.");
                 }
             }
 
