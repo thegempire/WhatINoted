@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="MainUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            
+
             <asp:Button runat="server" ID="btnOpenNotebookPostback" Style="display: none" OnClick="OpenNotebook" />
             <div runat="server" id="MainNotebooks" class="mainNotebookDiv">
                 <!-- Notebook images(?) go in here -->
@@ -24,6 +24,7 @@
     </asp:UpdatePanel>
 
     <script>
+        window.addEventListener('load', handleLoginForContentPage());
         function click_openNotebook() {
             document.getElementById('<%= btnOpenNotebookPostback.ClientID %>').click();
         }

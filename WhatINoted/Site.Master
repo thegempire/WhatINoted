@@ -8,14 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - What I Noted</title>
 
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/bundles/modernizr") %>
-    </asp:PlaceHolder>
+    <asp:PlaceHolder runat="server"><%: Scripts.Render("~/bundles/modernizr") %></asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <!--tab icon-->
-
 </head>
 <body>
     <form runat="server">
@@ -45,14 +42,26 @@
                     <a class="navbar-brand" runat="server" href="~/">What I Noted</a>
                 </div>
                 <div>
-                    <a class="navbar-logout" runat="server">Logout</a>
+                    <%--<asp:Label class="label" runat="server">Welcome</asp:Label>--%>
+                    <a class="navbar-logout hidden" runat="server" onclick="logout()">Logout</a>
                 </div>
             </div>
         </div>
+
+        <!-- Firebase Initialization -->
+        <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+
+        <!-- FirebaseUI - Authentication -->
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+
+        <!-- Site specific authentication code -->
+        <script src="Authentication.js"></script>
+
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
         </div>
+
         <script src="Scripts/Helper.js"></script>
     </form>
 </body>
