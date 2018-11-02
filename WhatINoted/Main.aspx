@@ -21,8 +21,10 @@
                     New Note
                 </div>
             </div>
+
             <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
-            <asp:Button runat="server" class="handleLoginTrigger hidden" CommandName="HandleLogin" CommandArgument="willbeuserid" OnClick="UpdateNotebooks" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdateNotebooks" />
+
         </ContentTemplate>
     </asp:UpdatePanel>
 

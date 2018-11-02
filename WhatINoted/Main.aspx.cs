@@ -21,7 +21,6 @@ namespace WhatINoted
 
         }
 
-
         [WebMethod, ScriptMethod]
         public void UpdateNotebooks(object sender, EventArgs e)
         {
@@ -83,9 +82,9 @@ namespace WhatINoted
         }
 
         [WebMethod]
-        public static string HandleLogin(string userID, string displayName, string email)
+        public static void HandleLogin(string userID, string displayName, string email)
         {
-            return GoogleFirestoreConnectionManager.HandleLogin(userID, displayName, email).ID;
+            GoogleFirestoreConnectionManager.HandleLogin(userID, displayName, email);
         }
     }
 }
