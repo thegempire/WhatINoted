@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Drawing;
 using Newtonsoft.Json;
+using WhatINoted.Models;
+using System.Net;
 
 namespace WhatINoted.ConnectionManagers
 {
@@ -16,25 +18,15 @@ namespace WhatINoted.ConnectionManagers
     {
         private static readonly String REQUEST_BASE = "https://www.googleapis.com/books/v1/volumes?q=";
 
-        /// <summary>
-        /// Searches for books by ISBN via the Google Books API.
-        /// </summary>
-        /// <returns>A list of matching books.</returns>
-        /// <param name="isbn">ISBN.</param>
-        public static List<Models.BookSearchResultsModel> SearchByISBN(Models.IsbnModel isbn)
+        public static List<BookSearchResultsModel> SearchVolumes(String title, String author, String publisher, IsbnModel isbn)
         {
-            return new List<Models.BookSearchResultsModel>();
-        }
+            using (WebClient wc = new WebClient())
+            {
+                String jsonString = wc.DownloadString(BuildRequestURI(title, author, publisher, isbn.Number));
+                List<BookSearchResultsModel> results = SearchResultsFromJSON(jsonString);
 
-        /// <summary>
-        /// Searches for books by title and author via the Google Books API.
-        /// </summary>
-        /// <returns>A list of matching books.</returns>
-        /// <param name="title">Title.</param>
-        /// <param name="author">Author.</param>
-        public static List<Models.BookSearchResultsModel> SearchByDetails(String title, String author)
-        {
-            return new List<Models.BookSearchResultsModel>();
+                return results;
+            }
         }
 
         /// <summary>
@@ -92,9 +84,22 @@ namespace WhatINoted.ConnectionManagers
 
         private static List<Models.BookSearchResultsModel> SearchResultsFromJSON(String jsonString)
         {
-            var jsonObj = JsonConvert.DeserializeObject(jsonString);
+            List<Models.BookSearchResultsModel> searchResults = new List<Models.BookSearchResultsModel>();
 
+            JsonVolumeList jsonVolumes = JsonConvert.DeserializeObject<JsonVolumeList>(jsonString);
+            foreach (JsonVolume volume in jsonVolumes.volumes)
+            {
+                try
+                {
+                    searchResults.Add(new BookSearchResultsModel(volume.title.stringValue, volume.authors[0].stringValue, volume.publisher.stringValue, volume.isbn.stringValue));
+                }
+                catch (ArgumentException e)
+                {
+                    Console.Error.WriteLine("Processed Google Books search result with invalid ISBN: " + volume.isbn.stringValue);
+                }
+            }
 
+            return searchResults;
         }
     }
 }

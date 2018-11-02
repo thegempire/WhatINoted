@@ -344,4 +344,23 @@ namespace WhatINoted
         public string timestampValue { get; set; }
         public DateTime TimestampValue { get { return timestampValue == null ? default(DateTime) : DateTime.Parse(timestampValue); } set { timestampValue = value.ToString("o"); } }
     }
+
+    /***********************************************************************************/
+    /********************** Google Books JSON wrapper objects **************************/
+    /***********************************************************************************/
+
+    public class JsonVolumeList
+    {
+        public JsonVolume[] volumes { get; set; }
+    }
+
+    public class JsonVolume
+    {
+        public JsonStringField title { get; set; }
+        public JsonStringField[] authors { get; set; }
+        public JsonStringField publishedDate { get; set; }
+        public JsonStringField publisher { get; set; }
+        public JsonStringField isbn { get; set; }
+    }
+
 }

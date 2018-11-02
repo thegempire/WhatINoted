@@ -21,9 +21,14 @@ namespace WhatINoted.Models
         public readonly String Author;
 
         /// <summary>
+        /// Publisher of the book.
+        /// </summary>
+        public readonly String Publisher;
+
+        /// <summary>
         /// ISBN of the book.
         /// </summary>
-        public readonly IsbnModel ISBN;
+        public readonly String ISBN;
 
         /// <summary>
         /// Construct a BookSearchResultsModel with the given characteristics.
@@ -31,10 +36,11 @@ namespace WhatINoted.Models
         /// <param name="Title">title of the book</param>
         /// <param name="Author">author of the book</param>
         /// <param name="ISBN">isbn of the book</param>
-        public BookSearchResultsModel(String Title, String Author, IsbnModel ISBN)
+        public BookSearchResultsModel(String Title, String Author, String Publisher, String ISBN)
         {
             this.Title = Title;
             this.Author = Author;
+            this.Publisher = Publisher;
             this.ISBN = ISBN;
         }
     }

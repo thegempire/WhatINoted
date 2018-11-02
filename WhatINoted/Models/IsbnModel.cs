@@ -38,15 +38,8 @@ namespace WhatINoted.Models
 
             else throw new ArgumentException("IsbnModel: Number is not 10 or 13 characters in length.");
 
-            try
-            {
-                if (!IsValid())
-                    throw new ArgumentException("IsbnModel: Validation failed.");
-            }
-            catch (ArgumentException e)
-            {
-                throw e;
-            }
+            if (!IsValid())
+                throw new ArgumentException("IsbnModel: Validation failed.");
 
         }
 
