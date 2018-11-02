@@ -45,6 +45,13 @@ function handleLoginForContentPage() {
         if (user) {
             // User is logged in
             document.getElementsByClassName("navbar-logout")[0].classList.remove("hidden");
+            var data = '{userID: "' + user.uid + '", displayName: "' + user.displayName + '", email: "' + user.email + '" }';
+            callCSMethod("Main.aspx/HandleLogin", data, function () {
+                let userIDElement = document.getElementById("MainContent_HandleLoginUserID");
+                userIDElement.value = user.uid;
+                let triggerButton = document.getElementsByClassName('handleLoginTrigger')[0];
+                triggerButton.click();
+            }.bind(user))
         } else {
             // User is logged out
             window.location = "./Default.aspx";

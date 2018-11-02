@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="What I Noted" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Main.aspx.cs" Inherits="WhatINoted.NotebooksView" %>
 
+<%@ Import Namespace="WhatINoted.ConnectionManagers" %>
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="MainUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
@@ -19,12 +21,13 @@
                     New Note
                 </div>
             </div>
-
+            <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" CommandName="HandleLogin" CommandArgument="willbeuserid" OnClick="UpdateNotebooks" />
         </ContentTemplate>
     </asp:UpdatePanel>
 
     <script>
-        window.addEventListener('load', handleLoginForContentPage());
+        window.addEventListener('load', handleLoginForContentPage);
         function click_openNotebook() {
             document.getElementById('<%= btnOpenNotebookPostback.ClientID %>').click();
         }

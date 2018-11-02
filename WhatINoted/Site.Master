@@ -48,6 +48,9 @@
             </div>
         </div>
 
+        <!-- Helper functions -->
+        <script src="Scripts/Helper.js"></script>
+
         <!-- Firebase Initialization -->
         <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
 
@@ -61,8 +64,6 @@
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
         </div>
-
-        <script src="Scripts/Helper.js"></script>
     </form>
 </body>
 </html>
