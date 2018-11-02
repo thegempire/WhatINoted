@@ -2,7 +2,7 @@
   "profiles": {
     "WhatINoted.Tests": {
       "commandName": "Project",
-      "workingDirectory": "C:\\Users\\APCP\\Source\\Repos\\WhatINoted\\WhatINoted.Tests"
+      "workingDirectory": "C:\\Users\\liam\\source\\repos\\WhatINoted\\WhatINoted.Tests"
     }
   }
 }

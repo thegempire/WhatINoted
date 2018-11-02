@@ -33,6 +33,8 @@ namespace WhatINoted.Tests
             tests.Add(new GFCM_GetNoteTest());
             tests.Add(new GFCM_UpdateNoteTest());
             tests.Add(new GFCM_GenerateFieldsJsonTest());
+            tests.AddRange(GoogleBooksConnectionTests.GetTests());
+            tests.Add(new IsbnModelTest());
 
             DateTime now = DateTime.Now;
             string dateTimeString = now.ToString("yyyy-MM-dd HH\\hmm");

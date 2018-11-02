@@ -91,7 +91,7 @@ namespace WhatINoted
         /// </summary>
         /// <returns>The book with the specified ISBN.</returns>
         private Models.BookSearchResultsModel SearchByIsbn(Models.IsbnModel isbn) {
-            return new Models.BookSearchResultsModel("", "", isbn);
+            return new Models.BookSearchResultsModel("", "", "", "", "", "");
         }
 
         /// <summary>

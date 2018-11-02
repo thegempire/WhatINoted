@@ -73,7 +73,7 @@ namespace WhatINoted.Models
 
             for (int i = 0; i < 9; i++)
             {
-                if (Int32.TryParse(Number.Substring(i, i + 1), out digit))
+                if (Int32.TryParse(Number.Substring(i, 1), out digit))
                 {
                     sum += (10 - i) * digit;
                 }
@@ -84,7 +84,7 @@ namespace WhatINoted.Models
                 }
             }
 
-            if (Int32.TryParse(Number.Substring(9, 10), out digit))
+            if (Int32.TryParse(Number.Substring(9, 1), out digit))
             {
                 sum += 10 * digit;
             }
@@ -113,9 +113,9 @@ namespace WhatINoted.Models
 
             for (int i = 0; i < 13; i++)
             {
-                if (Int32.TryParse(Number.Substring(i, i + 1), out digit))
+                if (Int32.TryParse(Number.Substring(i, 1), out digit))
                 {
-                    if (i % 2 == 1)
+                    if (i % 2 == 0)
                     {
                         sum += digit;
                     }
