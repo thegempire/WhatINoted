@@ -20,6 +20,7 @@ namespace WhatINoted.Tests
         {
             // Populate test list
             tests.Add(new PingTest());
+            tests.AddRange(GoogleVisionConnectionTests.GetTests());
             tests.Add(new GFCM_HandleLoginTest());
             tests.Add(new GFCM_CreateNotebookTest());
             tests.Add(new GFCM_CreateNoteTest());
