@@ -54,8 +54,8 @@ namespace WhatINoted.Tests
             public bool Run(StreamWriter sw)
             {
                 bool passed = SearchVolumesTitle(sw);
-                passed = passed & SearchVolumesAuthor(sw);
-                passed = SearchVolumesPublisher(sw);
+                passed = passed && SearchVolumesAuthor(sw);
+                passed = passed && SearchVolumesPublisher(sw);
                 passed = passed && SearchVolumesIsbn(sw);
                 passed = passed && SearchVolumesTitleAuthor(sw);
                 passed = passed && SearchVolumesTitlePublisher(sw);
