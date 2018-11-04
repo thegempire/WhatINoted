@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using WhatINoted.ConnectionManagers;
+using WhatINoted.Models;
 
 namespace WhatINoted
 {
@@ -17,51 +18,50 @@ namespace WhatINoted
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //get all (or some) notebooks from database
 
-            //create a div for each notebook
-            HtmlGenericControl[] notebookDivs = CreateNotebookDivs(/*Notebooks*/);
+        }
 
-            for (int i = 0; i < notebookDivs.Length; i++)
+        [WebMethod, ScriptMethod]
+        public void UpdateNotebooks(object sender, EventArgs e)
+        {
+            string userID = HandleLoginUserID.Value;
+            Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
+
+            List<HtmlGenericControl> notebookDivs = GenerateNotebookDivs();
+            foreach (HtmlGenericControl notebookDiv in notebookDivs)
             {
-                MainNotebooks.Controls.Add(notebookDivs[i]);
-
+                MainNotebooks.Controls.Add(notebookDiv);
             }
         }
 
-        private HtmlGenericControl[] CreateNotebookDivs(/*Notebooks*/)
+        protected List<HtmlGenericControl> GenerateNotebookDivs()
         {
-            HtmlGenericControl[] notebookDivs = new HtmlGenericControl[/*Notebooks.Count*/8];
-            /*foreach(Notebook n in Notebooks)
-             * {
-             * 
-             * }
-             */
-            //temp
-            for (int i = 0; i < 8; i++)
+            List<HtmlGenericControl> notebookDivs = new List<HtmlGenericControl>();
+            foreach (Notebook notebook in Notebooks)
             {
-                notebookDivs[i] = new HtmlGenericControl("div");
-                notebookDivs[i].Attributes["class"] = "mainNotebooksDiv notebookColor";
-                notebookDivs[i].Attributes["onclick"] = "click_openNotebook()";
+                HtmlGenericControl notebookDiv = new HtmlGenericControl("div");
+                notebookDiv.Attributes["class"] = "mainNotebooksDiv notebookColor";
+                notebookDiv.Attributes["onclick"] = "click_openNotebook()";
 
                 HtmlGenericControl titleDiv = new HtmlGenericControl("div");
                 titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
-                titleDiv.InnerHtml = /*Notebook Title*/"Notebook for Science, 8th Edition";
-                notebookDivs[i].Controls.Add(titleDiv);
+                titleDiv.InnerHtml = notebook.Title;
+                notebookDiv.Controls.Add(titleDiv);
 
                 HtmlGenericControl imageDiv = new HtmlGenericControl("div");
                 imageDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookImageDiv";
                 HtmlGenericControl image = new HtmlGenericControl("img");
-                image.Attributes["src"] = "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api";
-                image.Attributes["alt"] = "";
+                image.Attributes["src"] = notebook.CoverURL;
+                image.Attributes["alt"] = notebook.Title + " Cover Art";
                 image.Attributes["class"] = "mainNotebookImage";
                 imageDiv.Controls.Add(image);
-                notebookDivs[i].Controls.Add(imageDiv);
+                notebookDiv.Controls.Add(imageDiv);
 
                 HtmlGenericControl numNotesDiv = new HtmlGenericControl("div");
                 numNotesDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookNumNotesDiv";
-                numNotesDiv.InnerHtml = /*Number of Notes*/"13 Notes";
-                notebookDivs[i].Controls.Add(numNotesDiv);
+                numNotesDiv.InnerHtml = GoogleFirestoreConnectionManager.GetNotebookNotes(notebook.ID).Count.ToString();
+                notebookDiv.Controls.Add(numNotesDiv);
+                notebookDivs.Add(notebookDiv);
             }
             return notebookDivs;
         }
@@ -79,6 +79,12 @@ namespace WhatINoted
         protected void OpenNotebook(object sender, EventArgs e)
         {
             Response.Redirect("Notes.aspx", true);
+        }
+
+        [WebMethod]
+        public static void HandleLogin(string userID, string displayName, string email)
+        {
+            GoogleFirestoreConnectionManager.HandleLogin(userID, displayName, email);
         }
     }
 }
