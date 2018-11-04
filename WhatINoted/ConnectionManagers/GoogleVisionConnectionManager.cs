@@ -10,13 +10,23 @@ namespace WhatINoted.ConnectionManagers
     /// Connection Manager to handle interactions with the Google Vision image
     /// analysis API. Specifically this class is used to connect to the API
     /// and extract text from a given image.
+    /// 
+    /// Notes:
+    /// OCR limitations:
+    ///    Image Size = 20MB
+    ///    JSON object request size = 10MB
+    ///    Images per request = 16
+    /// Base64-encoded images may exceed the JSON size limit, even if they are within the image file size limit.Larger images should be hosted on Cloud Storage or at a publicly-accessible URL. Note that base64-encoded images can have a larger file size than the original image file (usually about 37% larger).
+    /// Requests per minute	 = 1,800
+    /// Images per feature per month = 20,000,000
     /// </summary>
     public class GoogleVisionConnectionManager
     {
         /// <summary>
         /// ***This is the location of the json credentials file for the Google Vision service account. Change this if the path is wrong or changes.***
         /// </summary>
-        private static readonly string JsonPath = AppDomain.CurrentDomain.BaseDirectory + "Resources\\WhatINoted-5bba0c1ecaf8.json";
+
+        private static readonly string JsonPath = "Resources\\WhatINoted-5bba0c1ecaf8.json";
         public const string GOOGLE_APPLICATION_CREDENTIALS = "GOOGLE_APPLICATION_CREDENTIALS";
 
         /// <summary>
