@@ -50,7 +50,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).ID;
+                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL).ID;
                 GoogleFirestoreConnectionManager.DeleteUser(userID1);
                 List<Notebook> temp = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
                 if (temp == null || temp.Count != 0)

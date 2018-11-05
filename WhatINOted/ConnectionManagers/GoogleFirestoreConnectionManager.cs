@@ -278,38 +278,6 @@ namespace WhatINoted.ConnectionManagers
         }
 
         /// <summary>
-        /// Creates a notebook using information retrieved from the ISBN API.
-        /// </summary>
-        /// <param name="userID">the ID of the user that the notebook belongs to</param>
-        /// <param name="isbn">the ISBN of the book</param>
-        /// <returns>the created notebook</returns>
-        public static Notebook CreateNotebook(string userID, string isbn)
-        {
-            //throw new NotImplementedException();
-
-            if (userID == null || isbn == null || userID == "" || isbn == "")
-            {
-                throw new ArgumentNullException();
-            }
-
-            User user = GetUser(userID);
-            if (user == null)
-            {
-                throw new NotFoundException("User");
-            }
-
-            // TODO - Request book information from ISBN API
-
-            string title = "mytitle";
-            string author = "myauthor";
-            string publisher = "mypublisher";
-            DateTime publishDate = default(DateTime);
-            string coverURL = "myurl.com";
-
-            return CreateNotebook(userID, title, author, isbn, publisher, publishDate, coverURL);
-        }
-
-        /// <summary>
         /// Creates a note.
         /// </summary>
         /// <param name="userID">the ID of the user that the note belongs to</param>

@@ -220,7 +220,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
                 }
             }
 
-            public bool Equals(object other)
+            public override bool Equals(object other)
             {
                 var o = other as JsonTest;
                 return o != null
