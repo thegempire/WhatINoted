@@ -80,11 +80,5 @@ namespace WhatINoted
         {
             Response.Redirect("Notes.aspx", true);
         }
-
-        [WebMethod]
-        public static void HandleLogin(string userID, string displayName, string email)
-        {
-            GoogleFirestoreConnectionManager.HandleLogin(userID, displayName, email);
-        }
     }
 }

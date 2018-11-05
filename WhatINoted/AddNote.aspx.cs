@@ -23,7 +23,6 @@ namespace WhatINoted
         {
             UpdateText = false;
             UpdateNotebook = false;
-            GoogleVisionConnectionManager.ExtractText(null);
         }
 
         [WebMethod, ScriptMethod]
