@@ -1,9 +1,10 @@
 ﻿using System.Web.UI;
+using WhatINoted.Models;
 
 namespace WhatINoted
 {
     public class View : Page
     {
-        // protected UserModel CurrentUser;
+        protected User User;
     }
 }
