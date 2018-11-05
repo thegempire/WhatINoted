@@ -156,7 +156,7 @@ namespace WhatINoted.ConnectionManagers
                 token = result.SelectToken(COVER_IMAGE_JSON_PATH);
                 if (token != null) coverUri = token.ToString();
 
-                results.Add(new BookSearchResultsModel(title, authors, publishDate, publisher, isbn, coverUri));
+                results.Add(new BookSearchResultsModel(title, authors, publisher, isbn, publishDate, coverUri));
             }
 
             return results;
@@ -192,15 +192,14 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>ISBN as string</returns>
         private static String IsbnFromJToken(JToken industryIdentifiers)
         {
-            JToken token;
+            foreach(JToken token in industryIdentifiers.ToList<JToken>())
+            {
+                if (token.SelectToken("type").ToString() == "ISBN_13")
+                    return token.SelectToken("identifier").ToString();
 
-            // Look for ISBN 13
-            token = industryIdentifiers.SelectToken("ISBN_13");
-            if (token != null) return token.ToString();
-
-            // Look for ISBN 10
-            token = industryIdentifiers.SelectToken("ISBN_10");
-            if (token != null) return token.ToString();
+                if (token.SelectToken("type").ToString() == "ISBN_10")
+                    return token.SelectToken("identifier").ToString();
+            }
 
             // No ISBN found
             return null;
