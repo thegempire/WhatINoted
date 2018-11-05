@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Web.Script.Services;
+using System.Web.Services;
 using WhatINoted.Models;
 
 namespace WhatINoted.ConnectionManagers
@@ -205,7 +207,7 @@ namespace WhatINoted.ConnectionManagers
             }
             return notes;
         }
-
+        
         /// <summary>
         /// Creates a user if it does not exist. If it does, the existing user is updated with the given information.
         /// </summary>
