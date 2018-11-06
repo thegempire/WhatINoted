@@ -82,8 +82,9 @@ namespace WhatINoted
 
         }
 
-        protected override void GenerateText() {
-
+        [WebMethod, ScriptMethod]
+        protected override void GenerateText(object o, EventArgs e) {
+            throw new Exception();
         }
 
         /// <summary>

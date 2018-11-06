@@ -32,7 +32,7 @@ namespace WhatINoted
             return true;
         }
 
-        protected override void GenerateText()
+        protected override void GenerateText(object o, EventArgs e)
         {
 
         }

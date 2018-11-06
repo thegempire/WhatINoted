@@ -10,17 +10,20 @@
                     By ISBN
                 </div>
                 <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container hidden">
-                    <img class="display_block" src="#" alt="Uploaded Image" />
-                    <div runat="server" class="button small_button display_inline-block fix_inline">
-                        Select Image
-                    </div>
-                    <div runat="server" class="button small_button display_inline-block fix_inline">
+
+                    <img id="Image" class="display_block hidden " src="#" alt="Uploaded Image" />
+                    <input type="file" id="ImageInput" class="small_button display_inline-block" name="ImageInput" accept="image/png, image/jpeg" />
+                    <asp:HiddenField runat="server" ID="ImageInBase64" Value="" />
+                    <asp:Button runat="server" ID="btnExtractText" Style="display: none" OnClick="GenerateText" />
+                    <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_openNotebook()">
                         Extract Text
                     </div>
+
                     <br />
+
                     <div runat="server" class="titled_field display_inline-block">
                         <h4>ISBN</h4>
-                        <input type="text" class="full_width"></input>
+                        <input type="text" id="IsbnBox" class="full_width"></input>
                     </div>
                     <br />
                     <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
@@ -88,6 +91,36 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                var file;
+                var upload = document.getElementById("ImageInput");
+
+                upload.onchange = function () {
+                    file = upload.files[0];
+                    getImageIn64(file);
+                }
+
+                function getImageIn64(file) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function () {
+                        var image = document.getElementById("Image")
+                        image.src = reader.result;
+                        image.classList.remove("hidden");
+                        document.getElementById("ImageInBase64").value = reader.result;
+                    };
+                    reader.onerror = function (error) {
+                        console.log('Error: ', error);
+                    };
+
+                }
+
+                function click_openNotebook() {
+                    document.getElementById('<%= btnExtractText.ClientID %>').click();
+                }
+
+            </script>
         </ContentTemplate>
     </asp:UpdatePanel>
 
