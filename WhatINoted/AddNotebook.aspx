@@ -93,6 +93,10 @@
                 </div>
             </div>
 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.22/fabric.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.js"></script>
+            <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.css" />
+
             <script>
                 var file;
                 var upload = document.getElementById("ImageInput");
@@ -110,12 +114,34 @@
                         image.src = reader.result;
                         image.classList.remove("hidden");
                         document.getElementById("ImageInBase64").value = reader.result;
-                    };
+                        new Darkroom('#Image');
+                    }.bind(reader);
                     reader.onerror = function (error) {
                         console.log('Error: ', error);
                     };
 
                 }
+
+                let startX;
+                let startY;
+
+                let endX;
+                let endY;
+
+                $('Image').on('dragstart', function (event) {
+                    startX = event.clientX;
+                    startY = event.clientY;
+                }.bind(startX, startY));
+
+                $('Image').on('drag', function (event) {
+                    endX = event.clientX;
+                    endY = event.clientY;
+                }.bind(endX, endY));
+
+                $('Image').on('dragend', function (event) {
+                    endX = event.clientX;
+                    endY = event.clientY;
+                }.bind(startX, startY, endX, endY));
 
                 function click_openNotebook() {
                     document.getElementById('<%= btnExtractText.ClientID %>').click();
