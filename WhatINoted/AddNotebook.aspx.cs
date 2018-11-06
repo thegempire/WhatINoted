@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Services;
 using System.Web.Script.Services;
+using WhatINoted.Models;
+using WhatINoted.ConnectionManagers;
 
 namespace WhatINoted
 {
@@ -21,49 +23,84 @@ namespace WhatINoted
         }
 
         [WebMethod, ScriptMethod]
+        protected void ValidateIsbnField(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                new IsbnModel(args.Value);
+                args.IsValid = true;
+            }
+            catch (ArgumentException ex)
+            {
+                args.IsValid = false;
+            }
+        }
+
+        [WebMethod, ScriptMethod]
         protected void SearchForBook(object sender, EventArgs e)
         {
-            string searchKey;
-            if (((WebControl)sender).ID == "btnISBNPostback")
-                searchKey = "ISBN";
-            else
-                searchKey = "details";
-            //search for books
+            //
+            // Determine what parameters we are using to search: ISBN or Title/Author/Publisher
+            //
+            string searchKey = ((WebControl)sender).ID == "btnISBNPostback" ? "ISBN" : "details";
 
-            //convert to elements
-            TableRow result = new TableRow();
-            result.CssClass = "search_result";
+            //
+            // Search Google Books with the provided parameters
+            //
+            List<BookSearchResultsModel> searchResults = searchKey == "ISBN" ?
+                GoogleBooksConnectionManager.SearchVolumes("", "", "", IsbnEntry.Text) :
+                GoogleBooksConnectionManager.SearchVolumes(TitleEntry.Text, AuthorEntry.Text, PublisherEntry.Text, null);
 
-            TableCell resultTitle = new TableCell();
-            HtmlGenericControl innerDiv = new HtmlGenericControl("div");
-            innerDiv.InnerHtml = "Book Title, 9th Edition";
-            resultTitle.Controls.Add(innerDiv);
-            result.Controls.Add(resultTitle);
-
-            TableCell resultAuthor = new TableCell();
-            innerDiv = new HtmlGenericControl("div");
-            innerDiv.InnerHtml = "Dr. Book Author";
-            resultAuthor.Controls.Add(innerDiv);
-            result.Controls.Add(resultAuthor);
-
-            TableCell resultISBN = new TableCell();
-            innerDiv = new HtmlGenericControl("div");
-            innerDiv.InnerHtml = "1-2-34567-8-9";
-            resultISBN.Controls.Add(innerDiv);
-            result.Controls.Add(resultISBN);
-
-            //insert into element
-            WebControl key;
-            if (searchKey == "details")
+            //
+            // Convert the search results to HTML table rows
+            //
+            List<TableRow> resultRows = new List<TableRow>();
+            foreach(BookSearchResultsModel volume in searchResults)
             {
-                key = SearchGridDetails;
-            }
-            else
-            {
-                key = SearchGridISBN;
+                TableRow volumeRow = new TableRow();
+                volumeRow.CssClass = "search_result";
+
+                TableCell titleCell = new TableCell();
+                HtmlGenericControl innerDiv = new HtmlGenericControl("div");
+                innerDiv.InnerHtml = volume.Title;
+                titleCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(titleCell);
+
+                TableCell authorCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.InnerHtml = volume.Authors;
+                authorCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(authorCell);
+
+                TableCell publisherCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.InnerHtml = volume.Publisher;
+                publisherCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(publisherCell);
+
+                TableCell pubDateCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.InnerHtml = volume.PublishDate;
+                pubDateCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(pubDateCell);
+
+                TableCell isbnCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.InnerHtml = volume.ISBN;
+                isbnCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(isbnCell);
+
+                resultRows.Add(volumeRow);
             }
 
-            key.Controls.Add(result);
+            //
+            // Insert search results into the relevant table
+            //
+            WebControl resultsTable = searchKey == "ISBN" ?
+                SearchGridISBN : SearchGridDetails;
+
+            foreach (TableRow volume in resultRows)
+                resultsTable.Controls.Add(volume);
         }
 
         protected void CreateNotebook(object sender, EventArgs e)
