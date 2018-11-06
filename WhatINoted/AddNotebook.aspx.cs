@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Services;
 using System.Web.Script.Services;
+using WhatINoted.ConnectionManagers;
+using System.IO;
 
 namespace WhatINoted
 {
@@ -84,7 +86,15 @@ namespace WhatINoted
 
         [WebMethod, ScriptMethod]
         protected override void GenerateText(object o, EventArgs e) {
-            throw new Exception();
+            string image64 = ImageInBase64.Value;
+            byte[] byteBuffer = Convert.FromBase64String(image64);
+            System.Drawing.Image image;
+            using (MemoryStream mStream = new MemoryStream(byteBuffer))
+            {
+                image = System.Drawing.Image.FromStream(mStream);
+            }
+            string text = GoogleVisionConnectionManager.ExtractText(image);
+            IsbnBox.Value = text;
         }
 
         /// <summary>

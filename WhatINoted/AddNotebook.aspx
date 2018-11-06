@@ -24,7 +24,7 @@
 
                     <div runat="server" class="titled_field display_inline-block">
                         <h4>ISBN</h4>
-                        <input type="text" id="IsbnBox" class="full_width"></input>
+                        <input runat="server" type="text" id="IsbnBox" class="full_width" />
                     </div>
                     <br />
                     <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
@@ -113,7 +113,7 @@
                         var image = document.getElementById("Image")
                         image.src = reader.result;
                         image.classList.remove("hidden");
-                        document.getElementById("ImageInBase64").value = reader.result;
+                        document.getElementById('<%= ImageInBase64.ClientID %>').value = reader.result;
                         new Darkroom('#Image');
                     }.bind(reader);
                     reader.onerror = function (error) {
