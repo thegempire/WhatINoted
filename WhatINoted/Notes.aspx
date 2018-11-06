@@ -40,6 +40,8 @@
                     New Note
                 </div>
             </div>
+            <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdateNotes" />
         </ContentTemplate>
     </asp:UpdatePanel>
 

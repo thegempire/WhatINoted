@@ -25,6 +25,7 @@ namespace WhatINoted
         public void UpdateNotebooks(object sender, EventArgs e)
         {
             string userID = HandleLoginUserID.Value;
+
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
 
             List<HtmlGenericControl> notebookDivs = GenerateNotebookDivs();
@@ -41,7 +42,8 @@ namespace WhatINoted
             {
                 HtmlGenericControl notebookDiv = new HtmlGenericControl("div");
                 notebookDiv.Attributes["class"] = "mainNotebooksDiv notebookColor";
-                notebookDiv.Attributes["onclick"] = "click_openNotebook()";
+                notebookDiv.Attributes["onclick"] = "click_openNotebook("+notebook.ID+")";
+                //notebookDiv.Attributes["id"] = notebook.ID;
 
                 HtmlGenericControl titleDiv = new HtmlGenericControl("div");
                 titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
@@ -78,7 +80,8 @@ namespace WhatINoted
 
         protected void OpenNotebook(object sender, EventArgs e)
         {
-            Response.Redirect("Notes.aspx", true);
+            string notebookID = ((HtmlGenericControl)sender).ID;
+            Response.Redirect("Notes.aspx?notebookID=" + notebookID, true);
         }
     }
 }

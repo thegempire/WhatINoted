@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -35,6 +37,20 @@ namespace WhatINoted
         private void DeleteNote(int index)
         {
 
+        }
+
+        [WebMethod, ScriptMethod]
+        public void UpdateNotes(object sender, EventArgs e)
+        {
+            /*string userID = HandleLoginUserID.Value;
+
+            Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
+
+            List<HtmlGenericControl> notebookDivs = GenerateNotebookDivs();
+            foreach (HtmlGenericControl notebookDiv in notebookDivs)
+            {
+                MainNotebooks.Controls.Add(notebookDiv);
+            }*/
         }
     }
 }
