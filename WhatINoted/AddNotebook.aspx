@@ -10,8 +10,9 @@
                     By ISBN
                 </div>
                 <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container hidden">
-
-                    <img id="Image" class="display_block hidden " src="#" alt="Uploaded Image" />
+                   <%-- <div class="image_field display_inline-block">--%>
+                        <img id="Image" class="display_block hidden image_upload" src="#" alt="Uploaded Image" />
+                    <%--</div>--%>
                     <input type="file" id="ImageInput" class="small_button display_inline-block" name="ImageInput" accept="image/png, image/jpeg" />
                     <asp:HiddenField runat="server" ID="ImageInBase64" Value="" />
                     <asp:Button runat="server" ID="btnExtractText" Style="display: none" OnClick="GenerateText" />
