@@ -42,7 +42,7 @@ namespace WhatINoted
             {
                 HtmlGenericControl notebookDiv = new HtmlGenericControl("div");
                 notebookDiv.Attributes["class"] = "mainNotebooksDiv notebookColor";
-                notebookDiv.Attributes["onclick"] = "click_openNotebook("+notebook.ID+")";
+                notebookDiv.Attributes["onclick"] = "click_openNotebook(\"" + notebook.ID + "\")";
                 //notebookDiv.Attributes["id"] = notebook.ID;
 
                 HtmlGenericControl titleDiv = new HtmlGenericControl("div");
@@ -80,7 +80,7 @@ namespace WhatINoted
 
         protected void OpenNotebook(object sender, EventArgs e)
         {
-            string notebookID = ((HtmlGenericControl)sender).ID;
+            string notebookID = Field_NotebookID.Value;
             Response.Redirect("Notes.aspx?notebookID=" + notebookID, true);
         }
     }
