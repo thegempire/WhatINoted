@@ -24,7 +24,7 @@
 
                     <div runat="server" class="titled_field display_inline-block">
                         <h4>ISBN</h4>
-                        <input runat="server" type="text" id="IsbnBox" class="full_width" />
+                        <input runat="server" type="text" id="IsbnBox" class="full_width"/>
                     </div>
                     <br />
                     <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
