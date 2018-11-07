@@ -86,7 +86,7 @@ namespace WhatINoted
 
         [WebMethod, ScriptMethod]
         protected override void GenerateText(object o, EventArgs e) {
-            string image64 = ImageInBase64.Value;
+            string image64 = ImageInBase64.Value.Split(',')[1];
             byte[] byteBuffer = Convert.FromBase64String(image64);
             System.Drawing.Image image;
             using (MemoryStream mStream = new MemoryStream(byteBuffer))
@@ -94,7 +94,34 @@ namespace WhatINoted
                 image = System.Drawing.Image.FromStream(mStream);
             }
             string text = GoogleVisionConnectionManager.ExtractText(image);
+            text = ParseIsbn(text);
             IsbnBox.Value = text;
+        }
+
+        private string ParseIsbn(string text)
+        {
+            string[] words = text.Split(' ');
+            foreach(string s in words)
+            {
+                string word = s.Replace("-", "");
+                bool valid = true;
+
+                if (word.Length != 10 && word.Length != 13)
+                    continue;
+
+                foreach(char c in word)
+                {
+                    if (!char.IsDigit(c) && c != 'X' && c != 'x')
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
+
+                if (valid)
+                    return word;
+            }
+            return text;
         }
 
         /// <summary>

@@ -10,22 +10,26 @@
                     By ISBN
                 </div>
                 <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container hidden">
-                    <%-- <div class="image_field display_inline-block">--%>
                     <img id="Image" class="display_block hidden" src="#" alt="Uploaded Image" />
-                    <%--</div>--%>
                     <input type="file" id="ImageInput" class="small_button display_inline-block" name="ImageInput" accept="image/png, image/jpeg" />
-                    <asp:HiddenField runat="server" ID="ImageInBase64" Value="" />
-                    <asp:Button runat="server" ID="btnExtractText" Style="display: none" OnClick="GenerateText" />
-                    <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_openNotebook()">
-                        Extract Text
-                    </div>
 
-                    <br />
+                    <asp:UpdatePanel ID="ExtractTextUpdatePanel" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:HiddenField runat="server" ID="ImageInBase64" Value="" />
+                            <asp:Button runat="server" ID="btnExtractText" Style="display: none" OnClick="GenerateText" />
+                            <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_openNotebook()">
+                                Extract ISBN
+                            </div>
 
-                    <div runat="server" class="titled_field display_inline-block">
-                        <h4>ISBN</h4>
-                        <input runat="server" type="text" id="IsbnBox" class="full_width" />
-                    </div>
+                            <br />
+
+                            <div runat="server" class="titled_field display_inline-block">
+                                <h4>ISBN</h4>
+                                <input runat="server" type="text" id="IsbnBox" class="full_width"/>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                     <br />
                     <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
                     <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnISBNPostback.ClientID %>').click()">
