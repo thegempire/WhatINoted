@@ -37,7 +37,9 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
+
     <script>
+        window.addEventListener('load', handleLoginForContentPage);
         function CreateNote_Click() {
             $.ajax({
                 type: "POST",

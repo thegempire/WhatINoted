@@ -42,7 +42,9 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
+
     <script>
+        window.addEventListener('load', handleLoginForContentPage);
         function NewNote_Click() {
             window.location.href = "AddNote.aspx";
         }
