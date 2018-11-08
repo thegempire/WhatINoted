@@ -5,19 +5,35 @@
     <script>
         function rowClicked(el) {
             WebForm_GetElementById("MainContent_ModalTitle").innerHTML = WebForm_GetElementById(el.id + "_Title").innerHTML;
+            WebForm_GetElementById("MainContent_TitleSelection").value = WebForm_GetElementById(el.id + "_Title").innerHTML;
+
             WebForm_GetElementById("MainContent_ModalAuthors").innerHTML = WebForm_GetElementById(el.id + "_Authors").innerHTML;
+            WebForm_GetElementById("MainContent_AuthorsSelection").value = WebForm_GetElementById(el.id + "_Authors").innerHTML;
+
             WebForm_GetElementById("MainContent_ModalPublisher").innerHTML = WebForm_GetElementById(el.id + "_Publisher").innerHTML;
+            WebForm_GetElementById("MainContent_PublisherSelection").value = WebForm_GetElementById(el.id + "_Publisher").innerHTML;
+
             WebForm_GetElementById("MainContent_ModalPublishDate").innerHTML = WebForm_GetElementById(el.id + "_PublishDate").innerHTML;
+            WebForm_GetElementById("MainContent_PublishDateSelection").value = WebForm_GetElementById(el.id + "_PublishDate").innerHTML;
+
             WebForm_GetElementById("MainContent_ModalISBN").innerHTML = WebForm_GetElementById(el.id + "_ISBN").innerHTML;
+            WebForm_GetElementById("MainContent_IsbnSelection").value = WebForm_GetElementById(el.id + "_ISBN").innerHTML;
+
+            WebForm_GetElementById("MainContent_CoverUrlSelection").value = WebForm_GetElementById(el.id + "_CoverUrl").innerHTML;
 
             WebForm_GetElementById("MainContent_ShowButton").click();
         }
     </script>
-
     <asp:UpdatePanel ID="AddNotebookUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
+            <asp:HiddenField runat="server" ID="TitleSelection" Value="" />
+            <asp:HiddenField runat="server" ID="AuthorsSelection" Value="" />
+            <asp:HiddenField runat="server" ID="PublisherSelection" Value="" />
+            <asp:HiddenField runat="server" ID="PublishDateSelection" Value="" />
+            <asp:HiddenField runat="server" ID="IsbnSelection" Value="" />
+            <asp:HiddenField runat="server" ID="CoverUrlSelection" Value="" />
+            <asp:Button ID="ShowButton" runat="server" Style="display: none" />
             <div runat="server" class="margin_top_bottom">
-                <asp:Button ID="ShowButton" runat="server" Style="display: none" />
                 <asp:Panel ID="CreationModal" runat="server" CssClass="creation_modal">
                     <asp:Table runat="server" CssClass="search_grid">
                         <asp:TableRow>
@@ -27,16 +43,16 @@
                             <asp:TableCell>Publication Date</asp:TableCell>
                             <asp:TableCell>ISBN</asp:TableCell>
                         </asp:TableRow>
-                        <asp:TableRow>
-                            <asp:TableCell ID="ModalTitle"></asp:TableCell>
-                            <asp:TableCell ID="ModalAuthors"></asp:TableCell>
-                            <asp:TableCell ID="ModalPublisher"></asp:TableCell>
-                            <asp:TableCell ID="ModalPublishDate"></asp:TableCell>
-                            <asp:TableCell ID="ModalISBN"></asp:TableCell>
+                        <asp:TableRow runat="server" ID="ConfirmationRow">
+                            <asp:TableCell runat="server" ID="ModalTitle"></asp:TableCell>
+                            <asp:TableCell runat="server" ID="ModalAuthors"></asp:TableCell>
+                            <asp:TableCell runat="server" ID="ModalPublisher"></asp:TableCell>
+                            <asp:TableCell runat="server" ID="ModalPublishDate"></asp:TableCell>
+                            <asp:TableCell runat="server" ID="ModalISBN"></asp:TableCell>
                         </asp:TableRow>
                     </asp:Table>
                     <asp:Button ID="CancelModal" runat="server" Text="Cancel" />
-                    <asp:Button ID="SubmitModal" runat="server" Text="Create" />
+                    <asp:Button ID="SubmitModal" runat="server" Text="Create" OnClick="CreateNotebook" />
                 </asp:Panel>
                 <ajaxToolkit:ModalPopupExtender runat="server" TargetControlID="ShowButton" PopupControlID="CreationModal" OkControlID="CancelModal"></ajaxToolkit:ModalPopupExtender>
                 
@@ -118,24 +134,13 @@
                                         <asp:TableCell>Publication Date</asp:TableCell>
                                         <asp:TableCell>ISBN</asp:TableCell>
                                     </asp:TableRow>
-                                    <%--insert dynamic search results here--%>
-                                    <asp:TableRow CssClass="custom_book search_result">
-                                        <asp:TableCell>Custom Book</asp:TableCell>
-                                        <asp:TableCell></asp:TableCell>
-                                        <asp:TableCell></asp:TableCell>
-                                    </asp:TableRow>
                                 </asp:Table>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
-                <div runat="server" class="grid_5_columns margin_top_bottom">
-                    <asp:Button runat="server" ID="btnCreateNotebookPostback" Style="display: none" OnClick="CreateNotebook" />
-                    <div class="grid_5_columns_right button" onclick="document.getElementById('<%= btnCreateNotebookPostback.ClientID %>').click()">
-                        Create Notebook
-                    </div>
-                </div>
             </div>
+            <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
         </ContentTemplate>
     </asp:UpdatePanel>
 

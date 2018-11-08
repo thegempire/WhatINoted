@@ -36,7 +36,7 @@ namespace WhatINoted.Models
         /// <summary>
         /// Publish Date of the Notebook.
         /// </summary>
-        public readonly DateTime PublishDate;
+        public readonly string PublishDate;
 
         /// <summary>
         /// The URL for an image of the Notebook cover.
@@ -70,7 +70,7 @@ namespace WhatINoted.Models
         /// <param name="coverURL">url for an image of the notebook's cover</param>
         /// <param name="modified">when this notebook was last modified</param>
         /// <param name="created">when this notebook was created</param>
-        public Notebook(string notebookID, string title, string author, string isbn, string publisher, DateTime publishDate, string coverURL, DateTime modified, DateTime created)
+        public Notebook(string notebookID, string title, string author, string isbn, string publisher, string publishDate, string coverURL, DateTime modified, DateTime created)
         {
             ID = notebookID;
             Title = title;
@@ -117,15 +117,7 @@ namespace WhatINoted.Models
                 && Author == model.Author
                 && Isbn == model.Isbn
                 && Publisher == model.Publisher
-                // Dates returned from database have rounding errors making comparison with == inconsistent
-                // Eg. PublishDate == model.PublishDate does not always return true when it should
-                // This should be sufficient
-                && PublishDate.Year == model.PublishDate.Year
-                && PublishDate.Month == model.PublishDate.Month
-                && PublishDate.Day == model.PublishDate.Day
-                && PublishDate.Hour == model.PublishDate.Hour
-                && PublishDate.Minute == model.PublishDate.Minute
-                && PublishDate.Second == model.PublishDate.Second
+                && PublishDate == model.PublishDate
                 && CoverURL == model.CoverURL;
         }
 

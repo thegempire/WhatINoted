@@ -22,6 +22,60 @@ namespace WhatINoted {
         protected global::System.Web.UI.UpdatePanel AddNotebookUpdatePanel;
         
         /// <summary>
+        /// TitleSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField TitleSelection;
+        
+        /// <summary>
+        /// AuthorsSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField AuthorsSelection;
+        
+        /// <summary>
+        /// PublisherSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField PublisherSelection;
+        
+        /// <summary>
+        /// PublishDateSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField PublishDateSelection;
+        
+        /// <summary>
+        /// IsbnSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField IsbnSelection;
+        
+        /// <summary>
+        /// CoverUrlSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField CoverUrlSelection;
+        
+        /// <summary>
         /// ShowButton control.
         /// </summary>
         /// <remarks>
@@ -38,6 +92,15 @@ namespace WhatINoted {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel CreationModal;
+        
+        /// <summary>
+        /// ConfirmationRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow ConfirmationRow;
         
         /// <summary>
         /// ModalTitle control.
@@ -211,12 +274,12 @@ namespace WhatINoted {
         protected global::System.Web.UI.WebControls.Table SearchGridDetails;
         
         /// <summary>
-        /// btnCreateNotebookPostback control.
+        /// HandleLoginUserID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreateNotebookPostback;
+        protected global::System.Web.UI.WebControls.HiddenField HandleLoginUserID;
     }
 }

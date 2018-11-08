@@ -47,9 +47,18 @@ namespace WhatINoted
             //
             // Search Google Books with the provided parameters
             //
-            List<BookSearchResultsModel> searchResults = searchKey == "ISBN" ?
+            List<BookSearchResultsModel> searchResults;
+
+            try
+            {
+                searchResults = searchKey == "ISBN" ?
                 GoogleBooksConnectionManager.SearchVolumes("", "", "", IsbnEntry.Text) :
                 GoogleBooksConnectionManager.SearchVolumes(TitleEntry.Text, AuthorEntry.Text, PublisherEntry.Text, null);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return;
+            }
 
             //
             // Convert the search results to HTML table rows
@@ -99,6 +108,15 @@ namespace WhatINoted
                 isbnCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(isbnCell);
 
+                TableCell coverUrlCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_CoverUrl";
+                innerDiv.InnerHtml = volume.CoverURL;
+                coverUrlCell.Controls.Add(innerDiv);
+                coverUrlCell.Style.Add("display", "none");
+                volumeRow.Controls.Add(coverUrlCell);
+
+
                 resultRows.Add(volumeRow);
             }
 
@@ -112,18 +130,15 @@ namespace WhatINoted
                 resultsTable.Controls.Add(volume);
         }
 
+        [WebMethod, ScriptMethod]
         protected void CreateNotebook(object sender, EventArgs e)
         {
-            //Validation
+            GoogleFirestoreConnectionManager.CreateNotebook(
+                HandleLoginUserID.Value, TitleSelection.Value, AuthorsSelection.Value, IsbnSelection.Value,
+                PublisherSelection.Value, PublishDateSelection.Value, System.Web.HttpUtility.HtmlDecode(CoverUrlSelection.Value));
 
             //redirect
             Response.Redirect("Notes.aspx", true);
-        }
-
-        /// <summary>
-        /// Creates the notebook based on the selected search results
-        /// </summary>
-        private void CreateNotebook() {
         }
 
         protected override void GenerateText() {
