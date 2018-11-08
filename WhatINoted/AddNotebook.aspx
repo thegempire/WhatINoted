@@ -110,13 +110,16 @@
             <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.css" />
 
             <script>
+                var path;
                 var file;
                 var upload = document.getElementById("ImageInput");
                 var darkroom;
 
                 upload.onchange = function () {
-                    file = upload.files[0];
-                    getImageIn64(file);
+                    if (upload.files[0] != null) {
+                        file = upload.files[0];
+                        getImageIn64(file);
+                    }
                 }
 
                 function getImageIn64(file) {
@@ -152,7 +155,9 @@
 
                 function click_extractText() {
                     document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
-                    document.getElementById('<%= btnExtractText.ClientID %>').click();
+                    var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
+                    if (val != null && val != '')
+                        document.getElementById('<%= btnExtractText.ClientID %>').click();
                 }
 
             </script>

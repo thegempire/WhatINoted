@@ -82,6 +82,11 @@ namespace WhatINoted
 
         }
 
+        /// <summary>
+        /// Gets the base64 encoded image from the Hidden Field ImageInBase64 and sets the IsbnBox value to an ISBN that exists in the image.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
         [WebMethod, ScriptMethod]
         protected override void GenerateText(object o, EventArgs e)
         {
@@ -97,6 +102,11 @@ namespace WhatINoted
             IsbnBox.Value = text;
         }
 
+        /// <summary>
+        /// Attemps to return a possible ISBN from text.
+        /// </summary>
+        /// <param name="text">The text that may contain an ISBN.</param>
+        /// <returns>A potential ISBN (10 or 13 characters, only digits and X/x), or text if none found.</returns>
         private string ParseIsbn(string text)
         {
             string[] words = text.Split(' ');

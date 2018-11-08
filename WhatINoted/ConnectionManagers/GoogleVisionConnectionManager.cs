@@ -57,6 +57,9 @@ namespace WhatINoted.ConnectionManagers
             System.Environment.SetEnvironmentVariable(GOOGLE_APPLICATION_CREDENTIALS, JsonPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
             IReadOnlyList<EntityAnnotation> textAnnotations = client.DetectText(image);
+
+            if (textAnnotations.Count <= 0)
+                return "";
             string text = textAnnotations.First().Description;
 
             if (text.Last() == '\n')
