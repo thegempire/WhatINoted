@@ -130,12 +130,25 @@ namespace WhatINoted
         [WebMethod, ScriptMethod]
         protected void CreateNotebook(object sender, EventArgs e)
         {
-            GoogleFirestoreConnectionManager.CreateNotebook(
-                HandleLoginUserID.Value, TitleSelection.Value, AuthorsSelection.Value, IsbnSelection.Value,
-                PublisherSelection.Value, PublishDateSelection.Value, System.Web.HttpUtility.HtmlDecode(CoverUrlSelection.Value));
+            try
+            {
+                Notebook notebook = GoogleFirestoreConnectionManager.CreateNotebook(
+                    HandleLoginUserID.Value, TitleSelection.Value, AuthorsSelection.Value, IsbnSelection.Value,
+                    PublisherSelection.Value, PublishDateSelection.Value, System.Web.HttpUtility.HtmlDecode(CoverUrlSelection.Value));
 
-            //redirect
-            Response.Redirect("Notes.aspx", true);
+                //redirect
+                Response.Redirect("Notes.aspx?notebookID=" + notebook.ID, true);
+            }
+            catch (Exception ex)
+            {
+                return;
+                // TODO -- actually handle failure, notify user something has gone wrong
+            }
+        }
+
+        protected override void GenerateText()
+        {
+
         }
     }
 }
