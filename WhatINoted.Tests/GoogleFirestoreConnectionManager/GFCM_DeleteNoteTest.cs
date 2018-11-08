@@ -20,7 +20,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
+                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL);
                 Models.Note createdNote = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, text1);
                 if (!GoogleFirestoreConnectionManager.DeleteNote(createdNote.ID))
                 {

@@ -24,7 +24,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
+                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL);
 
                 Note created1 = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note1.Text);
                 Note created2 = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note2.Text);
@@ -80,7 +80,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Isbn);
+                Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL);
                 List<Models.Note> tempNotes = GoogleFirestoreConnectionManager.GetNotebookNotes(createdNotebook.ID);
                 if (tempNotes == null || tempNotes.Count != 0)
                 {

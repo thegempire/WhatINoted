@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Web.Script.Services;
+using System.Web.Services;
 using WhatINoted.Models;
 
 namespace WhatINoted.ConnectionManagers
@@ -205,7 +207,7 @@ namespace WhatINoted.ConnectionManagers
             }
             return notes;
         }
-
+        
         /// <summary>
         /// Creates a user if it does not exist. If it does, the existing user is updated with the given information.
         /// </summary>
@@ -275,38 +277,6 @@ namespace WhatINoted.ConnectionManagers
 
             JsonNotebook jsonNotebook = JsonConvert.DeserializeObject<JsonNotebook>(result);
             return new Notebook(jsonNotebook);
-        }
-
-        /// <summary>
-        /// Creates a notebook using information retrieved from the ISBN API.
-        /// </summary>
-        /// <param name="userID">the ID of the user that the notebook belongs to</param>
-        /// <param name="isbn">the ISBN of the book</param>
-        /// <returns>the created notebook</returns>
-        public static Notebook CreateNotebook(string userID, string isbn)
-        {
-            //throw new NotImplementedException();
-
-            if (userID == null || isbn == null || userID == "" || isbn == "")
-            {
-                throw new ArgumentNullException();
-            }
-
-            User user = GetUser(userID);
-            if (user == null)
-            {
-                throw new NotFoundException("User");
-            }
-
-            // TODO - Request book information from ISBN API
-
-            string title = "mytitle";
-            string author = "myauthor";
-            string publisher = "mypublisher";
-            DateTime publishDate = default(DateTime);
-            string coverURL = "myurl.com";
-
-            return CreateNotebook(userID, title, author, isbn, publisher, publishDate, coverURL);
         }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                Models.Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1);
+                Models.Notebook temp = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL);
                 if (!GoogleFirestoreConnectionManager.DeleteNotebook(temp.ID))
                 {
                     sw.WriteLine("FAILED: DeleteNotebook(string notebookID): Normal test case 1.");
@@ -42,7 +42,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
-                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, isbn1).ID;
+                notebookID1 = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL).ID;
                 noteID1 = GoogleFirestoreConnectionManager.CreateNote(userID1, notebookID1, text1).ID;
                 GoogleFirestoreConnectionManager.DeleteNotebook(notebookID1);
                 List<Note> tempNotes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID1);

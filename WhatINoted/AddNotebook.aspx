@@ -139,4 +139,8 @@
         </ContentTemplate>
     </asp:UpdatePanel>
 
+    <script>
+        window.addEventListener('load', handleLoginForContentPage);
+    </script>
+
 </asp:Content>
