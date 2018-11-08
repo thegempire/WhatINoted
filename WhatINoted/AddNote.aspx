@@ -27,9 +27,9 @@
                 </div>
                 <div runat="server" class="titled_field display_inline-block">
                     <h4>Notebook</h4>
-                    <select id="NotebookList">
-                        <!-- List of Notebooks goes here -->
-                    </select>
+                    <asp:DropDownList runat="server" id="NotebookList">
+
+                    </asp:DropDownList>
                 </div>
                 <div runat="server" class="grid_5_columns">
                     <div runat="server" class="grid_5_columns_right button" onclick="CreateNote_Click();">
@@ -38,15 +38,15 @@
                 </div>
             </div>
             <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
-            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="PopulateNotebookField" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdateNotes" />
         </ContentTemplate>
     </asp:UpdatePanel>
 
     <script>
-        window.addEventListener('load', handleLoginForContentPage);
+        window.addEventListener('load', handleLoginForContentPage); 
         function CreateNote_Click() {
-            var userID = $('HandleLoginUserID').val();
-            var notebookID = $('#NotebookList').val();
+            var userID = $('#<%= HandleLoginUserID.ClientID %>').val();
+            var notebookID = $('#<%= NotebookList.ClientID %>').val();
             var noteText = $('#NoteText').val();
 
             $.ajax({

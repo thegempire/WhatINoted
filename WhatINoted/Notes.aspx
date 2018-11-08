@@ -6,7 +6,7 @@
             <div runat="server">
                 <h2>Notebook Title</h2>
                 <asp:Table runat="server" ID="NotesTable">
-                        <!-- Notes go here -->
+
                 </asp:Table>
             </div>
             <div runat="server" class="footer_1_column fixed">

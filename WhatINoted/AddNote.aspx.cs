@@ -81,24 +81,10 @@ namespace WhatINoted
             string userID = HandleLoginUserID.Value;
 
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
-            List<HtmlGenericControl> notebookOptions = GenerateNotebookOptions();
-            foreach (HtmlGenericControl notebookOption in notebookOptions)
-            {
-                Control list = FindControl("NotebookList");
-                list.Controls.Add(notebookOption);
-            }
-        }
-
-        private List<HtmlGenericControl> GenerateNotebookOptions()
-        {
-            List<HtmlGenericControl> notebookDivs = new List<HtmlGenericControl>();
             foreach (Notebook notebook in Notebooks)
             {
-                HtmlGenericControl notebookDiv = new HtmlGenericControl("option");
-                notebookDiv.Attributes["value"] = notebook.ID;
-                notebookDiv.InnerText = notebook.Title;
+                NotebookList.Items.Add(new ListItem(notebook.Title, notebook.ID));
             }
-            return notebookDivs;
         }
     }
 }
