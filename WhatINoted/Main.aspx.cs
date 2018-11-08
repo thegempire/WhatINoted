@@ -12,7 +12,7 @@ namespace WhatINoted
     /// <summary>
     /// Notebooks view. From here, the user can see all their notebooks and add another.
     /// </summary>
-    public partial class NotebooksView : AddNoteView
+    public partial class NotebooksView : View
     {
         private List<Models.Notebook> Notebooks;
 
@@ -25,6 +25,7 @@ namespace WhatINoted
         public void UpdateNotebooks(object sender, EventArgs e)
         {
             string userID = HandleLoginUserID.Value;
+
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
 
             List<HtmlGenericControl> notebookDivs = GenerateNotebookDivs();
@@ -41,7 +42,7 @@ namespace WhatINoted
             {
                 HtmlGenericControl notebookDiv = new HtmlGenericControl("div");
                 notebookDiv.Attributes["class"] = "mainNotebooksDiv notebookColor";
-                notebookDiv.Attributes["onclick"] = "click_openNotebook()";
+                notebookDiv.Attributes["onclick"] = "click_openNotebook(\"" + notebook.ID + "\")";
 
                 HtmlGenericControl titleDiv = new HtmlGenericControl("div");
                 titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
@@ -78,7 +79,8 @@ namespace WhatINoted
 
         protected void OpenNotebook(object sender, EventArgs e)
         {
-            Response.Redirect("Notes.aspx", true);
+            string notebookID = Field_NotebookID.Value;
+            Response.Redirect("Notes.aspx?notebookID=" + notebookID, true);
         }
     }
 }

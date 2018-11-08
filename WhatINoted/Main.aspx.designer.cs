@@ -22,6 +22,15 @@ namespace WhatINoted {
         protected global::System.Web.UI.UpdatePanel MainUpdatePanel;
         
         /// <summary>
+        /// Field_NotebookID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField Field_NotebookID;
+        
+        /// <summary>
         /// btnOpenNotebookPostback control.
         /// </summary>
         /// <remarks>

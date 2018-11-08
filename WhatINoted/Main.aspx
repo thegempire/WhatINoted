@@ -5,7 +5,8 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="MainUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-
+            
+            <asp:HiddenField runat="server" ID="Field_NotebookID" Value="" />
             <asp:Button runat="server" ID="btnOpenNotebookPostback" Style="display: none" OnClick="OpenNotebook" />
             <div runat="server" id="MainNotebooks" class="mainNotebookDiv">
                 <!-- Notebook images(?) go in here -->
@@ -30,7 +31,9 @@
 
     <script>
         window.addEventListener('load', handleLoginForContentPage);
-        function click_openNotebook() {
+        function click_openNotebook(notebookID) {
+            let hiddenButton = document.getElementById('<%= Field_NotebookID.ClientID %>');
+            hiddenButton.value = notebookID;
             document.getElementById('<%= btnOpenNotebookPostback.ClientID %>').click();
         }
     </script>

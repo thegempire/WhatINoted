@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Script.Services;
 using System.Web.Services;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 using WhatINoted.ConnectionManagers;
+using WhatINoted.Models;
 
 namespace WhatINoted
 {
     public partial class CreateEditNoteView : TextGenerationView
     {
         private Models.Note Note;
+
+        private List<Models.Notebook> Notebooks;
 
         /// <summary>
         /// Set to true if the text should be updated.
@@ -26,9 +33,9 @@ namespace WhatINoted
         }
 
         [WebMethod, ScriptMethod]
-        public static bool CreateNote()
+        public static bool CreateNote(string userID, string notebookID, string noteText)
         {
-            return true;
+            return GoogleFirestoreConnectionManager.CreateNote(userID, notebookID, noteText) != null;
         }
 
         protected override void GenerateText()
@@ -67,6 +74,17 @@ namespace WhatINoted
         private void SetNotebook(int index)
         {
 
+        }
+
+        public void UpdateNotes(object sender, EventArgs e)
+        {
+            string userID = HandleLoginUserID.Value;
+
+            Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
+            foreach (Notebook notebook in Notebooks)
+            {
+                NotebookList.Items.Add(new ListItem(notebook.Title, notebook.ID));
+            }
         }
     }
 }

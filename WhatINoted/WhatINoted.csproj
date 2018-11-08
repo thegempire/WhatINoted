@@ -277,9 +277,6 @@
     <Compile Include="View.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AddNoteView.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="TextGenerationView.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
