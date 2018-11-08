@@ -15,7 +15,7 @@ namespace WhatINoted
     /// <summary>
     /// A view from which the user can view, edit and delete their notes.
     /// </summary>
-    public partial class NotesView : AddNoteView
+    public partial class NotesView : View
     {
         private List<Models.Note> Notes;
 
@@ -45,15 +45,6 @@ namespace WhatINoted
         [WebMethod, ScriptMethod]
         public void UpdateNotes(object sender, EventArgs e)
         {
-            /*string userID = HandleLoginUserID.Value;
-
-            Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
-
-            List<HtmlGenericControl> notebookDivs = GenerateNotebookDivs();
-            foreach (HtmlGenericControl notebookDiv in notebookDivs)
-            {
-                MainNotebooks.Controls.Add(notebookDiv);
-            }*/
             string notebookID = Request.QueryString["notebookID"];
 
             Notes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID);
@@ -64,29 +55,6 @@ namespace WhatINoted
         {
             foreach (Note note in Notes)
             {
-                /*HtmlGenericControl notebookDiv = new HtmlGenericControl("div");
-                notebookDiv.Attributes["class"] = "mainNotebooksDiv notebookColor";
-                notebookDiv.Attributes["onclick"] = "click_openNotebook(\"" + notebook.ID + "\")";
-
-                HtmlGenericControl titleDiv = new HtmlGenericControl("div");
-                titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
-                titleDiv.InnerHtml = notebook.Title;
-                notebookDiv.Controls.Add(titleDiv);
-
-                HtmlGenericControl imageDiv = new HtmlGenericControl("div");
-                imageDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookImageDiv";
-                HtmlGenericControl image = new HtmlGenericControl("img");
-                image.Attributes["src"] = notebook.CoverURL;
-                image.Attributes["alt"] = notebook.Title + " Cover Art";
-                image.Attributes["class"] = "mainNotebookImage";
-                imageDiv.Controls.Add(image);
-                notebookDiv.Controls.Add(imageDiv);
-
-                HtmlGenericControl numNotesDiv = new HtmlGenericControl("div");
-                numNotesDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookNumNotesDiv";
-                numNotesDiv.InnerHtml = GoogleFirestoreConnectionManager.GetNotebookNotes(notebook.ID).Count.ToString();
-                notebookDiv.Controls.Add(numNotesDiv);
-                notebookDivs.Add(notebookDiv);*/
                 TableRow noteRow = new TableRow();
                 TableCell textCell = new TableCell();
                 textCell.Text = note.Text;

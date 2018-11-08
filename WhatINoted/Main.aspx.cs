@@ -12,7 +12,7 @@ namespace WhatINoted
     /// <summary>
     /// Notebooks view. From here, the user can see all their notebooks and add another.
     /// </summary>
-    public partial class NotebooksView : AddNoteView
+    public partial class NotebooksView : View
     {
         private List<Models.Notebook> Notebooks;
 

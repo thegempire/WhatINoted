@@ -19,7 +19,7 @@
                 </div>
                 <div runat="server" class="titled_field">
                     <h4>Note Text</h4>
-                    <textarea class="full_width"></textarea>
+                    <textarea class="full_width" id="NoteText"></textarea>
                 </div>
                 <div runat="server" class="titled_field display_inline-block">
                     <h4>Tags</h4>
@@ -27,7 +27,9 @@
                 </div>
                 <div runat="server" class="titled_field display_inline-block">
                     <h4>Notebook</h4>
-                    <input type="text"></input>
+                    <select id="NotebookList">
+                        <!-- List of Notebooks goes here -->
+                    </select>
                 </div>
                 <div runat="server" class="grid_5_columns">
                     <div runat="server" class="grid_5_columns_right button" onclick="CreateNote_Click();">
@@ -35,16 +37,22 @@
                     </div>
                 </div>
             </div>
+            <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="PopulateNotebookField" />
         </ContentTemplate>
     </asp:UpdatePanel>
 
     <script>
         window.addEventListener('load', handleLoginForContentPage);
         function CreateNote_Click() {
+            var userID = $('HandleLoginUserID').val();
+            var notebookID = $('#NotebookList').val();
+            var noteText = $('#NoteText').val();
+
             $.ajax({
                 type: "POST",
                 url: "AddNote.aspx/CreateNote",
-                data: "",
+                data: JSON.stringify({userID: userID, notebookID: notebookID, noteText: noteText}),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 async: true,
