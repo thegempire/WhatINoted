@@ -17,11 +17,13 @@ namespace WhatINoted
     /// </summary>
     public partial class NotesView : View
     {
+        private string notebookID;
+
         private List<Models.Note> Notes;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            notebookID = "";
         }
 
         /// <summary>
@@ -42,10 +44,15 @@ namespace WhatINoted
 
         }
 
+        public void AddNote()
+        {
+            Response.Redirect("AddNote.aspx?notebookID=" + notebookID, true);
+        }
+
         [WebMethod, ScriptMethod]
         public void UpdateNotes(object sender, EventArgs e)
         {
-            string notebookID = Request.QueryString["notebookID"];
+            notebookID = Request.QueryString["notebookID"];
 
             Notes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID);
             GenerateNoteRows();

@@ -12,6 +12,8 @@ namespace WhatINoted
 {
     public partial class CreateEditNoteView : TextGenerationView
     {
+        private static string notebookID;
+
         private Models.Note Note;
 
         private List<Models.Notebook> Notebooks;
@@ -28,6 +30,7 @@ namespace WhatINoted
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            notebookID = Request.QueryString["notebookID"];
             UpdateText = false;
             UpdateNotebook = false;
         }
@@ -35,6 +38,7 @@ namespace WhatINoted
         [WebMethod, ScriptMethod]
         public static bool CreateNote(string userID, string notebookID, string noteText)
         {
+            CreateEditNoteView.notebookID = notebookID;
             return GoogleFirestoreConnectionManager.CreateNote(userID, notebookID, noteText) != null;
         }
 
@@ -84,6 +88,10 @@ namespace WhatINoted
             foreach (Notebook notebook in Notebooks)
             {
                 NotebookList.Items.Add(new ListItem(notebook.Title, notebook.ID));
+            }
+
+            if (notebookID != null) {
+                NotebookList.SelectedValue = notebookID;
             }
         }
     }

@@ -10,6 +10,7 @@
                 </asp:Table>
             </div>
             <div runat="server" class="footer_1_column fixed">
+                <asp:Button runat="server" class="addNoteTrigger hidden" OnClick="AddNote" />
                 <div runat="server" class="footer_1_column_middle button" onclick="NewNote_Click();">
                     New Note
                 </div>
@@ -21,8 +22,7 @@
 
     <script>
         window.addEventListener('load', handleLoginForContentPage);
-        function NewNote_Click() {
-            window.location.href = "AddNote.aspx";
-        }
+        let triggerButton = document.getElementsByClassName('addNoteTrigger')[0];
+        triggerButton.click();
     </script>
 </asp:Content>

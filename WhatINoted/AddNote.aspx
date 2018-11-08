@@ -22,10 +22,6 @@
                     <textarea class="full_width" id="NoteText"></textarea>
                 </div>
                 <div runat="server" class="titled_field display_inline-block">
-                    <h4>Tags</h4>
-                    <input type="text"></input>
-                </div>
-                <div runat="server" class="titled_field display_inline-block">
                     <h4>Notebook</h4>
                     <asp:DropDownList runat="server" id="NotebookList">
 
@@ -72,6 +68,7 @@
                     }
                 }
             });
+            window.location.href = "AddNote.aspx?notebookID=" + notebookID;
         }
     </script>
 </asp:Content>
