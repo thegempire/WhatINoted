@@ -17,7 +17,7 @@
                         <ContentTemplate>
                             <asp:HiddenField runat="server" ID="ImageInBase64" Value="" />
                             <asp:Button runat="server" ID="btnExtractText" Style="display: none" OnClick="GenerateText" />
-                            <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_openNotebook()">
+                            <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_extractText()">
                                 Extract ISBN
                             </div>
 
@@ -98,12 +98,15 @@
             </div>
 
             <script>
+                var path;
                 var file;
                 var upload = document.getElementById("ImageInput");
 
                 upload.onchange = function () {
-                    file = upload.files[0];
-                    getImageIn64(file);
+                    if (upload.files[0] != null) {
+                        file = upload.files[0];
+                        getImageIn64(file);
+                    }
                 }
 
                 function getImageIn64(file) {
@@ -121,8 +124,10 @@
 
                 }
 
-                function click_openNotebook() {
-                    document.getElementById('<%= btnExtractText.ClientID %>').click();
+                function click_extractText() {
+                    var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
+                    if (val != null && val != '')
+                        document.getElementById('<%= btnExtractText.ClientID %>').click();
                 }
 
             </script>
