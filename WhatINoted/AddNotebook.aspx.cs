@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Web.Services;
-using System.Web.Script.Services;
-using WhatINoted.ConnectionManagers;
 using System.IO;
+using System.Web.Script.Services;
+using System.Web.Services;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using WhatINoted.ConnectionManagers;
 
 namespace WhatINoted
 {
@@ -80,12 +77,14 @@ namespace WhatINoted
         /// Creates the notebook based on the search result with a particular index..
         /// </summary>
         /// <param name="searchResultIndex">Search result index.</param>
-        private void CreateNotebook(int searchResultIndex) {
+        private void CreateNotebook(int searchResultIndex)
+        {
 
         }
 
         [WebMethod, ScriptMethod]
-        protected override void GenerateText(object o, EventArgs e) {
+        protected override void GenerateText(object o, EventArgs e)
+        {
             string image64 = ImageInBase64.Value.Split(',')[1];
             byte[] byteBuffer = Convert.FromBase64String(image64);
             System.Drawing.Image image;
@@ -101,7 +100,7 @@ namespace WhatINoted
         private string ParseIsbn(string text)
         {
             string[] words = text.Split(' ');
-            foreach(string s in words)
+            foreach (string s in words)
             {
                 string word = s.Replace("-", "");
                 bool valid = true;
@@ -109,7 +108,7 @@ namespace WhatINoted
                 if (word.Length != 10 && word.Length != 13)
                     continue;
 
-                foreach(char c in word)
+                foreach (char c in word)
                 {
                     if (!char.IsDigit(c) && c != 'X' && c != 'x')
                     {
@@ -128,7 +127,8 @@ namespace WhatINoted
         /// Searches for a book with the specified ISBN.
         /// </summary>
         /// <returns>The book with the specified ISBN.</returns>
-        private Models.BookSearchResultsModel SearchByIsbn(Models.IsbnModel isbn) {
+        private Models.BookSearchResultsModel SearchByIsbn(Models.IsbnModel isbn)
+        {
             return new Models.BookSearchResultsModel("", "", "", "", "", "");
         }
 
@@ -138,7 +138,8 @@ namespace WhatINoted
         /// <returns>The books with the specified details.</returns>
         /// <param name="title">Title.</param>
         /// <param name="author">Author.</param>
-        private List<Models.BookSearchResultsModel> SearchByDetails(string title, string author) {
+        private List<Models.BookSearchResultsModel> SearchByDetails(string title, string author)
+        {
             return new List<Models.BookSearchResultsModel>();
         }
     }

@@ -11,13 +11,16 @@
                 </div>
                 <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container hidden">
                     <img id="Image" class="display_block hidden" src="#" alt="Uploaded Image" />
+
+                    <br />
+
                     <input type="file" id="ImageInput" class="small_button display_inline-block" name="ImageInput" accept="image/png, image/jpeg" />
 
                     <asp:UpdatePanel ID="ExtractTextUpdatePanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:HiddenField runat="server" ID="ImageInBase64" Value="" />
                             <asp:Button runat="server" ID="btnExtractText" Style="display: none" OnClick="GenerateText" />
-                            <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_openNotebook()">
+                            <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_extractText()">
                                 Extract ISBN
                             </div>
 
@@ -25,26 +28,31 @@
 
                             <div runat="server" class="titled_field display_inline-block">
                                 <h4>ISBN</h4>
-                                <input runat="server" type="text" id="IsbnBox" class="full_width"/>
+                                <input runat="server" type="text" id="IsbnBox" class="full_width" />
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
                     <br />
-                    <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
-                    <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnISBNPostback.ClientID %>').click()">
-                        Search for Book
-                    </div>
-                    <div runat="server" class="search_grid">
-                        <asp:Table runat="server" ID="SearchGridISBN">
-                            <asp:TableRow>
-                                <asp:TableCell>Title</asp:TableCell>
-                                <asp:TableCell>Author</asp:TableCell>
-                                <asp:TableCell>ISBN</asp:TableCell>
-                            </asp:TableRow>
-                            <%--insert dynamic search results here--%>
-                        </asp:Table>
-                    </div>
+
+                    <asp:UpdatePanel ID="SearchForNotebookPanel" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
+                            <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnISBNPostback.ClientID %>').click()">
+                                Search for Book
+                            </div>
+                            <div runat="server" class="search_grid">
+                                <asp:Table runat="server" ID="SearchGridISBN">
+                                    <asp:TableRow>
+                                        <asp:TableCell>Title</asp:TableCell>
+                                        <asp:TableCell>Author</asp:TableCell>
+                                        <asp:TableCell>ISBN</asp:TableCell>
+                                    </asp:TableRow>
+                                    <%--insert dynamic search results here--%>
+                                </asp:Table>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
             <div runat="server" class="margin_top_bottom">
@@ -104,8 +112,7 @@
             <script>
                 var file;
                 var upload = document.getElementById("ImageInput");
-
-                new Darkroom('#Image');
+                var darkroom;
 
                 upload.onchange = function () {
                     file = upload.files[0];
@@ -114,20 +121,37 @@
 
                 function getImageIn64(file) {
                     var reader = new FileReader();
-                    reader.readAsDataURL(file);
                     reader.onload = function () {
-                        var image = document.getElementById("Image")
-                        image.src = reader.result;
-                        image.classList.remove("hidden");
+                        let newImage = createImageElement();
+                        newImage.src = reader.result;
                         document.getElementById('<%= ImageInBase64.ClientID %>').value = reader.result;
-                    };
+                        var ISBNGroupContainer = document.getElementsByClassName("byISBNGroupContainer")[0];
+                        if (darkroom != null) {
+                            ISBNGroupContainer.removeChild(ISBNGroupContainer.firstElementChild);
+                        }
+                        ISBNGroupContainer.insertBefore(newImage, ISBNGroupContainer.firstElementChild);
+                        darkroom = new Darkroom('#Image', {
+                            plugins: {
+                                save: false
+                            }
+                        });
+                    }.bind(this, darkroom);
                     reader.onerror = function (error) {
                         console.log('Error: ', error);
                     };
-
+                    reader.readAsDataURL(file);
                 }
 
-                function click_openNotebook() {
+                function createImageElement() {
+                    let newImage = document.createElement('img');
+                    newImage.id = "Image";
+                    newImage.className = "display_block";
+                    newImage.alt = "Uploaded Image";
+                    return newImage;
+                }
+
+                function click_extractText() {
+                    document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
                     document.getElementById('<%= btnExtractText.ClientID %>').click();
                 }
 
