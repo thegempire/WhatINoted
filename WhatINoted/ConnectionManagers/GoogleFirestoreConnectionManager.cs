@@ -257,7 +257,7 @@ namespace WhatINoted.ConnectionManagers
         /// <param name="publishDate">the date that the notebook was published</param>
         /// <param name="coverURL">a URL pointing to an image of the cover of the notebook</param>
         /// <returns>the created notebook</returns>
-        public static Notebook CreateNotebook(string userID, string title, string author, string isbn, string publisher, DateTime publishDate, string coverURL)
+        public static Notebook CreateNotebook(string userID, string title, string author, string isbn, string publisher, string publishDate, string coverURL)
         {
             if (userID == null || title == null || author == null || isbn == null || publisher == null || coverURL == null
                 || userID == "" || title == "" || author == "" || isbn == "" || publisher == "" || coverURL == "")
@@ -474,9 +474,8 @@ namespace WhatINoted.ConnectionManagers
         /// <summary>
         /// Generates the Json string required for a create notebook request.
         /// </summary>
-        private static string GenerateCreateNotebookJson(string userID, string title, string author, string isbn, string publisher, DateTime publishDate, string coverURL)
+        private static string GenerateCreateNotebookJson(string userID, string title, string author, string isbn, string publisher, string publishDate, string coverURL)
         {
-            string publishDateUTC = publishDate.ToUniversalTime().ToString("o");
             string createTimeUTC = DateTime.UtcNow.ToString("o");
 
             List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
@@ -486,7 +485,7 @@ namespace WhatINoted.ConnectionManagers
                 new Tuple<string, FieldTypes, string>("author", FieldTypes.StringValue, author),
                 new Tuple<string, FieldTypes, string>("isbn", FieldTypes.StringValue, isbn),
                 new Tuple<string, FieldTypes, string>("publisher", FieldTypes.StringValue, publisher),
-                new Tuple<string, FieldTypes, string>("publishDate", FieldTypes.TimestampValue, publishDateUTC),
+                new Tuple<string, FieldTypes, string>("publishDate", FieldTypes.StringValue, publishDate),
                 new Tuple<string, FieldTypes, string>("coverURL", FieldTypes.StringValue, coverURL),
                 new Tuple<string, FieldTypes, string>("created", FieldTypes.TimestampValue, createTimeUTC),
                 new Tuple<string, FieldTypes, string>("modified", FieldTypes.TimestampValue, createTimeUTC)
