@@ -10,7 +10,7 @@
                     By ISBN
                 </div>
                 <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container hidden">
-                    <img id="Image" class="display_block hidden image_upload" src="#" alt="Uploaded Image" />
+                    <img id="Image" class="display_block hidden" src="#" alt="Uploaded Image" />
                     <input type="file" id="ImageInput" class="small_button display_inline-block" name="ImageInput" accept="image/png, image/jpeg" />
 
                     <asp:UpdatePanel ID="ExtractTextUpdatePanel" runat="server" UpdateMode="Conditional">
@@ -97,10 +97,16 @@
                 </div>
             </div>
 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.13/fabric.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.js"></script>
+            <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.css" />
+
             <script>
                 var path;
                 var file;
                 var upload = document.getElementById("ImageInput");
+
+                new Darkroom('#Image');
 
                 upload.onchange = function () {
                     if (upload.files[0] != null) {
