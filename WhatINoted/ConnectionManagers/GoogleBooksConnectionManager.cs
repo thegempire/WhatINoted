@@ -42,7 +42,7 @@ namespace WhatINoted.ConnectionManagers
         /// <param name="isbn">isbn to search for (will override other parameters)</param>
         /// 
         /// <returns>A list of volumes retrieved from Google Books</returns>
-        public static List<BookSearchResultsModel> SearchVolumes(String title, String author, String publisher, IsbnModel isbn)
+        public static List<BookSearchResultsModel> SearchVolumes(String title, String author, String publisher, String isbn)
         {
             // Ensure we have some search parameter
             if ((title == null || title == "") && (author == null || author == "")
@@ -51,7 +51,7 @@ namespace WhatINoted.ConnectionManagers
 
             // Build a request based on the provided parameters
             String reqUri = (isbn == null) ? BuildRequestURI(title, author, publisher, null)
-                : BuildRequestURI("", "", "", isbn.Number);
+                : BuildRequestURI("", "", "", isbn);
 
             // Retrieve and parse the response JSON
             using (WebClient wc = new WebClient())
