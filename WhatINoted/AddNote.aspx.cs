@@ -76,7 +76,7 @@ namespace WhatINoted
 
         }
 
-        public void UpdateNotes(object sender, EventArgs e)
+        public void UpdateNotebooks(object sender, EventArgs e)
         {
             string userID = HandleLoginUserID.Value;
 
