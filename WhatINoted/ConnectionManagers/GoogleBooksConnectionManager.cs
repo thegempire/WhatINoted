@@ -47,7 +47,7 @@ namespace WhatINoted.ConnectionManagers
             // Ensure we have some search parameter
             if ((title == null || title == "") && (author == null || author == "")
                 && (publisher == null || publisher == "") && isbn == null)
-                    throw new ArgumentNullException();
+                    throw new ArgumentNullException(); // TODO -- Catch this!
 
             // Build a request based on the provided parameters
             String reqUri = (isbn == null) ? BuildRequestURI(title, author, publisher, null)

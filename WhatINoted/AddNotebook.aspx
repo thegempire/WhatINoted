@@ -2,9 +2,44 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+    <script>
+        function rowClicked(el) {
+            WebForm_GetElementById("MainContent_ModalTitle").innerHTML = WebForm_GetElementById(el.id + "_Title").innerHTML;
+            WebForm_GetElementById("MainContent_ModalAuthors").innerHTML = WebForm_GetElementById(el.id + "_Authors").innerHTML;
+            WebForm_GetElementById("MainContent_ModalPublisher").innerHTML = WebForm_GetElementById(el.id + "_Publisher").innerHTML;
+            WebForm_GetElementById("MainContent_ModalPublishDate").innerHTML = WebForm_GetElementById(el.id + "_PublishDate").innerHTML;
+            WebForm_GetElementById("MainContent_ModalISBN").innerHTML = WebForm_GetElementById(el.id + "_ISBN").innerHTML;
+
+            WebForm_GetElementById("MainContent_ShowButton").click();
+        }
+    </script>
+
     <asp:UpdatePanel ID="AddNotebookUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <div runat="server" class="margin_top_bottom">
+                <asp:Button ID="ShowButton" runat="server" Style="display: none" />
+                <asp:Panel ID="CreationModal" runat="server" CssClass="creation_modal">
+                    <asp:Table runat="server" CssClass="search_grid">
+                        <asp:TableRow>
+                            <asp:TableCell>Title</asp:TableCell>
+                            <asp:TableCell>Author</asp:TableCell>
+                            <asp:TableCell>Publisher</asp:TableCell>
+                            <asp:TableCell>Publication Date</asp:TableCell>
+                            <asp:TableCell>ISBN</asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
+                            <asp:TableCell ID="ModalTitle"></asp:TableCell>
+                            <asp:TableCell ID="ModalAuthors"></asp:TableCell>
+                            <asp:TableCell ID="ModalPublisher"></asp:TableCell>
+                            <asp:TableCell ID="ModalPublishDate"></asp:TableCell>
+                            <asp:TableCell ID="ModalISBN"></asp:TableCell>
+                        </asp:TableRow>
+                    </asp:Table>
+                    <asp:Button ID="CancelModal" runat="server" Text="Cancel" />
+                    <asp:Button ID="SubmitModal" runat="server" Text="Create" />
+                </asp:Panel>
+                <ajaxToolkit:ModalPopupExtender runat="server" TargetControlID="ShowButton" PopupControlID="CreationModal" OkControlID="CancelModal"></ajaxToolkit:ModalPopupExtender>
+                
                 <h2>Create New Notebook</h2>
                 <div runat="server" class="button" onclick="ToggleElementHidden('byISBNGroupContainer');">
                     By ISBN

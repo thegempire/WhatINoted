@@ -294,3 +294,9 @@ textarea {
 img {
     margin-bottom: 1vh;
 }
+
+.creation_modal
+{
+    background-color: white;
+    border: 2px solid black;
+}

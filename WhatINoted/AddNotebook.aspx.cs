@@ -55,37 +55,46 @@ namespace WhatINoted
             // Convert the search results to HTML table rows
             //
             List<TableRow> resultRows = new List<TableRow>();
+            int idnum = 0;
             foreach(BookSearchResultsModel volume in searchResults)
             {
                 TableRow volumeRow = new TableRow();
                 volumeRow.CssClass = "search_result";
+                volumeRow.ID = searchKey == "ISBN" ? "ResultRowISBN" + idnum++ : "ResultRowDetails" + idnum++;
+
+                volumeRow.Attributes["onclick"] = "rowClicked(this)";
 
                 TableCell titleCell = new TableCell();
                 HtmlGenericControl innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_Title";
                 innerDiv.InnerHtml = volume.Title;
                 titleCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(titleCell);
 
                 TableCell authorCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_Authors";
                 innerDiv.InnerHtml = volume.Authors;
                 authorCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(authorCell);
 
                 TableCell publisherCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_Publisher";
                 innerDiv.InnerHtml = volume.Publisher;
                 publisherCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(publisherCell);
 
                 TableCell pubDateCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_PublishDate";
                 innerDiv.InnerHtml = volume.PublishDate;
                 pubDateCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(pubDateCell);
 
                 TableCell isbnCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_ISBN";
                 innerDiv.InnerHtml = volume.ISBN;
                 isbnCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(isbnCell);
@@ -112,33 +121,13 @@ namespace WhatINoted
         }
 
         /// <summary>
-        /// Creates the notebook based on the search result with a particular index..
+        /// Creates the notebook based on the selected search results
         /// </summary>
-        /// <param name="searchResultIndex">Search result index.</param>
-        private void CreateNotebook(int searchResultIndex) {
-
+        private void CreateNotebook() {
         }
 
         protected override void GenerateText() {
 
-        }
-
-        /// <summary>
-        /// Searches for a book with the specified ISBN.
-        /// </summary>
-        /// <returns>The book with the specified ISBN.</returns>
-        private Models.BookSearchResultsModel SearchByIsbn(Models.IsbnModel isbn) {
-            return new Models.BookSearchResultsModel("", "", "", "", "", "");
-        }
-
-        /// <summary>
-        /// Searches for a book with the specified details.
-        /// </summary>
-        /// <returns>The books with the specified details.</returns>
-        /// <param name="title">Title.</param>
-        /// <param name="author">Author.</param>
-        private List<Models.BookSearchResultsModel> SearchByDetails(string title, string author) {
-            return new List<Models.BookSearchResultsModel>();
         }
     }
 }
