@@ -17,36 +17,45 @@ namespace WhatINoted
     /// </summary>
     public partial class NotesView : View
     {
+        private string notebookID;
+
         private List<Models.Note> Notes;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            notebookID = Request.QueryString["notebookID"];
+            title.InnerText = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
         }
 
         /// <summary>
         /// Edits the note at the specified index.
         /// </summary>
         /// <param name="index">Index of the note to edit.</param>
-        private void EditNote(int index)
+        [WebMethod, ScriptMethod]
+        public void EditNote(object sender, EventArgs e)
         {
-
+            Response.Redirect("EditNote.aspx?noteID=" + ActiveNote.Value, true);
         }
 
         /// <summary>
         /// Deletes the note at the specified index.
         /// </summary>
         /// <param name="index">Index of the note to delete.</param>
-        private void DeleteNote(int index)
+        [WebMethod, ScriptMethod]
+        public void DeleteNote(object sender, EventArgs e)
         {
+            //GoogleFirestoreConnectionManager.DeleteNote();
+        }
 
+        [WebMethod, ScriptMethod]
+        public void AddNote(object sender, EventArgs e)
+        {
+            Response.Redirect("AddNote.aspx?notebookID=" + notebookID, true);
         }
 
         [WebMethod, ScriptMethod]
         public void UpdateNotes(object sender, EventArgs e)
         {
-            string notebookID = Request.QueryString["notebookID"];
-
             Notes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID);
             GenerateNoteRows();
         }
@@ -62,6 +71,7 @@ namespace WhatINoted
                 editCell.HorizontalAlign = HorizontalAlign.Right;
                 Button editButton = new Button();
                 editButton.Text = "Edit";
+                editButton.OnClientClick = "EditNote_Click(\"" + note.ID + "\")";
                 editCell.Controls.Add(editButton);
                 noteRow.Controls.Add(textCell);
                 noteRow.Controls.Add(editCell);
