@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Note" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddNote.aspx.cs" Inherits="WhatINoted.CreateEditNoteView" %>
+﻿<%@ Page Title="Note" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NoteEditor.aspx.cs" Inherits="WhatINoted.CreateEditNoteView" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="AddNoteUpdatePanel" runat="server" UpdateMode="Conditional">
@@ -23,10 +23,10 @@
                 </div>
                 <div runat="server" class="titled_field display_inline-block">
                     <h4>Notebook</h4>
-                    <asp:DropDownList runat="server" ID="NotebookList">
-                    </asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="NotebookList"></asp:DropDownList>
                 </div>
                 <div runat="server" class="grid_5_columns">
+                    <asp:Button runat="server" ID="HandleNoteTrigger" class="hidden" OnClick="HandleNote" />
                     <div runat="server" id="HandleNoteButton" class="grid_5_columns_right button" onclick="Button_Click();">
                         Create Note
                     </div>
@@ -41,8 +41,6 @@
     <script>
         window.addEventListener('load', handleLoginForContentPage);
         function Button_Click() {
-            var userID = $('#<%= HandleLoginUserID.ClientID %>').val();
-            var notebookID = $('#<%= NotebookList.ClientID %>').val();
             var noteText = $('#<%= NoteText.ClientID %>').val();
 
             if (noteText === null || noteText === "") {
@@ -50,20 +48,7 @@
                 return;
             }
 
-            $.ajax({
-                type: "POST",
-                url: "AddNote.aspx/HandleNote",
-                data: JSON.stringify({ userID: userID, noteText: noteText }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                async: true,
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("Error - Status: " + textStatus + "\n" + "jqXHR Status: " + jqXHR.status + "\n" + "jqXHR Response Text: " + jqXHR.responseText)
-                },
-                success: function () {
-                    window.location.href = "Notes.aspx?notebookID=" + notebookID;
-                }
-            });
+            document.getElementById('<%= HandleNoteTrigger.ClientID %>').click();
         }
     </script>
 </asp:Content>

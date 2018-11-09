@@ -67,6 +67,15 @@ namespace WhatINoted {
         protected global::System.Web.UI.WebControls.DropDownList NotebookList;
         
         /// <summary>
+        /// HandleNoteTrigger control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button HandleNoteTrigger;
+        
+        /// <summary>
         /// HandleNoteButton control.
         /// </summary>
         /// <remarks>

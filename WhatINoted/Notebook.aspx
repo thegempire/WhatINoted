@@ -1,13 +1,13 @@
-﻿<%@ Page Title="Notes" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Notes.aspx.cs" Inherits="WhatINoted.NotesView" %>
+﻿<%@ Page Title="Notes" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Notebook.aspx.cs" Inherits="WhatINoted.NotesView" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="LoginUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <div runat="server">
-                <h2 runat="server" id="title">Notebook Title</h2>
+                <h2 runat="server" id="NotebookTitle">Notebook Title</h2>
                 <asp:Table runat="server" ID="NotesTable"></asp:Table>
 
-                <asp:HiddenField runat="server" ID="ActiveNote" Value="" />
+                <asp:HiddenField runat="server" ID="NoteID" Value="" />
                 <asp:Button runat="server" class="editNoteTrigger hidden" OnClick="EditNote" />
                 <asp:Button runat="server" class="deleteNoteTrigger hidden" OnClick="DeleteNote" />
             </div>
@@ -31,7 +31,7 @@
             triggerButton.click();
         }
         function EditNote_Click(noteID) {
-            window.location.href = "AddNote.aspx?noteID=" + noteID;
+            window.location.href = "NoteEditor.aspx?noteID=" + noteID;
         }
     </script>
 </asp:Content>

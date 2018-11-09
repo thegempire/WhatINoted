@@ -50,7 +50,7 @@ namespace WhatINoted
             try
             {
                 searchResults = searchKey == "ISBN" ?
-                GoogleBooksConnectionManager.SearchVolumes("", "", "", IsbnEntry.Text) :
+                GoogleBooksConnectionManager.SearchVolumes("", "", "", IsbnBox.Text) :
                 GoogleBooksConnectionManager.SearchVolumes(TitleEntry.Text, AuthorEntry.Text, PublisherEntry.Text, null);
             }
             catch (ArgumentNullException ex)
@@ -142,7 +142,7 @@ namespace WhatINoted
                     PublishDateSelection.Value,
                     System.Web.HttpUtility.HtmlDecode(CoverUrlSelection.Value)
                 );
-                Response.Redirect("Notes.aspx?notebookID=" + notebook.ID, true);
+                Response.Redirect("Notebook.aspx?notebookID=" + notebook.ID, true);
             }
             catch (Exception)
             {
@@ -168,7 +168,7 @@ namespace WhatINoted
             }
             string text = GoogleVisionConnectionManager.ExtractText(image);
             text = ParseIsbn(text);
-            IsbnBox.Value = text;
+            IsbnBox.Text = text;
         }
 
         /// <summary>
@@ -206,9 +206,9 @@ namespace WhatINoted
         /// Searches for a book with the specified ISBN.
         /// </summary>
         /// <returns>The book with the specified ISBN.</returns>
-        private Models.BookSearchResultsModel SearchByIsbn(IsbnModel isbn)
+        private BookSearchResultsModel SearchByIsbn(IsbnModel isbn)
         {
-            return new Models.BookSearchResultsModel("", "", "", "", "", "");
+            return new BookSearchResultsModel("", "", "", "", "", "");
         }
 
         /// <summary>
@@ -217,9 +217,14 @@ namespace WhatINoted
         /// <returns>The books with the specified details.</returns>
         /// <param name="title">Title.</param>
         /// <param name="author">Author.</param>
-        private List<Models.BookSearchResultsModel> SearchByDetails(string title, string author)
+        private List<BookSearchResultsModel> SearchByDetails(string title, string author)
         {
-            return new List<Models.BookSearchResultsModel>();
+            return new List<BookSearchResultsModel>();
+        }
+
+        public void UpdatePage(object sender, EventArgs e)
+        {
+
         }
     }
 }

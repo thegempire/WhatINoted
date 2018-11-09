@@ -22,13 +22,13 @@ namespace WhatINoted {
         protected global::System.Web.UI.UpdatePanel LoginUpdatePanel;
         
         /// <summary>
-        /// title control.
+        /// NotebookTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl title;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NotebookTitle;
         
         /// <summary>
         /// NotesTable control.
@@ -40,13 +40,13 @@ namespace WhatINoted {
         protected global::System.Web.UI.WebControls.Table NotesTable;
         
         /// <summary>
-        /// ActiveNote control.
+        /// NoteID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField ActiveNote;
+        protected global::System.Web.UI.WebControls.HiddenField NoteID;
         
         /// <summary>
         /// HandleLoginUserID control.

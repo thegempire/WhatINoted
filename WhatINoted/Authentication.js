@@ -11,7 +11,6 @@ firebase.initializeApp(config);
 
 // FirebaseUI config.
 var uiConfig = {
-    signInSuccessUrl: './Main.aspx',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -23,7 +22,7 @@ function handleLoginForLoginPage() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             // User is logged in
-            window.location = "./Main.aspx";
+            window.location = "./Notebooks.aspx";
         } else {
             // User is logged out
         }
@@ -35,8 +34,9 @@ function handleLoginForContentPage() {
         if (user) {
             // User is logged in
             document.getElementsByClassName("navbar-logout")[0].classList.remove("hidden");
-            var data = '{userID: "' + user.uid + '", displayName: "' + user.displayName + '", email: "' + user.email + '" }';
-            callCSMethod("Main.aspx/HandleLogin", data, function () {
+            //var data = '{userID: "' + user.uid + '", displayName: "' + user.displayName + '", email: "' + user.email + '" }'; // TODO - remove
+            var data = JSON.stringify({userID: user.uid, displayName: user.displayName, email: user.email });
+            callCSMethod("Notebooks.aspx/HandleLogin", data, function () {
                 let userIDElement = document.getElementById("MainContent_HandleLoginUserID");
                 userIDElement.value = user.uid;
                 let triggerButton = document.getElementsByClassName('handleLoginTrigger')[0];
@@ -44,7 +44,7 @@ function handleLoginForContentPage() {
             }.bind(user))
         } else {
             // User is logged out
-            window.location = "./Default.aspx";
+            window.location = "./Login.aspx";
         }
     });
 }

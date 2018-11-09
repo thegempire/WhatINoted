@@ -14,12 +14,7 @@ namespace WhatINoted
     /// </summary>
     public partial class NotebooksView : View
     {
-        private List<Models.Notebook> Notebooks;
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
+        private List<Notebook> Notebooks;
 
         [WebMethod, ScriptMethod]
         public void UpdateNotebooks(object sender, EventArgs e)
@@ -69,18 +64,18 @@ namespace WhatINoted
 
         protected void CreateNotebook(object sender, EventArgs e)
         {
-            Response.Redirect("AddNotebook.aspx", true);
+            Response.Redirect("NotebookEditor.aspx", true);
         }
 
         protected void CreateNote(object sender, EventArgs e)
         {
-            Response.Redirect("AddNote.aspx", true);
+            Response.Redirect("NoteEditor.aspx", true);
         }
 
         protected void OpenNotebook(object sender, EventArgs e)
         {
             string notebookID = Field_NotebookID.Value;
-            Response.Redirect("Notes.aspx?notebookID=" + notebookID, true);
+            Response.Redirect("Notebook.aspx?notebookID=" + notebookID, true);
         }
     }
 }

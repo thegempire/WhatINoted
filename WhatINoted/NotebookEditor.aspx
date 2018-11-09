@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Add Notebook" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddNotebook.aspx.cs" Inherits="WhatINoted.NotebookCreationView" %>
+﻿<%@ Page Title="Add Notebook" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NotebookEditor.aspx.cs" Inherits="WhatINoted.NotebookCreationView" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -54,8 +54,8 @@
                     <asp:Button ID="CancelModal" runat="server" Text="Cancel" />
                     <asp:Button ID="SubmitModal" runat="server" Text="Create" OnClick="CreateNotebook" />
                 </asp:Panel>
-                <ajaxToolkit:ModalPopupExtender runat="server" TargetControlID="ShowButton" PopupControlID="CreationModal" OkControlID="CancelModal"></ajaxToolkit:ModalPopupExtender>
-                
+                <%--<ajaxToolkit:ModalPopupExtender runat="server" TargetControlID="ShowButton" PopupControlID="CreationModal" OkControlID="CancelModal"></ajaxToolkit:ModalPopupExtender>--%>
+
                 <h2>Create New Notebook</h2>
                 <div runat="server" class="button" onclick="ToggleElementHidden('byISBNGroupContainer');">
                     By ISBN
@@ -79,7 +79,7 @@
 
                             <div runat="server" class="titled_field display_inline-block">
                                 <h4>ISBN</h4>
-                                <input runat="server" type="text" id="IsbnBox" class="full_width" />
+                                <asp:TextBox runat="server" ID="IsbnBox" CssClass="full_width"></asp:TextBox>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -115,15 +115,15 @@
                         <ContentTemplate>
                             <div class="titled_field display_inline-block">
                                 <h4>Title</h4>
-                                <asp:textBox runat="server" id="TitleEntry" class="full_width"></asp:textBox>
+                                <asp:TextBox runat="server" ID="TitleEntry" class="full_width"></asp:TextBox>
                             </div>
                             <div class="titled_field display_inline-block">
                                 <h4>Author</h4>
-                                <asp:textBox runat="server" id="AuthorEntry" class="full_width"></asp:textBox>
+                                <asp:TextBox runat="server" ID="AuthorEntry" class="full_width"></asp:TextBox>
                             </div>
                             <div class="titled_field display_inline-block">
                                 <h4>Publisher</h4>
-                                <asp:textBox runat="server" id="PublisherEntry" class="full_width"></asp:textBox>
+                                <asp:TextBox runat="server" ID="PublisherEntry" class="full_width"></asp:TextBox>
                             </div>
                             <br />
                             <asp:Button runat="server" ID="btnBookDetailsPostback" Style="display: none" OnClick="SearchForBook" />
@@ -145,68 +145,69 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
+
+            <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdatePage" />
+
         </ContentTemplate>
-    </asp:UpdatePanel>   
+    </asp:UpdatePanel>
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.13/fabric.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.js"></script>
-            <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.13/fabric.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/darkroomjs/2.0.1/darkroom.css" />
 
-            <script>
-                window.addEventListener('load', handleLoginForContentPage);
+    <script>
+        window.addEventListener('load', handleLoginForContentPage);
 
-                var path;
-                var file;
-                var upload = document.getElementById("ImageInput");
-                var darkroom;
+        var path;
+        var file;
+        var upload = document.getElementById("ImageInput");
+        var darkroom;
 
-                upload.onchange = function () {
-                    if (upload.files[0] != null) {
-                        file = upload.files[0];
-                        getImageIn64(file);
+        upload.onchange = function () {
+            if (upload.files[0] != null) {
+                file = upload.files[0];
+                getImageIn64(file);
+            }
+        }
+
+        function getImageIn64(file) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                let newImage = createImageElement();
+                newImage.src = reader.result;
+                document.getElementById('<%= ImageInBase64.ClientID %>').value = reader.result;
+                var ISBNGroupContainer = document.getElementsByClassName("byISBNGroupContainer")[0];
+                if (darkroom != null) {
+                    ISBNGroupContainer.removeChild(ISBNGroupContainer.firstElementChild);
+                }
+                ISBNGroupContainer.insertBefore(newImage, ISBNGroupContainer.firstElementChild);
+                darkroom = new Darkroom('#Image', {
+                    plugins: {
+                        save: false
                     }
-                }
+                });
+            }.bind(this, darkroom);
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+            reader.readAsDataURL(file);
+        }
 
-                function getImageIn64(file) {
-                    var reader = new FileReader();
-                    reader.onload = function () {
-                        let newImage = createImageElement();
-                        newImage.src = reader.result;
-                        document.getElementById('<%= ImageInBase64.ClientID %>').value = reader.result;
-                        var ISBNGroupContainer = document.getElementsByClassName("byISBNGroupContainer")[0];
-                        if (darkroom != null) {
-                            ISBNGroupContainer.removeChild(ISBNGroupContainer.firstElementChild);
-                        }
-                        ISBNGroupContainer.insertBefore(newImage, ISBNGroupContainer.firstElementChild);
-                        darkroom = new Darkroom('#Image', {
-                            plugins: {
-                                save: false
-                            }
-                        });
-                    }.bind(this, darkroom);
-                    reader.onerror = function (error) {
-                        console.log('Error: ', error);
-                    };
-                    reader.readAsDataURL(file);
-                }
+        function createImageElement() {
+            let newImage = document.createElement('img');
+            newImage.id = "Image";
+            newImage.className = "display_block";
+            newImage.alt = "Uploaded Image";
+            return newImage;
+        }
 
-                function createImageElement() {
-                    let newImage = document.createElement('img');
-                    newImage.id = "Image";
-                    newImage.className = "display_block";
-                    newImage.alt = "Uploaded Image";
-                    return newImage;
-                }
+        function click_extractText() {
+            document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
+            var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
+            if (val != null && val != '')
+                document.getElementById('<%= btnExtractText.ClientID %>').click();
+        }
 
-                function click_extractText() {
-                    document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
-                    var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
-                    if (val != null && val != '')
-                        document.getElementById('<%= btnExtractText.ClientID %>').click();
-                }
-
-            </script>         
-
-    <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
-    <asp:Button runat="server" class="handleLoginTrigger hidden" />
+    </script>
 </asp:Content>

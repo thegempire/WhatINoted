@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using WhatINoted.ConnectionManagers;
 using WhatINoted.Models;
@@ -19,50 +15,58 @@ namespace WhatINoted
     {
         private string notebookID;
 
-        private List<Models.Note> Notes;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             notebookID = Request.QueryString["notebookID"];
-            title.InnerText = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
+
+            if (notebookID == null || notebookID == "")
+            {
+                Response.Redirect("./Notebooks.aspx");
+            }
+
+            NotebookTitle.InnerText = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
         }
 
         /// <summary>
-        /// Edits the note at the specified index.
+        /// Edits the note corresponding to the edit button that was clicked.
         /// </summary>
-        /// <param name="index">Index of the note to edit.</param>
         [WebMethod, ScriptMethod]
         public void EditNote(object sender, EventArgs e)
         {
-            Response.Redirect("EditNote.aspx?noteID=" + ActiveNote.Value, true);
+            Response.Redirect("NoteEditor.aspx?noteID=" + NoteID.Value, true);
         }
 
         /// <summary>
-        /// Deletes the note at the specified index.
+        /// Deletes the note corresponding to the delete button that was clicked.
         /// </summary>
-        /// <param name="index">Index of the note to delete.</param>
         [WebMethod, ScriptMethod]
         public void DeleteNote(object sender, EventArgs e)
         {
-            //GoogleFirestoreConnectionManager.DeleteNote();
+            // TODO - Some sort of message displayed to the user that allows them to confirm deletion
+
+            // This implementation is correct. It is commented until the above TODO is complete.
+            //string noteID = NoteID.Value;
+            //if (noteID != null && noteID != "")
+            //{
+            //    GoogleFirestoreConnectionManager.DeleteNote(noteID);
+            //}
         }
 
         [WebMethod, ScriptMethod]
         public void AddNote(object sender, EventArgs e)
         {
-            Response.Redirect("AddNote.aspx?notebookID=" + notebookID, true);
+            Response.Redirect("NoteEditor.aspx?notebookID=" + notebookID, true);
         }
 
         [WebMethod, ScriptMethod]
         public void UpdateNotes(object sender, EventArgs e)
         {
-            Notes = GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID);
-            GenerateNoteRows();
+            GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
         }
 
-        protected void GenerateNoteRows()
+        protected void GenerateNoteRows(List<Note> notes)
         {
-            foreach (Note note in Notes)
+            foreach (Note note in notes)
             {
                 TableRow noteRow = new TableRow();
                 TableCell textCell = new TableCell();

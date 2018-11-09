@@ -208,7 +208,7 @@ namespace WhatINoted {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText IsbnBox;
+        protected global::System.Web.UI.WebControls.TextBox IsbnBox;
         
         /// <summary>
         /// SearchForNotebookPanel control.
@@ -218,24 +218,6 @@ namespace WhatINoted {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel SearchForNotebookPanel;
-        
-        /// <summary>
-        /// ByISBNGroupPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel ByISBNGroupPanel;
-        
-        /// <summary>
-        /// IsbnEntry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox IsbnEntry;
         
         /// <summary>
         /// btnISBNPostback control.
