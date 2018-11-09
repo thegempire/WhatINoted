@@ -1,12 +1,12 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using WhatINoted.Models;
 using WhatINoted.ConnectionManagers;
+using WhatINoted.Models;
 
 namespace WhatINoted
 {
@@ -63,7 +63,7 @@ namespace WhatINoted
             //
             List<TableRow> resultRows = new List<TableRow>();
             int idnum = 0;
-            foreach(BookSearchResultsModel volume in searchResults)
+            foreach (BookSearchResultsModel volume in searchResults)
             {
                 TableRow volumeRow = new TableRow();
                 volumeRow.CssClass = "search_result";
@@ -134,20 +134,21 @@ namespace WhatINoted
             try
             {
                 Notebook notebook = GoogleFirestoreConnectionManager.CreateNotebook(
-                    HandleLoginUserID.Value, TitleSelection.Value, AuthorsSelection.Value, IsbnSelection.Value,
-                    PublisherSelection.Value, PublishDateSelection.Value, System.Web.HttpUtility.HtmlDecode(CoverUrlSelection.Value));
-
-            //redirect
-            Response.Redirect("Notes.aspx", true);
-        }
-
-        /// <summary>
-        /// Creates the notebook based on the search result with a particular index..
-        /// </summary>
-        /// <param name="searchResultIndex">Search result index.</param>
-        private void CreateNotebook(int searchResultIndex)
-        {
-
+                    HandleLoginUserID.Value,
+                    TitleSelection.Value,
+                    AuthorsSelection.Value,
+                    IsbnSelection.Value,
+                    PublisherSelection.Value,
+                    PublishDateSelection.Value,
+                    System.Web.HttpUtility.HtmlDecode(CoverUrlSelection.Value)
+                );
+                Response.Redirect("Notes.aspx?notebookID=" + notebook.ID, true);
+            }
+            catch (Exception)
+            {
+                return;
+                // TODO -- actually handle failure, notify user something has gone wrong
+            }
         }
 
         /// <summary>
@@ -199,21 +200,13 @@ namespace WhatINoted
                     return word;
             }
             return text;
-                //redirect
-                Response.Redirect("Notes.aspx?notebookID=" + notebook.ID, true);
-            }
-            catch (Exception ex)
-            {
-                return;
-                // TODO -- actually handle failure, notify user something has gone wrong
-            }
         }
 
         /// <summary>
         /// Searches for a book with the specified ISBN.
         /// </summary>
         /// <returns>The book with the specified ISBN.</returns>
-        private Models.BookSearchResultsModel SearchByIsbn(Models.IsbnModel isbn)
+        private Models.BookSearchResultsModel SearchByIsbn(IsbnModel isbn)
         {
             return new Models.BookSearchResultsModel("", "", "", "", "", "");
         }
