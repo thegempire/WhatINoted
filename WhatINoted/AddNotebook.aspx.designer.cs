@@ -175,6 +175,51 @@ namespace WhatINoted {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByISBNGroupContainer;
         
         /// <summary>
+        /// ExtractTextUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel ExtractTextUpdatePanel;
+        
+        /// <summary>
+        /// ImageInBase64 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField ImageInBase64;
+        
+        /// <summary>
+        /// btnExtractText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExtractText;
+        
+        /// <summary>
+        /// IsbnBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText IsbnBox;
+        
+        /// <summary>
+        /// SearchForNotebookPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel SearchForNotebookPanel;
+        
+        /// <summary>
         /// ByISBNGroupPanel control.
         /// </summary>
         /// <remarks>

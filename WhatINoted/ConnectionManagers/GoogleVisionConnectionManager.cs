@@ -3,6 +3,9 @@ using System.Linq;
 using Google.Cloud.Vision.V1;
 using System.IO;
 using System;
+using System.Reflection;
+using System.Web;
+using System.Web.Hosting;
 
 namespace WhatINoted.ConnectionManagers
 {
@@ -26,7 +29,15 @@ namespace WhatINoted.ConnectionManagers
         /// ***This is the location of the json credentials file for the Google Vision service account. Change this if the path is wrong or changes.***
         /// </summary>
 
-        private static readonly string JsonPath = "Resources\\WhatINoted-5bba0c1ecaf8.json";
+            /* 7/11/2018
+             * Ian Younghusband:
+             * The path to this resource is being calculated in a hack-y way to allow for both the main project
+             * and the test project to access the resource. There should be a better way to do this...
+             */
+        private static readonly string JsonPath = (AppDomain.CurrentDomain.BaseDirectory.IndexOf("\\bin\\") >= 0 ? 
+            AppDomain.CurrentDomain.BaseDirectory.Remove(AppDomain.CurrentDomain.BaseDirectory.IndexOf("\\bin\\")) :
+            AppDomain.CurrentDomain.BaseDirectory)
+            + "\\Resources\\WhatINoted-5bba0c1ecaf8.json";
         public const string GOOGLE_APPLICATION_CREDENTIALS = "GOOGLE_APPLICATION_CREDENTIALS";
 
         /// <summary>
@@ -46,6 +57,9 @@ namespace WhatINoted.ConnectionManagers
             System.Environment.SetEnvironmentVariable(GOOGLE_APPLICATION_CREDENTIALS, JsonPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
             IReadOnlyList<EntityAnnotation> textAnnotations = client.DetectText(image);
+
+            if (textAnnotations.Count <= 0)
+                return "";
             string text = textAnnotations.First().Description;
 
             if (text.Last() == '\n')

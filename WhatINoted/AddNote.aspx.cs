@@ -38,7 +38,7 @@ namespace WhatINoted
             return GoogleFirestoreConnectionManager.CreateNote(userID, notebookID, noteText) != null;
         }
 
-        protected override void GenerateText()
+        protected override void GenerateText(object o, EventArgs e)
         {
 
         }
