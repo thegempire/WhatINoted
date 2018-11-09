@@ -1,20 +1,17 @@
-﻿<%@ Page Title="Login Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WhatINoted.LoginView" %>
+﻿<%@ Page Title="WhatINoted" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WhatINoted.Default" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:UpdatePanel ID="LoginUpdatePanel" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
-
-            <div id="firebaseUIAuthContainer" />
-
-        </ContentTemplate>
-    </asp:UpdatePanel>
-
-    <script>
-        // Initialize the FirebaseUI Widget using Firebase.
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        // The start method will wait until the DOM is loaded.
-        ui.start('#firebaseUIAuthContainer', uiConfig);
-
-        window.addEventListener('load', handleLoginForLoginPage());
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script>    
+        window.addEventListener('load', function () {
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    // User is logged in
+                    window.location = "./Notebooks.aspx";
+                } else {
+                    // User is logged out
+                    window.location = "./Login.aspx";
+                }
+            })
+        });
     </script>
 </asp:Content>

@@ -175,22 +175,49 @@ namespace WhatINoted {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByISBNGroupContainer;
         
         /// <summary>
-        /// ByISBNGroupPanel control.
+        /// ExtractTextUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel ByISBNGroupPanel;
+        protected global::System.Web.UI.UpdatePanel ExtractTextUpdatePanel;
         
         /// <summary>
-        /// IsbnEntry control.
+        /// ImageInBase64 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox IsbnEntry;
+        protected global::System.Web.UI.WebControls.HiddenField ImageInBase64;
+        
+        /// <summary>
+        /// btnExtractText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExtractText;
+        
+        /// <summary>
+        /// IsbnBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox IsbnBox;
+        
+        /// <summary>
+        /// SearchForNotebookPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel SearchForNotebookPanel;
         
         /// <summary>
         /// btnISBNPostback control.
@@ -272,6 +299,15 @@ namespace WhatINoted {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table SearchGridDetails;
+        
+        /// <summary>
+        /// HiddenUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel HiddenUpdatePanel;
         
         /// <summary>
         /// HandleLoginUserID control.

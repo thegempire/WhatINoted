@@ -1,4 +1,4 @@
-﻿<%@ Page Title="What I Noted" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Main.aspx.cs" Inherits="WhatINoted.NotebooksView" %>
+﻿<%@ Page Title="What I Noted" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Notebooks.aspx.cs" Inherits="WhatINoted.NotebooksView" %>
 
 <%@ Import Namespace="WhatINoted.ConnectionManagers" %>
 

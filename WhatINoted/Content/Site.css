@@ -98,6 +98,20 @@ textarea {
     padding-top: 20px;
 }
 
+.image_field {
+    width: 80%;
+    height: 20%;
+    border: 1px solid black;
+}
+
+.image_upload {
+    object-fit: contain;
+    display: block;
+    max-width: 80%;
+    max-height: 20%;
+    width: auto;
+    height: auto;
+}
 
 /*
     Table styling

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using WhatINoted.Models;
 using WhatINoted.ConnectionManagers;
+using WhatINoted.Models;
 
 namespace WhatINoted
 {
@@ -49,7 +50,7 @@ namespace WhatINoted
             try
             {
                 searchResults = searchKey == "ISBN" ?
-                GoogleBooksConnectionManager.SearchVolumes("", "", "", IsbnEntry.Text) :
+                GoogleBooksConnectionManager.SearchVolumes("", "", "", IsbnBox.Text) :
                 GoogleBooksConnectionManager.SearchVolumes(TitleEntry.Text, AuthorEntry.Text, PublisherEntry.Text, null);
             }
             catch (ArgumentNullException ex)
@@ -62,7 +63,7 @@ namespace WhatINoted
             //
             List<TableRow> resultRows = new List<TableRow>();
             int idnum = 0;
-            foreach(BookSearchResultsModel volume in searchResults)
+            foreach (BookSearchResultsModel volume in searchResults)
             {
                 TableRow volumeRow = new TableRow();
                 volumeRow.CssClass = "search_result";
@@ -133,20 +134,96 @@ namespace WhatINoted
             try
             {
                 Notebook notebook = GoogleFirestoreConnectionManager.CreateNotebook(
-                    HandleLoginUserID.Value, TitleSelection.Value, AuthorsSelection.Value, IsbnSelection.Value,
-                    PublisherSelection.Value, PublishDateSelection.Value, System.Web.HttpUtility.HtmlDecode(CoverUrlSelection.Value));
-
-                //redirect
-                Response.Redirect("Notes.aspx?notebookID=" + notebook.ID, true);
+                    HandleLoginUserID.Value,
+                    TitleSelection.Value,
+                    AuthorsSelection.Value,
+                    IsbnSelection.Value,
+                    PublisherSelection.Value,
+                    PublishDateSelection.Value,
+                    System.Web.HttpUtility.HtmlDecode(CoverUrlSelection.Value)
+                );
+                Response.Redirect("Notebook.aspx?notebookID=" + notebook.ID, true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
                 // TODO -- actually handle failure, notify user something has gone wrong
             }
         }
 
-        protected override void GenerateText()
+        /// <summary>
+        /// Gets the base64 encoded image from the Hidden Field ImageInBase64 and sets the IsbnBox value to an ISBN that exists in the image.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
+        [WebMethod, ScriptMethod]
+        protected override void GenerateText(object o, EventArgs e)
+        {
+            string image64 = ImageInBase64.Value.Split(',')[1];
+            byte[] byteBuffer = Convert.FromBase64String(image64);
+            System.Drawing.Image image;
+            using (MemoryStream mStream = new MemoryStream(byteBuffer))
+            {
+                image = System.Drawing.Image.FromStream(mStream);
+            }
+            string text = GoogleVisionConnectionManager.ExtractText(image);
+            text = ParseIsbn(text);
+            IsbnBox.Text = text;
+        }
+
+        /// <summary>
+        /// Attemps to return a possible ISBN from text.
+        /// </summary>
+        /// <param name="text">The text that may contain an ISBN.</param>
+        /// <returns>A potential ISBN (10 or 13 characters, only digits and X/x), or text if none found.</returns>
+        private string ParseIsbn(string text)
+        {
+            string[] words = text.Split(' ');
+            foreach (string s in words)
+            {
+                string word = s.Replace("-", "");
+                bool valid = true;
+
+                if (word.Length != 10 && word.Length != 13)
+                    continue;
+
+                foreach (char c in word)
+                {
+                    if (!char.IsDigit(c) && c != 'X' && c != 'x')
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
+
+                if (valid)
+                    return word;
+            }
+            return text;
+        }
+
+        /// <summary>
+        /// Searches for a book with the specified ISBN.
+        /// </summary>
+        /// <returns>The book with the specified ISBN.</returns>
+        private BookSearchResultsModel SearchByIsbn(IsbnModel isbn)
+        {
+            return new BookSearchResultsModel("", "", "", "", "", "");
+        }
+
+        /// <summary>
+        /// Searches for a book with the specified details.
+        /// </summary>
+        /// <returns>The books with the specified details.</returns>
+        /// <param name="title">Title.</param>
+        /// <param name="author">Author.</param>
+        private List<BookSearchResultsModel> SearchByDetails(string title, string author)
+        {
+            return new List<BookSearchResultsModel>();
+        }
+
+        [WebMethod, ScriptMethod]
+        public void UpdatePage(object sender, EventArgs e)
         {
 
         }
