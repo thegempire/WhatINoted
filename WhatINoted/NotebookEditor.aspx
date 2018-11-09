@@ -149,6 +149,7 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
+            
             <asp:UpdatePanel runat="server" ID="HiddenUpdatePanel" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />

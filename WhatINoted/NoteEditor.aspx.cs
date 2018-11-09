@@ -75,11 +75,12 @@ namespace WhatINoted
             {
                 NotebookList.Items.Add(new ListItem(notebook.Title, notebook.ID));
             }
-
+            NotebookList.DataBind();
             if (NotebookID != null)
             {
                 NotebookList.SelectedValue = NotebookID;
             }
+            AddNoteUpdatePanel.Update();
         }
 
         protected override void GenerateText(object o, EventArgs e)
