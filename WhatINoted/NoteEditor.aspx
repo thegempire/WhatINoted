@@ -32,9 +32,13 @@
                     </div>
                 </div>
             </div>
-            
-            <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
-            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdatePage" />
+            <asp:UpdatePanel runat="server" ID="HiddenUpdatePanel" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
+                    <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdatePage" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 

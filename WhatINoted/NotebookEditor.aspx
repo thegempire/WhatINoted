@@ -24,8 +24,10 @@
             WebForm_GetElementById("MainContent_ShowButton").click();
         }
     </script>
+        
     <asp:UpdatePanel ID="AddNotebookUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
+            
             <asp:HiddenField runat="server" ID="TitleSelection" Value="" />
             <asp:HiddenField runat="server" ID="AuthorsSelection" Value="" />
             <asp:HiddenField runat="server" ID="PublisherSelection" Value="" />
@@ -54,13 +56,14 @@
                     <asp:Button ID="CancelModal" runat="server" Text="Cancel" />
                     <asp:Button ID="SubmitModal" runat="server" Text="Create" OnClick="CreateNotebook" />
                 </asp:Panel>
-                <%--<ajaxToolkit:ModalPopupExtender runat="server" TargetControlID="ShowButton" PopupControlID="CreationModal" OkControlID="CancelModal"></ajaxToolkit:ModalPopupExtender>--%>
+                <ajaxToolkit:ModalPopupExtender runat="server" TargetControlID="ShowButton" PopupControlID="CreationModal" OkControlID="CancelModal"></ajaxToolkit:ModalPopupExtender>
 
                 <h2>Create New Notebook</h2>
                 <div runat="server" class="button" onclick="ToggleElementHidden('byISBNGroupContainer');">
                     By ISBN
                 </div>
-                <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container hidden">
+                
+                <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container">
                     <img id="Image" class="display_block hidden" src="#" alt="Uploaded Image" />
 
                     <br />
@@ -83,7 +86,8 @@
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
+                    </div>
+                    
                     <br />
 
                     <asp:UpdatePanel ID="SearchForNotebookPanel" runat="server" UpdateMode="Conditional">
@@ -145,10 +149,12 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
-
-            <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
-            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdatePage" />
-
+            <asp:UpdatePanel runat="server" ID="HiddenUpdatePanel" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
+                    <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdatePage"/>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </ContentTemplate>
     </asp:UpdatePanel>
 
@@ -166,6 +172,7 @@
 
         upload.onchange = function () {
             if (upload.files[0] != null) {
+                console.log("file 0 not null");
                 file = upload.files[0];
                 getImageIn64(file);
             }
@@ -174,6 +181,7 @@
         function getImageIn64(file) {
             var reader = new FileReader();
             reader.onload = function () {
+                console.log("reader loaded");
                 let newImage = createImageElement();
                 newImage.src = reader.result;
                 document.getElementById('<%= ImageInBase64.ClientID %>').value = reader.result;

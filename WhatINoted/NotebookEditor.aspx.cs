@@ -222,6 +222,7 @@ namespace WhatINoted
             return new List<BookSearchResultsModel>();
         }
 
+        [WebMethod, ScriptMethod]
         public void UpdatePage(object sender, EventArgs e)
         {
 
