@@ -1,34 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using System.Web.UI;
 
 namespace WhatINoted
 {
     /// <summary>
-    /// A view from which the user can log in.
+    /// Landing page for the site
+    /// 
+    /// If the user is logged in, they are redirected to Notebooks.aspx.
+    /// If not, they are redirected to Login.aspx.
     /// </summary>
-    public partial class LoginView : View
+    public partial class Default : Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
 
-        }
-
-        /// <summary>
-        /// Attempts to log the user in; returns true if successful.
-        /// </summary>
-        /// <returns><c>true</c>, if user logged in, <c>false</c> otherwise.</returns>
-        private bool LogIn()
-        {
-            return false;
-        }
-
-        protected void Redirect_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Main.aspx", true);
-        }
     }
 }
