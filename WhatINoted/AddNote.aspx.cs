@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Web.Script.Services;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using WhatINoted.ConnectionManagers;
 using WhatINoted.Models;
@@ -13,15 +11,16 @@ namespace WhatINoted
     public partial class CreateEditNoteView : TextGenerationView
     {
         private static string notebookID;
+        private static string noteID;
 
         private Models.Note Note;
 
         private List<Models.Notebook> Notebooks;
 
         /// <summary>
-        /// Set to true if the text should be updated.
+        /// Set to true if the Note is being updated.
         /// </summary>
-        private bool UpdateText;
+        private static bool UpdateNote;
 
         /// <summary>
         /// Set to true if the notebook should be updated.
@@ -31,15 +30,32 @@ namespace WhatINoted
         protected void Page_Load(object sender, EventArgs e)
         {
             notebookID = Request.QueryString["notebookID"];
-            UpdateText = false;
+            noteID = Request.QueryString["noteID"];
+
+            if (notebookID != null && notebookID != "")
+            {
+                // create note
+                UpdateNote = false;
+            }
+            else if (noteID != null && noteID != "")
+            {
+                // update note
+                UpdateNote = true;
+
+                PageTitle.InnerText = "Edit Note";
+                ByImage1.Visible = false;
+                ByImage2.Visible = false;
+                HandleNoteButton.InnerText = "Edit Note";
+            }
+
             UpdateNotebook = false;
         }
 
         [WebMethod, ScriptMethod]
         public static bool CreateNote(string userID, string notebookID, string noteText)
         {
-            CreateEditNoteView.notebookID = notebookID;
-            return GoogleFirestoreConnectionManager.CreateNote(userID, notebookID, noteText) != null;
+            GoogleFirestoreConnectionManager.CreateNote(userID, notebookID, noteText);
+            return true;
         }
 
         protected override void GenerateText()
@@ -48,17 +64,27 @@ namespace WhatINoted
         }
 
         /// <summary>
-        /// Updates the note, including the text and the notebook.
+        /// Edits the note, including the text and the notebook.
         /// </summary>
-        protected void UpdateNote()
+        [WebMethod, ScriptMethod]
+        protected static void EditNote(string notebookID, string noteText)
         {
-            if (UpdateText)
+            GoogleFirestoreConnectionManager.UpdateNote(noteID, notebookID, noteText);
+        }
+
+        /// <summary>
+        /// Handles the note, either creating or updating depending on context.
+        /// </summary>
+        [WebMethod, ScriptMethod]
+        public static void HandleNote(string userID, string noteText)
+        {
+            if (UpdateNote)
             {
-                SetText("");
+                GoogleFirestoreConnectionManager.UpdateNote(noteID, notebookID, noteText);
             }
-            if (UpdateNotebook)
+            else
             {
-                SetNotebook(0);
+                GoogleFirestoreConnectionManager.CreateNote(userID, notebookID, noteText);
             }
         }
 
@@ -80,9 +106,17 @@ namespace WhatINoted
 
         }
 
-        public void UpdateNotes(object sender, EventArgs e)
+        public void UpdatePage(object sender, EventArgs e)
         {
             string userID = HandleLoginUserID.Value;
+            Note note;
+
+            if (UpdateNote)
+            {
+                note = GoogleFirestoreConnectionManager.GetNote(noteID);
+                NoteText.InnerText = note.Text;
+                notebookID = note.NotebookID;
+            }
 
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
             foreach (Notebook notebook in Notebooks)
@@ -90,9 +124,30 @@ namespace WhatINoted
                 NotebookList.Items.Add(new ListItem(notebook.Title, notebook.ID));
             }
 
-            if (notebookID != null) {
+            if (notebookID != null)
+            {
                 NotebookList.SelectedValue = notebookID;
             }
         }
+
+        //public void UpdateEditPage(object sender, EventArgs e)
+        //{
+        //    string userID = HandleLoginUserID.Value;
+        //    Note note = GoogleFirestoreConnectionManager.GetNote(noteID);
+
+        //    NoteText.InnerText = note.Text;
+
+        //    Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
+        //    foreach (Notebook notebook in Notebooks)
+        //    {
+        //        NotebookList.Items.Add(new ListItem(notebook.Title, notebook.ID));
+        //    }
+
+        //    notebookID = note.NotebookID;
+        //    if (notebookID != null)
+        //    {
+        //        NotebookList.SelectedValue = notebookID;
+        //    }
+        //}
     }
 }

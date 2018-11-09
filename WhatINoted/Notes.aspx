@@ -4,10 +4,12 @@
     <asp:UpdatePanel ID="LoginUpdatePanel" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <div runat="server">
-                <h2>Notebook Title</h2>
-                <asp:Table runat="server" ID="NotesTable">
+                <h2 runat="server" id="title">Notebook Title</h2>
+                <asp:Table runat="server" ID="NotesTable"></asp:Table>
 
-                </asp:Table>
+                <asp:HiddenField runat="server" ID="ActiveNote" Value="" />
+                <asp:Button runat="server" class="editNoteTrigger hidden" OnClick="EditNote" />
+                <asp:Button runat="server" class="deleteNoteTrigger hidden" OnClick="DeleteNote" />
             </div>
             <div runat="server" class="footer_1_column fixed">
                 <asp:Button runat="server" class="addNoteTrigger hidden" OnClick="AddNote" />
@@ -22,7 +24,12 @@
 
     <script>
         window.addEventListener('load', handleLoginForContentPage);
-        let triggerButton = document.getElementsByClassName('addNoteTrigger')[0];
-        triggerButton.click();
+        function NewNote_Click() {
+            let triggerButton = document.getElementsByClassName('addNoteTrigger')[0];
+            triggerButton.click();
+        }
+        function EditNote_Click(noteID) {
+            window.location.href = "AddNote.aspx?noteID=" + noteID;
+        }
     </script>
 </asp:Content>

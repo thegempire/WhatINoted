@@ -166,6 +166,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EditNote.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -180,6 +181,7 @@
     <None Include="Resources\WhatINoted-5bba0c1ecaf8.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Main.aspx" />
+    <Content Include="Notebook.png" />
     <Content Include="Notes.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
