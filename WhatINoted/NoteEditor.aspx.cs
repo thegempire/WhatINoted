@@ -97,7 +97,10 @@ namespace WhatINoted
             {
                 image = System.Drawing.Image.FromStream(mStream);
             }
-            NoteText.Value = GoogleVisionConnectionManager.ExtractText(image);
+            string text = GoogleVisionConnectionManager.ExtractText(image);
+
+            if (text.Length > 0)
+                NoteText.Value = text;
         }
     }
 }
