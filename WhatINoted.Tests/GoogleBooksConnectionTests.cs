@@ -153,7 +153,7 @@ namespace WhatINoted.Tests
             {
                 try
                 {
-                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes(null, null, null, new IsbnModel("9781781100226"));
+                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes(null, null, null, "9781781100226");
                     if (results.Count <= 0)
                     {
                         sw.WriteLine("GoogleBooksTestSearchVolumes - SearchVolumesIsbn failed: No results.");
@@ -232,7 +232,7 @@ namespace WhatINoted.Tests
             {
                 try
                 {
-                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes("Harry Potter", null, null, new IsbnModel("9781781100226"));
+                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes("Harry Potter", null, null, "9781781100226");
                     if (results.Count <= 0)
                     {
                         sw.WriteLine("GoogleBooksTestSearchVolumes - SearchVolumesTitleIsbn failed: No results.");
@@ -282,7 +282,7 @@ namespace WhatINoted.Tests
             {
                 try
                 {
-                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes(null, "J.K. Rowling", null, new IsbnModel("9781781100226"));
+                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes(null, "J.K. Rowling", null, "9781781100226");
                     if (results.Count <= 0)
                     {
                         sw.WriteLine("GoogleBooksTestSearchVolumes - SearchVolumesAuthorIsbn failed: No results.");
@@ -307,7 +307,7 @@ namespace WhatINoted.Tests
             {
                 try
                 {
-                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes(null, null, "Pottermore Publishing", new IsbnModel("9781781100226"));
+                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes(null, null, "Pottermore Publishing", "9781781100226");
                     if (results.Count <= 0)
                     {
                         sw.WriteLine("GoogleBooksTestSearchVolumes - SearchVolumesPublisherIsbn failed: No results.");
@@ -357,7 +357,7 @@ namespace WhatINoted.Tests
             {
                 try
                 {
-                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes("Harry Potter", "J.K. Rowling", null, new IsbnModel("9781781100226"));
+                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes("Harry Potter", "J.K. Rowling", null, "9781781100226");
                     if (results.Count <= 0)
                     {
                         sw.WriteLine("GoogleBooksTestSearchVolumes - SearchVolumesTitleAuthorIsbn failed: No results.");
@@ -382,7 +382,7 @@ namespace WhatINoted.Tests
             {
                 try
                 {
-                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes("Harry Potter", null, "Pottermore Publishing", new IsbnModel("9781781100226"));
+                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes("Harry Potter", null, "Pottermore Publishing", "9781781100226");
                     if (results.Count <= 0)
                     {
                         sw.WriteLine("GoogleBooksTestSearchVolumes - SearchVolumesTitlePublisherIsbn failed: No results.");
@@ -407,7 +407,7 @@ namespace WhatINoted.Tests
             {
                 try
                 {
-                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes(null, "J.K. Rowling", "Pottermore Publishing", new IsbnModel("9781781100226"));
+                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes(null, "J.K. Rowling", "Pottermore Publishing", "9781781100226");
                     if (results.Count <= 0)
                     {
                         sw.WriteLine("GoogleBooksTestSearchVolumes - SearchVolumesAuthorPublisherIsbn failed: No results.");
@@ -432,7 +432,7 @@ namespace WhatINoted.Tests
             {
                 try
                 {
-                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes("Harry Potter", "J.K. Rowling", "Pottermore Publishing", new IsbnModel("9781781100226"));
+                    List<BookSearchResultsModel> results = GoogleBooksConnectionManager.SearchVolumes("Harry Potter", "J.K. Rowling", "Pottermore Publishing", "9781781100226");
                     if (results.Count <= 0)
                     {
                         sw.WriteLine("GoogleBooksTestSearchVolumes - SearchVolumesAll failed: No results.");

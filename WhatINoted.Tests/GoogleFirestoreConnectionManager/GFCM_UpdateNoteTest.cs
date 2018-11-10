@@ -25,7 +25,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
                 Models.Notebook createdNotebook = GoogleFirestoreConnectionManager.CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL);
                 Note createdNote = GoogleFirestoreConnectionManager.CreateNote(userID1, createdNotebook.ID, note1.Text);
-                Note updatedNote = GoogleFirestoreConnectionManager.UpdateNote(createdNote.ID, text2);
+                Note updatedNote = GoogleFirestoreConnectionManager.UpdateNote(createdNote.ID, createdNotebook.ID, text2);
                 Note retrievedUpdatedNote = GoogleFirestoreConnectionManager.GetNote(updatedNote.ID);
                 if (retrievedUpdatedNote.Text != text2)
                 {
@@ -48,7 +48,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         {
             try
             {
-                GoogleFirestoreConnectionManager.UpdateNote(noteID1 + "NOTEXIST", text2);
+                GoogleFirestoreConnectionManager.UpdateNote(noteID1 + "NOTEXIST", notebookID1, text2);
                 sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): User does not exist.");
                 return false;
             }
@@ -59,7 +59,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         {
             try
             {
-                GoogleFirestoreConnectionManager.UpdateNote(null, text2);
+                GoogleFirestoreConnectionManager.UpdateNote(null, notebookID1, text2);
                 sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteID is null test case.");
                 return false;
             }
@@ -70,7 +70,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         {
             try
             {
-                GoogleFirestoreConnectionManager.UpdateNote("", text2);
+                GoogleFirestoreConnectionManager.UpdateNote("", notebookID1, text2);
                 sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteID is empty test case.");
                 return false;
             }
@@ -81,7 +81,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         {
             try
             {
-                GoogleFirestoreConnectionManager.UpdateNote(noteID1, null);
+                GoogleFirestoreConnectionManager.UpdateNote(noteID1, notebookID1, null);
                 sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is null.");
                 return false;
             }
@@ -92,7 +92,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         {
             try
             {
-                GoogleFirestoreConnectionManager.UpdateNote(noteID1, "");
+                GoogleFirestoreConnectionManager.UpdateNote(noteID1, notebookID1, "");
                 sw.WriteLine("FAILED: UpdateNote(string noteID, string noteText): noteText is empty.");
                 return false;
             }
