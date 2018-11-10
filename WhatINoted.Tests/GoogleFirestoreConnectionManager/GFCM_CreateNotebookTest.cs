@@ -18,9 +18,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             passed = CreateNotebookByDetailsTitleIsNull(sw) && passed;
             passed = CreateNotebookByDetailsTitleIsEmpty(sw) && passed;
             passed = CreateNotebookByDetailsAuthorIsNull(sw) && passed;
-            passed = CreateNotebookByDetailsAuthorIsEmpty(sw) && passed;
             passed = CreateNotebookByDetailsPublisherIsNull(sw) && passed;
-            passed = CreateNotebookByDetailsPublisherIsEmpty(sw) && passed;
             return passed;
         }
 
@@ -130,36 +128,12 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             catch { return true; }
         }
 
-        private bool CreateNotebookByDetailsAuthorIsEmpty(StreamWriter sw)
-        {
-            try
-            {
-                Models.Notebook temp = CreateNotebook(userID1, notebook1.Title, "", notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL);
-                sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details author is empty test case.");
-                DeleteNotebook(temp.ID);
-                return false;
-            }
-            catch { return true; }
-        }
-
         private bool CreateNotebookByDetailsPublisherIsNull(StreamWriter sw)
         {
             try
             {
                 Models.Notebook temp = CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, null, notebook1.PublishDate, notebook1.CoverURL);
                 sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is null test case.");
-                DeleteNotebook(temp.ID);
-                return false;
-            }
-            catch { return true; }
-        }
-
-        private bool CreateNotebookByDetailsPublisherIsEmpty(StreamWriter sw)
-        {
-            try
-            {
-                Models.Notebook temp = CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, "", notebook1.PublishDate, notebook1.CoverURL);
-                sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is empty test case.");
                 DeleteNotebook(temp.ID);
                 return false;
             }

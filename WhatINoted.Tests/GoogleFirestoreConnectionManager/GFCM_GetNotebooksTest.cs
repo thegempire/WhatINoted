@@ -11,7 +11,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         {
             bool passed = true;
             passed = GetNotebooksValidRequest(sw) && passed;
-            passed = GetNotebooksUserHasNoNotebooks(sw) && passed;
+            passed = GetNotebooksUserHasOneNotebook(sw) && passed;
             passed = GetNotebooksUserDoesNotExist(sw) && passed;
             passed = GetNotebooksUserIdIsNull(sw) && passed;
             passed = GetNotebooksUserIdIsEmpty(sw) && passed;
@@ -37,7 +37,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
                 GoogleFirestoreConnectionManager.CreateNotebook(userID1, title4, author4, isbn4, publisher4, publishDate4, coverURL4);
                 GoogleFirestoreConnectionManager.CreateNotebook(userID1, title5, author5, isbn5, publisher5, publishDate5, coverURL5);
                 List<Models.Notebook> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
-                if (tempNotebooks.Count != compNotebooks.Count)
+                if (tempNotebooks.Count != compNotebooks.Count + 1) // +1 because of the unfiled "notebook"
                 {
                     sw.WriteLine("FAILED: GetNotebooks(string userID): Normal test case, count mismatch.");
                     GoogleFirestoreConnectionManager.DeleteUser(userID1);
@@ -74,14 +74,15 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             return true;
         }
 
-        private bool GetNotebooksUserHasNoNotebooks(StreamWriter sw) {
+        // A newly created user can never have no notebooks due to the presence of the "Unfiled" notebook.
+        private bool GetNotebooksUserHasOneNotebook(StreamWriter sw) {
             try
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, email1);
                 List<Models.Notebook> tempNotebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID1);
-                if (tempNotebooks == null || tempNotebooks.Count != 0)
+                if (tempNotebooks == null || tempNotebooks.Count != 1)
                 {
-                    sw.WriteLine("FAILED: GetNotebooks(string userID): User has no notebooks test case.");
+                    sw.WriteLine("FAILED: GetNotebooks(string userID): User has one notebook test case.");
                     GoogleFirestoreConnectionManager.DeleteUser(userID1);
                     return false;
                 }
@@ -89,7 +90,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             }
             catch
             {
-                sw.WriteLine("FAILED: GetNotebooks(string userID): User has no notebooks test case - unexpected exception.");
+                sw.WriteLine("FAILED: GetNotebooks(string userID): User has one notebook test case - unexpected exception.");
                 return false;
             }
             return true;

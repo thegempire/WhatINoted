@@ -1,0 +1,15 @@
+--------------TEST RESULTS--------------
+  Tests Run: 1
+  Tests Failed: 1
+----------------------------------------
+
+----------------FAILURES----------------
+  GFCM_GetNotebooksTest
+----------------------------------------
+
+-----------------OUTPUT-----------------
+  START TEST: GFCM_GetNotebooksTest
+  FAILED: GetNotebooks(string userID): Normal test case, count mismatch.
+  FAILED: GetNotebooks(string userID): User has no notebooks test case.
+  END TEST: GFCM_GetNotebooksTest
+----------------------------------------
