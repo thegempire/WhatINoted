@@ -6,7 +6,7 @@
             <div runat="server">
                 <h2 runat="server" id="NotebookTitle">Notebook Title</h2>
                 <asp:Button runat="server" class="deleteNotebookTrigger hidden" OnClick="DeleteNotebook" />
-                <div runat="server" class="button" onclick="DeleteNotebook_Click();">
+                <div runat="server" class="button small_button" onclick="DeleteNotebook_Click();">
                     Delete Notebook
                 </div>
                 <asp:Table runat="server" ID="NotesTable"></asp:Table>
@@ -46,7 +46,7 @@
             }
         }
         function DeleteNotebook_Click() {
-            let title = document.getElementById("NotebookTitle").innerHTML;
+            let title = document.getElementById('<%= NotebookTitle.ClientID %>').innerHTML;
             if (confirm("Are you sure you want to delete " + title + "?")) {
                 let triggerButton = document.getElementsByClassName('deleteNotebookTrigger')[0];
                 triggerButton.click();

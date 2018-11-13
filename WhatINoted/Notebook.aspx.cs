@@ -78,17 +78,18 @@ namespace WhatINoted
                 TableRow noteRow = new TableRow();
                 TableCell textCell = new TableCell();
                 textCell.Text = note.Text;
-                TableCell editCell = new TableCell();
-                editCell.HorizontalAlign = HorizontalAlign.Right;
+                TableCell editDeleteCell = new TableCell();
+                editDeleteCell.HorizontalAlign = HorizontalAlign.Right;
                 Button editButton = new Button();
                 editButton.Text = "Edit";
                 editButton.OnClientClick = "EditNote_Click(\"" + note.ID + "\")";
                 Button deleteButton = new Button();
                 deleteButton.Text = "Delete";
                 deleteButton.OnClientClick = "DeleteNote_Click(\"" + note.ID + "\")";
-                editCell.Controls.Add(editButton);
+                editDeleteCell.Controls.Add(editButton);
+                editDeleteCell.Controls.Add(deleteButton);
                 noteRow.Controls.Add(textCell);
-                noteRow.Controls.Add(editCell);
+                noteRow.Controls.Add(editDeleteCell);
                 NotesTable.Controls.Add(noteRow);
             }
         }
