@@ -31,22 +31,40 @@ namespace WhatINoted {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl PageTitle;
         
         /// <summary>
-        /// ByImage1 control.
+        /// ByImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByImage1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByImage;
         
         /// <summary>
-        /// ByImage2 control.
+        /// ExtractTextUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByImage2;
+        protected global::System.Web.UI.UpdatePanel ExtractTextUpdatePanel;
+        
+        /// <summary>
+        /// ImageInBase64 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField ImageInBase64;
+        
+        /// <summary>
+        /// btnExtractText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExtractText;
         
         /// <summary>
         /// NoteText control.
@@ -56,6 +74,15 @@ namespace WhatINoted {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTextArea NoteText;
+        
+        /// <summary>
+        /// DropdownUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel DropdownUpdatePanel;
         
         /// <summary>
         /// NotebookList control.

@@ -168,7 +168,8 @@ namespace WhatINoted
             }
             string text = GoogleVisionConnectionManager.ExtractText(image);
             text = ParseIsbn(text);
-            IsbnBox.Text = text;
+            if (text.Length > 0)
+                IsbnBox.Text = text;
         }
 
         /// <summary>
