@@ -40,11 +40,11 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         protected static readonly string publisher3 = "test_publisher3";
         protected static readonly string publisher4 = "test_publisher4";
         protected static readonly string publisher5 = "test_publisher5";
-        protected static DateTime publishDate1 = new DateTime(2005, 11, 15);
-        protected static DateTime publishDate2 = new DateTime(2005, 11, 16);
-        protected static DateTime publishDate3 = new DateTime(2005, 11, 17);
-        protected static DateTime publishDate4 = new DateTime(2005, 11, 18);
-        protected static DateTime publishDate5 = new DateTime(2005, 11, 19);
+        protected static readonly string publishDate1 = "2005-11-15";
+        protected static readonly string publishDate2 = "2005-11-16";
+        protected static readonly string publishDate3 = "2005-11-17";
+        protected static readonly string publishDate4 = "2005-11-18";
+        protected static readonly string publishDate5 = "2005-11-19";
         protected static readonly string coverURL1 = "test_coverURL1";
         protected static readonly string coverURL2 = "test_coverURL2";
         protected static readonly string coverURL3 = "test_coverURL3";

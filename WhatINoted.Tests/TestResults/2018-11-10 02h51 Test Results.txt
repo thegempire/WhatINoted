@@ -1,0 +1,80 @@
+--------------TEST RESULTS--------------
+  Tests Run: 21
+  Tests Failed: 2
+----------------------------------------
+
+----------------FAILURES----------------
+  GFCM_CreateNotebookTest
+  GFCM_GetNotebooksTest
+----------------------------------------
+
+-----------------OUTPUT-----------------
+  START TEST: PingTest
+  Loss Percentage: 0%
+  Average Time: 36ms
+  END TEST: PingTest
+  
+  START TEST: GoogleVisionTestConnection
+  END TEST: GoogleVisionTestConnection
+  
+  START TEST: GoogleVisionTestNullImage
+  END TEST: GoogleVisionTestNullImage
+  
+  START TEST: GoogleVisionTestExtractText1
+  END TEST: GoogleVisionTestExtractText1
+  
+  START TEST: GoogleVisionTestExtractText2
+  END TEST: GoogleVisionTestExtractText2
+  
+  START TEST: GoogleVisionTestExtractText3
+  END TEST: GoogleVisionTestExtractText3
+  
+  START TEST: GFCM_HandleLoginTest
+  END TEST: GFCM_HandleLoginTest
+  
+  START TEST: GFCM_CreateNotebookTest
+  FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details author is empty test case.
+  FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is empty test case.
+  END TEST: GFCM_CreateNotebookTest
+  
+  START TEST: GFCM_CreateNoteTest
+  END TEST: GFCM_CreateNoteTest
+  
+  START TEST: GFCM_DeleteUserTest
+  END TEST: GFCM_DeleteUserTest
+  
+  START TEST: GFCM_DeleteNotebookTest
+  END TEST: GFCM_DeleteNotebookTest
+  
+  START TEST: GFCM_DeleteNoteTest
+  END TEST: GFCM_DeleteNoteTest
+  
+  START TEST: GFCM_GetNotebooksTest
+  FAILED: GetNotebooks(string userID): Normal test case, count mismatch.
+  FAILED: GetNotebooks(string userID): User has no notebooks test case.
+  END TEST: GFCM_GetNotebooksTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetUserNotesTest
+  END TEST: GFCM_GetUserNotesTest
+  
+  START TEST: GFCM_GetNoteTest
+  END TEST: GFCM_GetNoteTest
+  
+  START TEST: GFCM_UpdateNoteTest
+  END TEST: GFCM_UpdateNoteTest
+  
+  START TEST: GFCM_GenerateFieldsJsonTest
+  END TEST: GFCM_GenerateFieldsJsonTest
+  
+  START TEST: GoogleBooksTestConnection
+  END TEST: GoogleBooksTestConnection
+  
+  START TEST: GoogleBooksTestSearchVolumes
+  END TEST: GoogleBooksTestSearchVolumes
+  
+  START TEST: IsbnModelTest
+  END TEST: IsbnModelTest
+----------------------------------------
