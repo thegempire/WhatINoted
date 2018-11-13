@@ -27,6 +27,16 @@ namespace WhatINoted
             NotebookTitle.InnerText = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
         }
 
+        [WebMethod, ScriptMethod]
+        public void DeleteNotebook(object sender, EventArgs e) 
+        {
+            if (notebookID != null && notebookID != "") 
+            {
+                GoogleFirestoreConnectionManager.DeleteNotebook(notebookID);
+                Response.Redirect("./Notebooks.aspx");
+            }
+        }
+
         /// <summary>
         /// Edits the note corresponding to the edit button that was clicked.
         /// </summary>
@@ -42,14 +52,11 @@ namespace WhatINoted
         [WebMethod, ScriptMethod]
         public void DeleteNote(object sender, EventArgs e)
         {
-            // TODO - Some sort of message displayed to the user that allows them to confirm deletion
-
-            // This implementation is correct. It is commented until the above TODO is complete.
-            //string noteID = NoteID.Value;
-            //if (noteID != null && noteID != "")
-            //{
-            //    GoogleFirestoreConnectionManager.DeleteNote(noteID);
-            //}
+            string noteID = NoteID.Value;
+            if (noteID != null && noteID != "")
+            {
+                GoogleFirestoreConnectionManager.DeleteNote(noteID);
+            }
         }
 
         [WebMethod, ScriptMethod]
