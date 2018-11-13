@@ -76,6 +76,9 @@ namespace WhatINoted
                 Button editButton = new Button();
                 editButton.Text = "Edit";
                 editButton.OnClientClick = "EditNote_Click(\"" + note.ID + "\")";
+                Button deleteButton = new Button();
+                deleteButton.Text = "Delete";
+                deleteButton.OnClientClick = "DeleteNote_Click(\"" + note.ID + "\")";
                 editCell.Controls.Add(editButton);
                 noteRow.Controls.Add(textCell);
                 noteRow.Controls.Add(editCell);

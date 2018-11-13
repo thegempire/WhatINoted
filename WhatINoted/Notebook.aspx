@@ -33,5 +33,13 @@
         function EditNote_Click(noteID) {
             window.location.href = "NoteEditor.aspx?noteID=" + noteID;
         }
+        function DeleteNote_Click(noteID) {
+            if (confirm("Are you sure you want to delete this Note?")) {
+                let hiddenField = document.getElementById('<%= NoteID.ClientID %>');
+                hiddenField.value = noteID;
+                let triggerButton = document.getElementsByClassName('deleteNoteTrigger')[0];
+                triggerButton.click();
+            }
+        }
     </script>
 </asp:Content>
