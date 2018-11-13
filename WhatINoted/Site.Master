@@ -57,7 +57,10 @@
         <!-- FirebaseUI - Authentication -->
         <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
-
+        
+        <asp:HiddenField runat="server" ID="AuthKey" Value="" />
+        <asp:Button runat="server" class="authKeyTrigger hidden" OnClick="UpdateAuthKey" />
+            
         <!-- Site specific authentication code -->
         <script src="Authentication.js"></script>
 

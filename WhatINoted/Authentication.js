@@ -1,6 +1,9 @@
-﻿// Initialize Firebase
+﻿document.getElementsByClassName("handleLoginTrigger")[0].click();
+let key = document.getElementById("MainContent_HandleLoginUserID").value;
+
+// Initialize Firebase
 var config = {
-    apiKey: "AIzaSyBBYx2A-6F1IMdWhFBEudrPZjPiWJU-Y60",
+    apiKey: key,
     authDomain: "whatinoted-12345.firebaseapp.com",
     databaseURL: "https://whatinoted-12345.firebaseio.com",
     projectId: "whatinoted-12345",
