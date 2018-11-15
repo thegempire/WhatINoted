@@ -18,7 +18,7 @@
                             </div>
                             <div runat="server" class="titled_field">
                                 <h4>Note Text</h4>
-                                <textarea style="height: 150px;" runat="server" class="full_width" id="NoteText"></textarea>
+                                <asp:TextBox runat="server" ID="NoteText" CssClass="full_width" TextMode="MultiLine" Columns="50" Rows="5"></asp:TextBox>
                             </div>
 
                         </ContentTemplate>
