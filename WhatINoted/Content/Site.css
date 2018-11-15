@@ -239,6 +239,7 @@ textarea {
     background-color: #d9d9d9;
     font-size: 2em;
     text-align: center;
+    cursor: pointer;
 }
 
     .button:hover {

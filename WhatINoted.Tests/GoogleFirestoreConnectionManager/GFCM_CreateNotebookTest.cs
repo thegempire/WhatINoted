@@ -121,11 +121,14 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 Models.Notebook temp = CreateNotebook(userID1, notebook1.Title, null, notebook1.Isbn, notebook1.Publisher, notebook1.PublishDate, notebook1.CoverURL);
-                sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details author is null test case.");
                 DeleteNotebook(temp.ID);
+                return true;
+            }
+            catch
+            {
+                sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details author is null test case.");
                 return false;
             }
-            catch { return true; }
         }
 
         private bool CreateNotebookByDetailsPublisherIsNull(StreamWriter sw)
@@ -133,11 +136,14 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             try
             {
                 Models.Notebook temp = CreateNotebook(userID1, notebook1.Title, notebook1.Author, notebook1.Isbn, null, notebook1.PublishDate, notebook1.CoverURL);
-                sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is null test case.");
                 DeleteNotebook(temp.ID);
+                return true;
+            }
+            catch
+            {
+                sw.WriteLine("FAILED: CreateNotebook(string userID, string title, string author, string publisher, string publishDate): CreateNotebook by Book Details publisher is null test case.");
                 return false;
             }
-            catch { return true; }
         }
     }
 }

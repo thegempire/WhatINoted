@@ -269,11 +269,16 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>the created notebook</returns>
         public static Notebook CreateNotebook(string userID, string title, string author = "", string isbn = "", string publisher = "", string publishDate = "", string coverURL = "")
         {
-            if (userID == null || title == null //|| author == null || isbn == null || publisher == null || coverURL == null
-                || userID == "" || title == "" )//|| author == "" || isbn == "" || publisher == "" || coverURL == "")
+            if (userID == null || title == null
+                || userID == "" || title == "" )
             {
                 throw new ArgumentNullException();
             }
+
+            author = author ?? "";
+            publisher = publisher ?? "";
+            publishDate = publishDate ?? "";
+            coverURL = coverURL ?? "";
 
             User user = GetUser(userID);
             if (user == null)
