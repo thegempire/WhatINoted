@@ -217,10 +217,14 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>true if the user was created or if it already exists; false otherwise</returns>
         public static User HandleLogin(string userID, string displayName, string email)
         {
-            if (userID == null || displayName == null || email == null || userID == "" || displayName == "" || email == "")
+            if (userID == null || displayName == null || userID == "" || displayName == "")
             {
                 throw new ArgumentNullException();
             }
+
+            // Twitter authentication does not return an email; therefore, we must allow email to be null
+            // if so, replace with an empty string
+            email = email ?? "";
 
             string path = "users?documentId=" + userID;
             string createJson = GenerateCreateUserJson(userID, displayName, email);

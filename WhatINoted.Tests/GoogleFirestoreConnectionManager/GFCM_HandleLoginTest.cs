@@ -15,8 +15,6 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             passed = EmptyUidThrowsException(sw) && passed;
             passed = NullDisplayNameThrowsException(sw) && passed;
             passed = EmptyDisplayNameThrowsException(sw) && passed;
-            passed = NullEmailThrowsException(sw) && passed;
-            passed = EmptyEmailThrowsException(sw) && passed;
             return passed;
         }
 
@@ -127,28 +125,6 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
             {
                 GoogleFirestoreConnectionManager.HandleLogin(userID1, "", email1);
                 sw.WriteLine("FAILED: Empty Display Name Throws Exception; exception not thrown.");
-                return false;
-            }
-            catch { return true; }
-        }
-
-        private bool NullEmailThrowsException(StreamWriter sw)
-        {
-            try
-            {
-                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, null);
-                sw.WriteLine("FAILED: Null Email Throws Exception; exception not thrown.");
-                return false;
-            }
-            catch { return true; }
-        }
-
-        private bool EmptyEmailThrowsException(StreamWriter sw)
-        {
-            try
-            {
-                GoogleFirestoreConnectionManager.HandleLogin(userID1, displayName1, "");
-                sw.WriteLine("FAILED: Empty Email Throws Exception; exception not thrown.");
                 return false;
             }
             catch { return true; }
