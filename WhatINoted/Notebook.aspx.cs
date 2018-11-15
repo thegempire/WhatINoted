@@ -58,22 +58,13 @@ namespace WhatINoted
             {
                 GoogleFirestoreConnectionManager.DeleteNote(noteID);
             }
-            GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
+            Response.Redirect("Notebook.aspx?notebookID=" + notebookID, true);
         }
 
         [WebMethod, ScriptMethod]
         public void AddNote(object sender, EventArgs e)
         {
             Response.Redirect("NoteEditor.aspx?notebookID=" + notebookID, true);
-        }
-
-        [WebMethod, ScriptMethod]
-        public void UpdateNotes(object sender, EventArgs e)
-        {
-            if (IsPostBack)
-            {
-                GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
-            }
         }
 
         protected void GenerateNoteRows(List<Note> notes)

@@ -22,7 +22,7 @@
             </div>
 
             <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
-            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdateNotes" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" />
 
         </ContentTemplate>
     </asp:UpdatePanel>
