@@ -48,11 +48,11 @@ namespace WhatINoted
             NotebookID = NotebookList.SelectedValue;
             if (IsEdit)
             {
-                GoogleFirestoreConnectionManager.UpdateNote(NoteID, NotebookID, NoteText.InnerText);
+                GoogleFirestoreConnectionManager.UpdateNote(NoteID, NotebookID, NoteText.Text);
             }
             else
             {
-                GoogleFirestoreConnectionManager.CreateNote(HandleLoginUserID.Value, NotebookID, NoteText.InnerText);
+                GoogleFirestoreConnectionManager.CreateNote(HandleLoginUserID.Value, NotebookID, NoteText.Text);
             }
             Response.Redirect("Notebook.aspx?notebookID=" + NotebookID);
         }
@@ -65,8 +65,9 @@ namespace WhatINoted
             if (IsEdit)
             {
                 note = GoogleFirestoreConnectionManager.GetNote(NoteID);
-                NoteText.InnerText = note.Text;
+                NoteText.Text = note.Text;
                 NotebookID = note.NotebookID;
+                ExtractTextUpdatePanel.Update();
             }
 
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
@@ -100,7 +101,7 @@ namespace WhatINoted
             string text = GoogleVisionConnectionManager.ExtractText(image);
 
             if (text.Length > 0)
-                NoteText.Value = text;
+                NoteText.Text = text;
         }
     }
 }
