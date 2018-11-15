@@ -10,7 +10,6 @@
                     Delete Notebook
                 </div>
                 <asp:Table runat="server" ID="NotesTable"></asp:Table>
-
                 <asp:HiddenField runat="server" ID="NoteID" Value="" />
                 <asp:Button runat="server" class="editNoteTrigger hidden" OnClick="EditNote" />
                 <asp:Button runat="server" class="deleteNoteTrigger hidden" OnClick="DeleteNote" />
@@ -38,12 +37,12 @@
             window.location.href = "NoteEditor.aspx?noteID=" + noteID;
         }
         function DeleteNote_Click(noteID) {
-            if (confirm("Are you sure you want to delete this Note?")) {
-                let hiddenField = document.getElementById('<%= NoteID.ClientID %>');
-                hiddenField.value = noteID;
-                let triggerButton = document.getElementsByClassName('deleteNoteTrigger')[0];
-                triggerButton.click();
-            }
+                if (confirm("Are you sure you want to delete this Note?")) {
+                    let hiddenField = document.getElementById('<%= NoteID.ClientID %>');
+                    hiddenField.value = noteID;
+                    let triggerButton = document.getElementsByClassName('deleteNoteTrigger')[0];
+                    triggerButton.click();
+                }
         }
         function DeleteNotebook_Click() {
             let title = document.getElementById('<%= NotebookTitle.ClientID %>').innerHTML;

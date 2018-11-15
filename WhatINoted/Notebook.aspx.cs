@@ -25,6 +25,7 @@ namespace WhatINoted
             }
 
             NotebookTitle.InnerText = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
+            GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
         }
 
         [WebMethod, ScriptMethod]
@@ -57,6 +58,7 @@ namespace WhatINoted
             {
                 GoogleFirestoreConnectionManager.DeleteNote(noteID);
             }
+            GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
         }
 
         [WebMethod, ScriptMethod]
@@ -68,14 +70,19 @@ namespace WhatINoted
         [WebMethod, ScriptMethod]
         public void UpdateNotes(object sender, EventArgs e)
         {
-            GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
+            if (IsPostBack)
+            {
+                GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
+            }
         }
 
         protected void GenerateNoteRows(List<Note> notes)
         {
+            NotesTable.Controls.Clear();
             foreach (Note note in notes)
             {
                 TableRow noteRow = new TableRow();
+                noteRow.ID = note.ID;
                 TableCell textCell = new TableCell();
                 textCell.Text = note.Text;
                 TableCell editDeleteCell = new TableCell();
