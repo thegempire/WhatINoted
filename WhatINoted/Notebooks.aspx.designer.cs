@@ -10,70 +10,43 @@
 namespace WhatINoted {
     
     
-    public partial class NotebookCreationView {
+    public partial class NotebooksView {
         
         /// <summary>
-        /// AddNotebookUpdatePanel control.
+        /// MainUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel AddNotebookUpdatePanel;
+        protected global::System.Web.UI.UpdatePanel MainUpdatePanel;
         
         /// <summary>
-        /// ByISBNGroupContainer control.
+        /// Field_NotebookID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByISBNGroupContainer;
+        protected global::System.Web.UI.WebControls.HiddenField Field_NotebookID;
         
         /// <summary>
-        /// btnISBNPostback control.
+        /// btnOpenNotebookPostback control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnISBNPostback;
+        protected global::System.Web.UI.WebControls.Button btnOpenNotebookPostback;
         
         /// <summary>
-        /// SearchGridISBN control.
+        /// MainNotebooks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table SearchGridISBN;
-        
-        /// <summary>
-        /// ByBookDetailsGroupContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByBookDetailsGroupContainer;
-        
-        /// <summary>
-        /// btnBookDetailsPostback control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBookDetailsPostback;
-        
-        /// <summary>
-        /// SearchGridDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table SearchGridDetails;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MainNotebooks;
         
         /// <summary>
         /// btnCreateNotebookPostback control.
@@ -83,5 +56,23 @@ namespace WhatINoted {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCreateNotebookPostback;
+        
+        /// <summary>
+        /// btnCreateNotePostback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateNotePostback;
+        
+        /// <summary>
+        /// HandleLoginUserID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HandleLoginUserID;
     }
 }

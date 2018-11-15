@@ -12,19 +12,15 @@ namespace WhatINoted
     /// <summary>
     /// Notebooks view. From here, the user can see all their notebooks and add another.
     /// </summary>
-    public partial class NotebooksView : AddNoteView
+    public partial class NotebooksView : View
     {
-        private List<Models.Notebook> Notebooks;
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
+        private List<Notebook> Notebooks;
 
         [WebMethod, ScriptMethod]
         public void UpdateNotebooks(object sender, EventArgs e)
         {
             string userID = HandleLoginUserID.Value;
+
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
 
             List<HtmlGenericControl> notebookDivs = GenerateNotebookDivs();
@@ -41,7 +37,7 @@ namespace WhatINoted
             {
                 HtmlGenericControl notebookDiv = new HtmlGenericControl("div");
                 notebookDiv.Attributes["class"] = "mainNotebooksDiv notebookColor";
-                notebookDiv.Attributes["onclick"] = "click_openNotebook()";
+                notebookDiv.Attributes["onclick"] = "click_openNotebook(\"" + notebook.ID + "\")";
 
                 HtmlGenericControl titleDiv = new HtmlGenericControl("div");
                 titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
@@ -59,7 +55,7 @@ namespace WhatINoted
 
                 HtmlGenericControl numNotesDiv = new HtmlGenericControl("div");
                 numNotesDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookNumNotesDiv";
-                numNotesDiv.InnerHtml = GoogleFirestoreConnectionManager.GetNotebookNotes(notebook.ID).Count.ToString();
+                numNotesDiv.InnerHtml = GoogleFirestoreConnectionManager.GetNotebookNotes(notebook.ID).Count.ToString() + (GoogleFirestoreConnectionManager.GetNotebookNotes(notebook.ID).Count == 1 ? " Note" : " Notes");
                 notebookDiv.Controls.Add(numNotesDiv);
                 notebookDivs.Add(notebookDiv);
             }
@@ -68,17 +64,18 @@ namespace WhatINoted
 
         protected void CreateNotebook(object sender, EventArgs e)
         {
-            Response.Redirect("AddNotebook.aspx", true);
+            Response.Redirect("NotebookEditor.aspx", true);
         }
 
         protected void CreateNote(object sender, EventArgs e)
         {
-            Response.Redirect("AddNote.aspx", true);
+            Response.Redirect("NoteEditor.aspx", true);
         }
 
         protected void OpenNotebook(object sender, EventArgs e)
         {
-            Response.Redirect("Notes.aspx", true);
+            string notebookID = Field_NotebookID.Value;
+            Response.Redirect("Notebook.aspx?notebookID=" + notebookID, true);
         }
     }
 }

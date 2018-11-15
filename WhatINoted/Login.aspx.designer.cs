@@ -10,15 +10,15 @@
 namespace WhatINoted {
     
     
-    public partial class CreateEditNoteView {
+    public partial class LoginView {
         
         /// <summary>
-        /// AddNoteUpdatePanel control.
+        /// LoginUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel AddNoteUpdatePanel;
+        protected global::System.Web.UI.UpdatePanel LoginUpdatePanel;
     }
 }

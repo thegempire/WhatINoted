@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using WhatINoted.Models;
 
@@ -40,11 +41,11 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         protected static readonly string publisher3 = "test_publisher3";
         protected static readonly string publisher4 = "test_publisher4";
         protected static readonly string publisher5 = "test_publisher5";
-        protected static DateTime publishDate1 = new DateTime(2005, 11, 15);
-        protected static DateTime publishDate2 = new DateTime(2005, 11, 16);
-        protected static DateTime publishDate3 = new DateTime(2005, 11, 17);
-        protected static DateTime publishDate4 = new DateTime(2005, 11, 18);
-        protected static DateTime publishDate5 = new DateTime(2005, 11, 19);
+        protected static readonly string publishDate1 = "2005-11-15";
+        protected static readonly string publishDate2 = "2005-11-16";
+        protected static readonly string publishDate3 = "2005-11-17";
+        protected static readonly string publishDate4 = "2005-11-18";
+        protected static readonly string publishDate5 = "2005-11-19";
         protected static readonly string coverURL1 = "test_coverURL1";
         protected static readonly string coverURL2 = "test_coverURL2";
         protected static readonly string coverURL3 = "test_coverURL3";
@@ -72,5 +73,25 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         protected static Note note3 = new Note("", userID1, notebookID1, text3, DateTime.Now, DateTime.Now);
 
         public abstract bool Run(StreamWriter sw);
+
+        public static List<Test> GetTests()
+        {
+            List<Test> tests = new List<Test>
+            {
+                new GFCM_HandleLoginTest(),
+                new GFCM_CreateNotebookTest(),
+                new GFCM_CreateNoteTest(),
+                new GFCM_DeleteUserTest(),
+                new GFCM_DeleteNotebookTest(),
+                new GFCM_DeleteNoteTest(),
+                new GFCM_GetNotebooksTest(),
+                new GFCM_GetNotebookNotesTest(),
+                new GFCM_GetUserNotesTest(),
+                new GFCM_GetNoteTest(),
+                new GFCM_UpdateNoteTest(),
+                new GFCM_GenerateFieldsJsonTest()
+            };
+            return tests;
+        }
     }
 }

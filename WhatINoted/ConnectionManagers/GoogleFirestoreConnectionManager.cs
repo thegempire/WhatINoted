@@ -217,10 +217,14 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>true if the user was created or if it already exists; false otherwise</returns>
         public static User HandleLogin(string userID, string displayName, string email)
         {
-            if (userID == null || displayName == null || email == null || userID == "" || displayName == "" || email == "")
+            if (userID == null || displayName == null || userID == "" || displayName == "")
             {
                 throw new ArgumentNullException();
             }
+
+            // Twitter authentication does not return an email; therefore, we must allow email to be null
+            // if so, replace with an empty string
+            email = email ?? "";
 
             string path = "users?documentId=" + userID;
             string createJson = GenerateCreateUserJson(userID, displayName, email);
@@ -228,6 +232,10 @@ namespace WhatINoted.ConnectionManagers
             try
             {
                 jsonResult = WebClient.UploadString(path, createJson);
+
+                // If the user already exists, then an exception will be thrown and this line will not be executed
+                // Therefore, the "Unfiled Notes" notebook will only be created if this is a new user
+                CreateNotebook(userID, "Unfiled Notes", coverURL: "./Notebook.png");
             }
             catch (WebException e)
             {
@@ -257,10 +265,10 @@ namespace WhatINoted.ConnectionManagers
         /// <param name="publishDate">the date that the notebook was published</param>
         /// <param name="coverURL">a URL pointing to an image of the cover of the notebook</param>
         /// <returns>the created notebook</returns>
-        public static Notebook CreateNotebook(string userID, string title, string author, string isbn, string publisher, DateTime publishDate, string coverURL)
+        public static Notebook CreateNotebook(string userID, string title, string author = "", string isbn = "", string publisher = "", string publishDate = "", string coverURL = "")
         {
-            if (userID == null || title == null || author == null || isbn == null || publisher == null || coverURL == null
-                || userID == "" || title == "" || author == "" || isbn == "" || publisher == "" || coverURL == "")
+            if (userID == null || title == null //|| author == null || isbn == null || publisher == null || coverURL == null
+                || userID == "" || title == "" )//|| author == "" || isbn == "" || publisher == "" || coverURL == "")
             {
                 throw new ArgumentNullException();
             }
@@ -308,11 +316,12 @@ namespace WhatINoted.ConnectionManagers
         /// Updates the text of the note with the given ID.
         /// </summary>
         /// <param name="noteID">the ID of the note to update</param>
+        /// <param name="notebookID">the ID of the notebook that this note belongs to</param>
         /// <param name="noteText">the updated text</param>
         /// <returns>the updated note</returns>
-        public static Note UpdateNote(string noteID, string noteText)
+        public static Note UpdateNote(string noteID, string notebookID, string noteText)
         {
-            if (noteID == null || noteText == null || noteID == "" || noteText == "")
+            if (noteID == null || notebookID == null || noteText == "" || noteID == "" || notebookID == "" || noteText == "")
             {
                 throw new ArgumentNullException();
             }
@@ -320,7 +329,7 @@ namespace WhatINoted.ConnectionManagers
             Note oldNote = GetNote(noteID);
 
             string path = "notes/" + noteID;
-            string json = GenerateUpdateNoteJson(oldNote.UserID, oldNote.NotebookID, noteText, oldNote.Created);
+            string json = GenerateUpdateNoteJson(oldNote.UserID, notebookID, noteText, oldNote.Created);
             try
             {
                 WebClient.UploadString(path, "PATCH", json);
@@ -474,9 +483,8 @@ namespace WhatINoted.ConnectionManagers
         /// <summary>
         /// Generates the Json string required for a create notebook request.
         /// </summary>
-        private static string GenerateCreateNotebookJson(string userID, string title, string author, string isbn, string publisher, DateTime publishDate, string coverURL)
+        private static string GenerateCreateNotebookJson(string userID, string title, string author, string isbn, string publisher, string publishDate, string coverURL)
         {
-            string publishDateUTC = publishDate.ToUniversalTime().ToString("o");
             string createTimeUTC = DateTime.UtcNow.ToString("o");
 
             List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
@@ -486,7 +494,7 @@ namespace WhatINoted.ConnectionManagers
                 new Tuple<string, FieldTypes, string>("author", FieldTypes.StringValue, author),
                 new Tuple<string, FieldTypes, string>("isbn", FieldTypes.StringValue, isbn),
                 new Tuple<string, FieldTypes, string>("publisher", FieldTypes.StringValue, publisher),
-                new Tuple<string, FieldTypes, string>("publishDate", FieldTypes.TimestampValue, publishDateUTC),
+                new Tuple<string, FieldTypes, string>("publishDate", FieldTypes.StringValue, publishDate),
                 new Tuple<string, FieldTypes, string>("coverURL", FieldTypes.StringValue, coverURL),
                 new Tuple<string, FieldTypes, string>("created", FieldTypes.TimestampValue, createTimeUTC),
                 new Tuple<string, FieldTypes, string>("modified", FieldTypes.TimestampValue, createTimeUTC)

@@ -158,16 +158,16 @@ namespace WhatINoted
                 fields.publisher.stringValue = value;
             }
         }
-        public DateTime PublishDate
+        public string PublishDate
         {
             get
             {
-                return fields.publishDate.TimestampValue;
+                return fields.publishDate.stringValue;
             }
 
             set
             {
-                fields.publishDate.TimestampValue = value;
+                fields.publishDate.stringValue = value;
             }
         }
         public string CoverURL
@@ -293,7 +293,7 @@ namespace WhatINoted
         public JsonStringField title { get; set; }
         public JsonStringField author { get; set; }
         public JsonStringField publisher { get; set; }
-        public JsonDateTimeField publishDate { get; set; }
+        public JsonStringField publishDate { get; set; }
         public JsonStringField coverURL { get; set; }
     }
 

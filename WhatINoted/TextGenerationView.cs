@@ -63,6 +63,6 @@ namespace WhatINoted
         /// <summary>
         /// Generates the text from the image using the OCR engine.
         /// </summary>
-        protected abstract void GenerateText();
+        protected abstract void GenerateText(object o, EventArgs e);
     }
 }
