@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using WhatINoted.Models;
 
@@ -72,5 +73,25 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         protected static Note note3 = new Note("", userID1, notebookID1, text3, DateTime.Now, DateTime.Now);
 
         public abstract bool Run(StreamWriter sw);
+
+        public static List<Test> GetTests()
+        {
+            List<Test> tests = new List<Test>
+            {
+                new GFCM_HandleLoginTest(),
+                new GFCM_CreateNotebookTest(),
+                new GFCM_CreateNoteTest(),
+                new GFCM_DeleteUserTest(),
+                new GFCM_DeleteNotebookTest(),
+                new GFCM_DeleteNoteTest(),
+                new GFCM_GetNotebooksTest(),
+                new GFCM_GetNotebookNotesTest(),
+                new GFCM_GetUserNotesTest(),
+                new GFCM_GetNoteTest(),
+                new GFCM_UpdateNoteTest(),
+                new GFCM_GenerateFieldsJsonTest()
+            };
+            return tests;
+        }
     }
 }
