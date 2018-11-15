@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
 using WhatINoted.Models;
@@ -28,6 +29,7 @@ namespace WhatINoted.ConnectionManagers
                 if (_webClient == null)
                 {
                     _webClient = new WebClient();
+                    _webClient.Encoding = Encoding.UTF8;
                     _webClient.BaseAddress = DatabaseBaseAddress;
                 }
                 return _webClient;
@@ -482,6 +484,11 @@ namespace WhatINoted.ConnectionManagers
         private static string GenerateCreateNotebookJson(string userID, string title, string author, string isbn, string publisher, string publishDate, string coverURL)
         {
             string createTimeUTC = DateTime.UtcNow.ToString("o");
+            title = HttpUtility.JavaScriptStringEncode(title);
+            author = HttpUtility.JavaScriptStringEncode(author);
+            isbn = HttpUtility.JavaScriptStringEncode(isbn);
+            publisher = HttpUtility.JavaScriptStringEncode(publisher);
+            publishDate = HttpUtility.JavaScriptStringEncode(publishDate);
 
             List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
@@ -505,7 +512,7 @@ namespace WhatINoted.ConnectionManagers
         private static string GenerateCreateNoteJson(string userID, string notebookID, string noteText)
         {
             string createTimeUTC = DateTime.UtcNow.ToString("o");
-
+            noteText = HttpUtility.JavaScriptStringEncode(noteText);
             List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
                 new Tuple<string, FieldTypes, string>("userID", FieldTypes.StringValue, userID),
@@ -524,7 +531,7 @@ namespace WhatINoted.ConnectionManagers
         private static string GenerateUpdateNoteJson(string userID, string notebookID, string noteText, DateTime created)
         {
             string updateTimeUTC = DateTime.UtcNow.ToString("o");
-
+            noteText = HttpUtility.JavaScriptStringEncode(noteText);
             List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
                 new Tuple<string, FieldTypes, string>("userID", FieldTypes.StringValue, userID),

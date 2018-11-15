@@ -4,22 +4,22 @@
 
     <script>
         function rowClicked(el) {
-            WebForm_GetElementById("MainContent_ModalTitle").innerHTML = WebForm_GetElementById(el.id + "_Title").innerHTML;
-            WebForm_GetElementById("MainContent_TitleSelection").value = WebForm_GetElementById(el.id + "_Title").innerHTML;
+            WebForm_GetElementById("MainContent_ModalTitle").innerText = WebForm_GetElementById(el.id + "_Title").innerText;
+            WebForm_GetElementById("MainContent_TitleSelection").value = WebForm_GetElementById(el.id + "_Title").innerText;
 
-            WebForm_GetElementById("MainContent_ModalAuthors").innerHTML = WebForm_GetElementById(el.id + "_Authors").innerHTML;
-            WebForm_GetElementById("MainContent_AuthorsSelection").value = WebForm_GetElementById(el.id + "_Authors").innerHTML;
+            WebForm_GetElementById("MainContent_ModalAuthors").innerText = WebForm_GetElementById(el.id + "_Authors").innerText;
+            WebForm_GetElementById("MainContent_AuthorsSelection").value = WebForm_GetElementById(el.id + "_Authors").innerText;
 
-            WebForm_GetElementById("MainContent_ModalPublisher").innerHTML = WebForm_GetElementById(el.id + "_Publisher").innerHTML;
-            WebForm_GetElementById("MainContent_PublisherSelection").value = WebForm_GetElementById(el.id + "_Publisher").innerHTML;
+            WebForm_GetElementById("MainContent_ModalPublisher").innerText = WebForm_GetElementById(el.id + "_Publisher").innerText;
+            WebForm_GetElementById("MainContent_PublisherSelection").value = WebForm_GetElementById(el.id + "_Publisher").innerText;
 
-            WebForm_GetElementById("MainContent_ModalPublishDate").innerHTML = WebForm_GetElementById(el.id + "_PublishDate").innerHTML;
-            WebForm_GetElementById("MainContent_PublishDateSelection").value = WebForm_GetElementById(el.id + "_PublishDate").innerHTML;
+            WebForm_GetElementById("MainContent_ModalPublishDate").innerText = WebForm_GetElementById(el.id + "_PublishDate").innerText;
+            WebForm_GetElementById("MainContent_PublishDateSelection").value = WebForm_GetElementById(el.id + "_PublishDate").innerText;
 
-            WebForm_GetElementById("MainContent_ModalISBN").innerHTML = WebForm_GetElementById(el.id + "_ISBN").innerHTML;
-            WebForm_GetElementById("MainContent_IsbnSelection").value = WebForm_GetElementById(el.id + "_ISBN").innerHTML;
+            WebForm_GetElementById("MainContent_ModalISBN").innerText = WebForm_GetElementById(el.id + "_ISBN").innerText;
+            WebForm_GetElementById("MainContent_IsbnSelection").value = WebForm_GetElementById(el.id + "_ISBN").innerText;
 
-            WebForm_GetElementById("MainContent_CoverUrlSelection").value = WebForm_GetElementById(el.id + "_CoverUrl").innerHTML;
+            WebForm_GetElementById("MainContent_CoverUrlSelection").value = WebForm_GetElementById(el.id + "_CoverUrl").innerText;
 
             WebForm_GetElementById("MainContent_ShowButton").click();
         }
