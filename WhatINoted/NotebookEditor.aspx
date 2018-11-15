@@ -86,7 +86,6 @@
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    </div>
                     
                     <br />
 
@@ -98,12 +97,18 @@
                             </div>
                             <div runat="server" class="search_grid">
                                 <asp:Table runat="server" ID="SearchGridISBN">
-                                    <asp:TableRow>
+                                    <asp:TableRow CssClass="search_header_row">
+                                        <asp:TableCell ColumnSpan="5">
+                                            Search Results
+                                        </asp:TableCell>
+                                    </asp:TableRow>
+                                    <asp:TableRow CssClass="search_fields_row">
                                         <asp:TableCell>Title</asp:TableCell>
                                         <asp:TableCell>Author</asp:TableCell>
+                                        <asp:TableCell>Publisher</asp:TableCell>
+                                        <asp:TableCell>Publication Date</asp:TableCell>
                                         <asp:TableCell>ISBN</asp:TableCell>
                                     </asp:TableRow>
-                                    <%--insert dynamic search results here--%>
                                 </asp:Table>
                             </div>
                         </ContentTemplate>
@@ -136,7 +141,30 @@
                             </div>
                             <div runat="server" class="search_grid">
                                 <asp:Table runat="server" ID="SearchGridDetails">
-                                    <asp:TableRow>
+                                    <asp:TableRow CssClass="search_header_row">
+                                        <asp:TableCell ColumnSpan="5">
+                                            Search Results
+                                        </asp:TableCell>
+                                    </asp:TableRow>
+                                    <asp:TableRow CssClass="search_fields_row">
+                                        <asp:TableCell>Title</asp:TableCell>
+                                        <asp:TableCell>Author</asp:TableCell>
+                                        <asp:TableCell>Publisher</asp:TableCell>
+                                        <asp:TableCell>Publication Date</asp:TableCell>
+                                        <asp:TableCell>ISBN</asp:TableCell>
+                                    </asp:TableRow>
+                                </asp:Table>
+                            </div>
+
+                            <br />
+                            <div runat="server" class="search_grid">
+                                <asp:Table runat="server" ID="SearchGridCustom">
+                                    <asp:TableRow CssClass="search_header_row">
+                                        <asp:TableCell ColumnSpan="5" >
+                                            Custom Book
+                                        </asp:TableCell>
+                                    </asp:TableRow>
+                                    <asp:TableRow CssClass="search_fields_row">
                                         <asp:TableCell>Title</asp:TableCell>
                                         <asp:TableCell>Author</asp:TableCell>
                                         <asp:TableCell>Publisher</asp:TableCell>
