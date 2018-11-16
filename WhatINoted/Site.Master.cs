@@ -11,17 +11,13 @@ namespace WhatINoted
 {
     public partial class SiteMaster : MasterPage
     {
-        public static readonly bool DEBUG = false; // MUST BE FALSE WHEN YOU DEPLOY
+        private const string LIMITED_ACCESS_API_KEY = "AIzaSyB2C6rSX-3xrnUUiJVlcrkaoobzM4VoCzo";
+
+        private const string UNLIMITED_ACCESS_API_KEY = "AIzaSyBBYx2A-6F1IMdWhFBEudrPZjPiWJU-Y60";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        }
-
-        [WebMethod, ScriptMethod]
-        public void UpdateAuthKey(object sender, EventArgs e)
-        {
-            AuthKey.Value = (DEBUG) ? "AIzaSyBBYx2A-6F1IMdWhFBEudrPZjPiWJU-Y60" : "AIzaSyB2C6rSX-3xrnUUiJVlcrkaoobzM4VoCzo";
+            AuthKey.Value = (DebugMode.DEBUG) ? UNLIMITED_ACCESS_API_KEY : LIMITED_ACCESS_API_KEY;
         }
     }
 }

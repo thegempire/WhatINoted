@@ -1,5 +1,4 @@
-﻿document.getElementsByClassName("handleLoginTrigger")[0].click();
-let key = document.getElementById("MainContent_HandleLoginUserID").value;
+﻿let key = document.getElementById("AuthKey").value;
 
 // Initialize Firebase
 var config = {

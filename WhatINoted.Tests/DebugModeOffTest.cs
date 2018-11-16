@@ -12,7 +12,7 @@ namespace WhatINoted.Tests
 
         public bool Run(StreamWriter sw)
         {
-            bool result = !SiteMaster.DEBUG;
+            bool result = !DebugMode.DEBUG;
             if (!result) 
             {
                 string alert = "***** DO NOT DEPLOY - DEBUG MODE IS ON! *****";
