@@ -22,7 +22,7 @@
             </div>
 
             <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
-            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdateNotes" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" />
 
         </ContentTemplate>
     </asp:UpdatePanel>
@@ -37,12 +37,13 @@
             window.location.href = "NoteEditor.aspx?noteID=" + noteID;
         }
         function DeleteNote_Click(noteID) {
-                if (confirm("Are you sure you want to delete this Note?")) {
-                    let hiddenField = document.getElementById('<%= NoteID.ClientID %>');
-                    hiddenField.value = noteID;
-                    let triggerButton = document.getElementsByClassName('deleteNoteTrigger')[0];
-                    triggerButton.click();
-                }
+            if (confirm("Are you sure you want to delete this Note?")) {
+                let hiddenField = document.getElementById('<%= NoteID.ClientID %>');
+                hiddenField.value = noteID;
+                let triggerButton = document.getElementsByClassName('deleteNoteTrigger')[0];
+                triggerButton.click();
+            }
+            window.location.reload(true);
         }
         function DeleteNotebook_Click() {
             let title = document.getElementById('<%= NotebookTitle.ClientID %>').innerHTML;

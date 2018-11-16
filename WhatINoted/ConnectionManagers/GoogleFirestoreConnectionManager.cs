@@ -17,11 +17,14 @@ namespace WhatINoted.ConnectionManagers
         // The base address to access the database
         private static readonly string DatabaseBaseAddress = "https://firestore.googleapis.com/v1beta1/projects/whatinoted-12345/databases/(default)/documents/";
 
-        private static WebClient GetWebClient()
+        private static WebClient WebClient
         {
-            WebClient client = new WebClient();
-            client.BaseAddress = DatabaseBaseAddress;
-            return client;
+            get
+            {
+                WebClient client = new WebClient();
+                client.BaseAddress = DatabaseBaseAddress;
+                return client;
+            }
         }
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace WhatINoted.ConnectionManagers
 
             try
             {
-                string jsonString = GetWebClient().DownloadString("users/" + userID);
+                string jsonString = WebClient.DownloadString("users/" + userID);
                 JsonUser jsonUser = JsonConvert.DeserializeObject<JsonUser>(jsonString);
                 return new User(jsonUser);
             }
@@ -70,7 +73,7 @@ namespace WhatINoted.ConnectionManagers
 
             try
             {
-                string jsonString = GetWebClient().DownloadString("notebooks/" + notebookID);
+                string jsonString = WebClient.DownloadString("notebooks/" + notebookID);
                 JsonNotebook jsonNotebook = JsonConvert.DeserializeObject<JsonNotebook>(jsonString);
                 return new Notebook(jsonNotebook);
             }
@@ -102,7 +105,7 @@ namespace WhatINoted.ConnectionManagers
 
             try
             {
-                string jsonString = GetWebClient().DownloadString("notes/" + noteID);
+                string jsonString = WebClient.DownloadString("notes/" + noteID);
                 JsonNote jsonNote = JsonConvert.DeserializeObject<JsonNote>(jsonString);
                 return new Note(jsonNote);
             }
@@ -217,7 +220,7 @@ namespace WhatINoted.ConnectionManagers
             string jsonResult = "";
             try
             {
-                jsonResult = GetWebClient().UploadString(path, createJson);
+                jsonResult = WebClient.UploadString(path, createJson);
 
                 // If the user already exists, then an exception will be thrown and this line will not be executed
                 // Therefore, the "Unfiled Notes" notebook will only be created if this is a new user
@@ -267,7 +270,7 @@ namespace WhatINoted.ConnectionManagers
 
             string path = "notebooks";
             string json = GenerateCreateNotebookJson(userID, title, author, isbn, publisher, publishDate, coverURL);
-            string result = GetWebClient().UploadString(path, json);
+            string result = WebClient.UploadString(path, json);
 
             JsonNotebook jsonNotebook = JsonConvert.DeserializeObject<JsonNotebook>(result);
             return new Notebook(jsonNotebook);
@@ -292,7 +295,7 @@ namespace WhatINoted.ConnectionManagers
 
             string path = "notes";
             string json = GenerateCreateNoteJson(userID, notebookID, noteText);
-            string result = GetWebClient().UploadString(path, json);
+            string result = WebClient.UploadString(path, json);
 
             JsonNote jsonNote = JsonConvert.DeserializeObject<JsonNote>(result);
             return new Note(jsonNote);
@@ -318,7 +321,7 @@ namespace WhatINoted.ConnectionManagers
             string json = GenerateUpdateNoteJson(oldNote.UserID, notebookID, noteText, oldNote.Created);
             try
             {
-                GetWebClient().UploadString(path, "PATCH", json);
+                WebClient.UploadString(path, "PATCH", json);
             }
             catch (WebException e)
             {
@@ -374,7 +377,7 @@ namespace WhatINoted.ConnectionManagers
             }
 
             string path = "users/" + userID;
-            string result = GetWebClient().UploadString(path, "DELETE", "");
+            string result = WebClient.UploadString(path, "DELETE", "");
             return true;
         }
 
@@ -405,7 +408,7 @@ namespace WhatINoted.ConnectionManagers
                 throw;
             }
             string path = "notebooks/" + notebookID;
-            string result = GetWebClient().UploadString(path, "DELETE", "");
+            string result = WebClient.UploadString(path, "DELETE", "");
             return true;
         }
 
@@ -422,7 +425,7 @@ namespace WhatINoted.ConnectionManagers
             }
 
             string path = "notes/" + noteID;
-            string result = GetWebClient().UploadString(path, "DELETE", "");
+            string result = WebClient.UploadString(path, "DELETE", "");
             return true;
         }
 
@@ -445,7 +448,7 @@ namespace WhatINoted.ConnectionManagers
                 + fieldValue + "\"}}},\"from\":[{\"collectionId\":\""
                 + collectionID + "\"}]}}";
             string path = ":runQuery";
-            return GetWebClient().UploadString(path, structuredQuery);
+            return WebClient.UploadString(path, structuredQuery);
         }
 
         /// <summary>
