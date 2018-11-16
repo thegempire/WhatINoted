@@ -5,8 +5,11 @@
         <ContentTemplate>
             <div runat="server">
                 <h2 runat="server" id="NotebookTitle">Notebook Title</h2>
+                <asp:Button runat="server" class="deleteNotebookTrigger hidden" OnClick="DeleteNotebook" />
+                <div runat="server" class="button small_button" onclick="DeleteNotebook_Click();">
+                    Delete Notebook
+                </div>
                 <asp:Table runat="server" ID="NotesTable"></asp:Table>
-
                 <asp:HiddenField runat="server" ID="NoteID" Value="" />
                 <asp:Button runat="server" class="editNoteTrigger hidden" OnClick="EditNote" />
                 <asp:Button runat="server" class="deleteNoteTrigger hidden" OnClick="DeleteNote" />
@@ -19,7 +22,7 @@
             </div>
 
             <asp:HiddenField runat="server" ID="HandleLoginUserID" Value="" />
-            <asp:Button runat="server" class="handleLoginTrigger hidden" OnClick="UpdateNotes" />
+            <asp:Button runat="server" class="handleLoginTrigger hidden" />
 
         </ContentTemplate>
     </asp:UpdatePanel>
@@ -32,6 +35,22 @@
         }
         function EditNote_Click(noteID) {
             window.location.href = "NoteEditor.aspx?noteID=" + noteID;
+        }
+        function DeleteNote_Click(noteID) {
+            if (confirm("Are you sure you want to delete this Note?")) {
+                let hiddenField = document.getElementById('<%= NoteID.ClientID %>');
+                hiddenField.value = noteID;
+                let triggerButton = document.getElementsByClassName('deleteNoteTrigger')[0];
+                triggerButton.click();
+            }
+            window.location.reload(true);
+        }
+        function DeleteNotebook_Click() {
+            let title = document.getElementById('<%= NotebookTitle.ClientID %>').innerHTML;
+            if (confirm("Are you sure you want to delete " + title + "?")) {
+                let triggerButton = document.getElementsByClassName('deleteNotebookTrigger')[0];
+                triggerButton.click();
+            }
         }
     </script>
 </asp:Content>

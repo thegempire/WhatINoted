@@ -1,0 +1,39 @@
+--------------TEST RESULTS--------------
+  Tests Run: 11
+  Tests Failed: 0
+----------------------------------------
+
+-----------------OUTPUT-----------------
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+  
+  START TEST: GFCM_GetNotebookNotesTest
+  END TEST: GFCM_GetNotebookNotesTest
+----------------------------------------

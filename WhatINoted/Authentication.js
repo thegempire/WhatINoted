@@ -13,6 +13,7 @@ firebase.initializeApp(config);
 
 // FirebaseUI config.
 var uiConfig = {
+    signInSuccessURL: './Notebooks.aspx',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -36,11 +37,12 @@ function handleLoginForContentPage() {
         if (user) {
             // User is logged in
             document.getElementsByClassName("navbar-logout")[0].classList.remove("hidden");
-            //var data = '{userID: "' + user.uid + '", displayName: "' + user.displayName + '", email: "' + user.email + '" }'; // TODO - remove
-            var data = JSON.stringify({userID: user.uid, displayName: user.displayName, email: user.email });
+            var data = JSON.stringify({ userID: user.uid, displayName: user.displayName, email: user.email });
             callCSMethod("Notebooks.aspx/HandleLogin", data, function () {
                 let userIDElement = document.getElementById("MainContent_HandleLoginUserID");
                 userIDElement.value = user.uid;
+                let welcomeLabel = document.getElementById("WelcomeLabel");
+                welcomeLabel.innerHTML = "Welcome " + user.displayName.split(" ")[0];
                 let triggerButton = document.getElementsByClassName('handleLoginTrigger')[0];
                 triggerButton.click();
             }.bind(user))

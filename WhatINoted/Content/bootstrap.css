@@ -5247,6 +5247,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 
 .navbar-logout {
     float: right;
+    cursor: pointer;
 }
 
 .navbar-brand, .navbar-logout {
@@ -5263,9 +5264,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
         text-decoration: none;
     }
 
-    .navbar-brand > img, .navbar-logout > img {
-        display: block;
-    }
+        .navbar-brand > img, .navbar-logout > img {
+            display: block;
+        }
 
 @media (min-width: 768px) {
     .navbar > .container .navbar-brand,

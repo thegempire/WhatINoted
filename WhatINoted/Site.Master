@@ -38,12 +38,12 @@
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
-                <div class="navbar-header">
+                <div class="row">
                     <a class="navbar-brand" runat="server" href="~/">What I Noted</a>
-                </div>
-                <div>
-                    <%--<asp:Label class="label" runat="server">Welcome</asp:Label>--%>
-                    <a class="navbar-logout hidden" runat="server" onclick="logout()">Logout</a>
+                    <div>
+                        <asp:Label class="navbar-text" ID="WelcomeLabel" runat="server"></asp:Label>
+                        <a class="navbar-logout hidden" runat="server" onclick="logout()">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>

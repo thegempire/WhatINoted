@@ -21,18 +21,7 @@ namespace WhatINoted.Tests
             // Populate test list
             tests.Add(new PingTest());
             tests.AddRange(GoogleVisionConnectionTests.GetTests());
-            tests.Add(new GFCM_HandleLoginTest());
-            tests.Add(new GFCM_CreateNotebookTest());
-            tests.Add(new GFCM_CreateNoteTest());
-            tests.Add(new GFCM_DeleteUserTest());
-            tests.Add(new GFCM_DeleteNotebookTest());
-            tests.Add(new GFCM_DeleteNoteTest());
-            tests.Add(new GFCM_GetNotebooksTest());
-            tests.Add(new GFCM_GetNotebookNotesTest());
-            tests.Add(new GFCM_GetUserNotesTest());
-            tests.Add(new GFCM_GetNoteTest());
-            tests.Add(new GFCM_UpdateNoteTest());
-            tests.Add(new GFCM_GenerateFieldsJsonTest());
+            tests.AddRange(GFCM_Test.GetTests());
             tests.AddRange(GoogleBooksConnectionTests.GetTests());
             tests.Add(new IsbnModelTest());
             tests.Add(new DebugModeOffTest());

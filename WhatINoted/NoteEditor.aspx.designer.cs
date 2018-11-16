@@ -73,7 +73,7 @@ namespace WhatINoted {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea NoteText;
+        protected global::System.Web.UI.WebControls.TextBox NoteText;
         
         /// <summary>
         /// DropdownUpdatePanel control.

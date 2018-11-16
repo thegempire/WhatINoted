@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
 using WhatINoted.Models;
@@ -16,21 +17,15 @@ namespace WhatINoted.ConnectionManagers
     {
         // The base address to access the database
         private static readonly string DatabaseBaseAddress = "https://firestore.googleapis.com/v1beta1/projects/whatinoted-12345/databases/(default)/documents/";
-
-        // The hidden web client for accessing the database
-        private static WebClient _webClient;
-
-        // Provides access to the web client for accessing the database
+        
         private static WebClient WebClient
         {
             get
             {
-                if (_webClient == null)
-                {
-                    _webClient = new WebClient();
-                    _webClient.BaseAddress = DatabaseBaseAddress;
-                }
-                return _webClient;
+                WebClient client = new WebClient();
+                client.Encoding = Encoding.UTF8;
+                client.BaseAddress = DatabaseBaseAddress;
+                return client;
             }
         }
 
@@ -217,10 +212,14 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>true if the user was created or if it already exists; false otherwise</returns>
         public static User HandleLogin(string userID, string displayName, string email)
         {
-            if (userID == null || displayName == null || email == null || userID == "" || displayName == "" || email == "")
+            if (userID == null || displayName == null || userID == "" || displayName == "")
             {
                 throw new ArgumentNullException();
             }
+
+            // Twitter authentication does not return an email; therefore, we must allow email to be null
+            // if so, replace with an empty string
+            email = email ?? "";
 
             string path = "users?documentId=" + userID;
             string createJson = GenerateCreateUserJson(userID, displayName, email);
@@ -263,11 +262,16 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>the created notebook</returns>
         public static Notebook CreateNotebook(string userID, string title, string author = "", string isbn = "", string publisher = "", string publishDate = "", string coverURL = "")
         {
-            if (userID == null || title == null //|| author == null || isbn == null || publisher == null || coverURL == null
-                || userID == "" || title == "" )//|| author == "" || isbn == "" || publisher == "" || coverURL == "")
+            if (userID == null || title == null
+                || userID == "" || title == "" )
             {
                 throw new ArgumentNullException();
             }
+
+            author = author ?? "";
+            publisher = publisher ?? "";
+            publishDate = publishDate ?? "";
+            coverURL = coverURL ?? "";
 
             User user = GetUser(userID);
             if (user == null)
@@ -482,6 +486,11 @@ namespace WhatINoted.ConnectionManagers
         private static string GenerateCreateNotebookJson(string userID, string title, string author, string isbn, string publisher, string publishDate, string coverURL)
         {
             string createTimeUTC = DateTime.UtcNow.ToString("o");
+            title = HttpUtility.JavaScriptStringEncode(title);
+            author = HttpUtility.JavaScriptStringEncode(author);
+            isbn = HttpUtility.JavaScriptStringEncode(isbn);
+            publisher = HttpUtility.JavaScriptStringEncode(publisher);
+            publishDate = HttpUtility.JavaScriptStringEncode(publishDate);
 
             List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
@@ -505,7 +514,7 @@ namespace WhatINoted.ConnectionManagers
         private static string GenerateCreateNoteJson(string userID, string notebookID, string noteText)
         {
             string createTimeUTC = DateTime.UtcNow.ToString("o");
-
+            noteText = HttpUtility.JavaScriptStringEncode(noteText);
             List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
                 new Tuple<string, FieldTypes, string>("userID", FieldTypes.StringValue, userID),
@@ -524,7 +533,7 @@ namespace WhatINoted.ConnectionManagers
         private static string GenerateUpdateNoteJson(string userID, string notebookID, string noteText, DateTime created)
         {
             string updateTimeUTC = DateTime.UtcNow.ToString("o");
-
+            noteText = HttpUtility.JavaScriptStringEncode(noteText);
             List<Tuple<string, FieldTypes, string>> fieldConfigList = new List<Tuple<string, FieldTypes, string>>
             {
                 new Tuple<string, FieldTypes, string>("userID", FieldTypes.StringValue, userID),

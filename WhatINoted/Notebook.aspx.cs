@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.WebControls;
@@ -23,8 +24,19 @@ namespace WhatINoted
             {
                 Response.Redirect("./Notebooks.aspx");
             }
+            
+            NotebookTitle.InnerHtml = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
+            GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
+        }
 
-            NotebookTitle.InnerText = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
+        [WebMethod, ScriptMethod]
+        public void DeleteNotebook(object sender, EventArgs e) 
+        {
+            if (notebookID != null && notebookID != "") 
+            {
+                GoogleFirestoreConnectionManager.DeleteNotebook(notebookID);
+                Response.Redirect("./Notebooks.aspx");
+            }
         }
 
         /// <summary>
@@ -42,14 +54,11 @@ namespace WhatINoted
         [WebMethod, ScriptMethod]
         public void DeleteNote(object sender, EventArgs e)
         {
-            // TODO - Some sort of message displayed to the user that allows them to confirm deletion
-
-            // This implementation is correct. It is commented until the above TODO is complete.
-            //string noteID = NoteID.Value;
-            //if (noteID != null && noteID != "")
-            //{
-            //    GoogleFirestoreConnectionManager.DeleteNote(noteID);
-            //}
+            string noteID = NoteID.Value;
+            if (noteID != null && noteID != "")
+            {
+                GoogleFirestoreConnectionManager.DeleteNote(noteID);
+            }
         }
 
         [WebMethod, ScriptMethod]
@@ -58,27 +67,27 @@ namespace WhatINoted
             Response.Redirect("NoteEditor.aspx?notebookID=" + notebookID, true);
         }
 
-        [WebMethod, ScriptMethod]
-        public void UpdateNotes(object sender, EventArgs e)
-        {
-            GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
-        }
-
         protected void GenerateNoteRows(List<Note> notes)
         {
+            NotesTable.Controls.Clear();
             foreach (Note note in notes)
             {
                 TableRow noteRow = new TableRow();
                 TableCell textCell = new TableCell();
-                textCell.Text = note.Text;
-                TableCell editCell = new TableCell();
-                editCell.HorizontalAlign = HorizontalAlign.Right;
+                string display = note.Text.Replace("\n", "<br/>");
+                textCell.Text = display;
+                TableCell editDeleteCell = new TableCell();
+                editDeleteCell.HorizontalAlign = HorizontalAlign.Right;
                 Button editButton = new Button();
                 editButton.Text = "Edit";
                 editButton.OnClientClick = "EditNote_Click(\"" + note.ID + "\")";
-                editCell.Controls.Add(editButton);
+                Button deleteButton = new Button();
+                deleteButton.Text = "Delete";
+                deleteButton.OnClientClick = "DeleteNote_Click(\"" + note.ID + "\")";
+                editDeleteCell.Controls.Add(editButton);
+                editDeleteCell.Controls.Add(deleteButton);
                 noteRow.Controls.Add(textCell);
-                noteRow.Controls.Add(editCell);
+                noteRow.Controls.Add(editDeleteCell);
                 NotesTable.Controls.Add(noteRow);
             }
         }
