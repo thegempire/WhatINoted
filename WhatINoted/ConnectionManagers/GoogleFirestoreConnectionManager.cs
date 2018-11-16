@@ -16,7 +16,7 @@ namespace WhatINoted.ConnectionManagers
     {
         // The base address to access the database
         private static readonly string DatabaseBaseAddress = "https://firestore.googleapis.com/v1beta1/projects/whatinoted-12345/databases/(default)/documents/";
-
+        
         private static WebClient WebClient
         {
             get
