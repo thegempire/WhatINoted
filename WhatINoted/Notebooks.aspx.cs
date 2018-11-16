@@ -55,7 +55,7 @@ namespace WhatINoted
 
                 HtmlGenericControl numNotesDiv = new HtmlGenericControl("div");
                 numNotesDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookNumNotesDiv";
-                numNotesDiv.InnerHtml = GoogleFirestoreConnectionManager.GetNotebookNotes(notebook.ID).Count.ToString();
+                numNotesDiv.InnerHtml = GoogleFirestoreConnectionManager.GetNotebookNotes(notebook.ID).Count.ToString() + (GoogleFirestoreConnectionManager.GetNotebookNotes(notebook.ID).Count == 1 ? " Note" : " Notes");
                 notebookDiv.Controls.Add(numNotesDiv);
                 notebookDivs.Add(notebookDiv);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.WebControls;
@@ -23,8 +24,8 @@ namespace WhatINoted
             {
                 Response.Redirect("./Notebooks.aspx");
             }
-
-            NotebookTitle.InnerText = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
+            
+            NotebookTitle.InnerHtml = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
             GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
         }
 
@@ -73,7 +74,8 @@ namespace WhatINoted
             {
                 TableRow noteRow = new TableRow();
                 TableCell textCell = new TableCell();
-                textCell.Text = note.Text;
+                string display = note.Text.Replace("\n", "<br/>");
+                textCell.Text = display;
                 TableCell editDeleteCell = new TableCell();
                 editDeleteCell.HorizontalAlign = HorizontalAlign.Right;
                 Button editButton = new Button();

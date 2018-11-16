@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.WebControls;
@@ -29,8 +30,6 @@ namespace WhatINoted
                 IsEdit = true;
 
                 PageTitle.InnerText = "Edit Note";
-                ByImage1.Visible = false;
-                ByImage2.Visible = false;
                 HandleNoteButton.InnerText = "Edit Note";
             }
             else
@@ -49,11 +48,11 @@ namespace WhatINoted
             NotebookID = NotebookList.SelectedValue;
             if (IsEdit)
             {
-                GoogleFirestoreConnectionManager.UpdateNote(NoteID, NotebookID, NoteText.InnerText);
+                GoogleFirestoreConnectionManager.UpdateNote(NoteID, NotebookID, NoteText.Text);
             }
             else
             {
-                GoogleFirestoreConnectionManager.CreateNote(HandleLoginUserID.Value, NotebookID, NoteText.InnerText);
+                GoogleFirestoreConnectionManager.CreateNote(HandleLoginUserID.Value, NotebookID, NoteText.Text);
             }
             Response.Redirect("Notebook.aspx?notebookID=" + NotebookID);
         }
@@ -66,8 +65,9 @@ namespace WhatINoted
             if (IsEdit)
             {
                 note = GoogleFirestoreConnectionManager.GetNote(NoteID);
-                NoteText.InnerText = note.Text;
+                NoteText.Text = note.Text;
                 NotebookID = note.NotebookID;
+                ExtractTextUpdatePanel.Update();
             }
 
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
@@ -80,12 +80,28 @@ namespace WhatINoted
             {
                 NotebookList.SelectedValue = NotebookID;
             }
-            AddNoteUpdatePanel.Update();
+            DropdownUpdatePanel.Update();
         }
 
+        /// <summary>
+        /// Gets the base64 encoded image from the Hidden Field ImageInBase64 and sets the NoteText value to the text that exists in the image.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
+        [WebMethod, ScriptMethod]
         protected override void GenerateText(object o, EventArgs e)
         {
-            throw new NotImplementedException();
+            string image64 = ImageInBase64.Value.Split(',')[1];
+            byte[] byteBuffer = Convert.FromBase64String(image64);
+            System.Drawing.Image image;
+            using (MemoryStream mStream = new MemoryStream(byteBuffer))
+            {
+                image = System.Drawing.Image.FromStream(mStream);
+            }
+            string text = GoogleVisionConnectionManager.ExtractText(image);
+
+            if (text.Length > 0)
+                NoteText.Text = text;
         }
     }
 }

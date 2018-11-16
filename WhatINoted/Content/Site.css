@@ -239,6 +239,7 @@ textarea {
     background-color: #d9d9d9;
     font-size: 2em;
     text-align: center;
+    cursor: pointer;
 }
 
     .button:hover {
@@ -313,4 +314,14 @@ img {
 {
     background-color: white;
     border: 2px solid black;
+}
+
+.search_header_row
+{
+    background-color: #d9d9d9;
+}
+
+.search_fields_row
+{
+    font-style: italic;
 }

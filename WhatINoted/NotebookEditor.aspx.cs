@@ -126,6 +126,60 @@ namespace WhatINoted
 
             foreach (TableRow volume in resultRows)
                 resultsTable.Controls.Add(volume);
+
+            if (searchKey == "details")
+            {
+                TableRow volumeRow = new TableRow();
+                volumeRow.CssClass = "search_result";
+                volumeRow.ID = "ResultRowCustom";
+
+                volumeRow.Attributes["onclick"] = "rowClicked(this)";
+
+                TableCell titleCell = new TableCell();
+                HtmlGenericControl innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_Title";
+                innerDiv.InnerHtml = TitleEntry.Text;
+                titleCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(titleCell);
+
+                TableCell authorCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_Authors";
+                innerDiv.InnerHtml = AuthorEntry.Text;
+                authorCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(authorCell);
+
+                TableCell publisherCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_Publisher";
+                innerDiv.InnerHtml = PublisherEntry.Text;
+                publisherCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(publisherCell);
+
+                TableCell pubDateCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_PublishDate";
+                innerDiv.InnerHtml = "";
+                pubDateCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(pubDateCell);
+
+                TableCell isbnCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_ISBN";
+                innerDiv.InnerHtml = "";
+                isbnCell.Controls.Add(innerDiv);
+                volumeRow.Controls.Add(isbnCell);
+
+                TableCell coverUrlCell = new TableCell();
+                innerDiv = new HtmlGenericControl("div");
+                innerDiv.ID = volumeRow.ID + "_CoverUrl";
+                innerDiv.InnerHtml = "";
+                coverUrlCell.Controls.Add(innerDiv);
+                coverUrlCell.Style.Add("display", "none");
+                volumeRow.Controls.Add(coverUrlCell);
+
+                SearchGridCustom.Controls.Add(volumeRow);
+            }
         }
 
         [WebMethod, ScriptMethod]
@@ -168,7 +222,8 @@ namespace WhatINoted
             }
             string text = GoogleVisionConnectionManager.ExtractText(image);
             text = ParseIsbn(text);
-            IsbnBox.Text = text;
+            if (text.Length > 0)
+                IsbnBox.Text = text;
         }
 
         /// <summary>
