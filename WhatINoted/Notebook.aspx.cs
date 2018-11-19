@@ -27,7 +27,14 @@ namespace WhatINoted
 
             try
             {
-                NotebookTitle.InnerHtml = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
+                Notebook notebook = GoogleFirestoreConnectionManager.GetNotebook(notebookID);
+                NotebookTitle.InnerHtml = notebook.Title;
+                
+                if (notebook.Title != "Unfiled Notes")
+                {
+                    DeleteNotebookButton.Visible = true;
+                }
+
                 GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
             }
             catch (NotFoundException)
