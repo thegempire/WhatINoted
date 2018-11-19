@@ -77,6 +77,9 @@
                             <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_extractText()">
                                 Extract ISBN
                             </div>
+                            <div runat="server" id="WorkingDiv" class="display_inline-block fix_inline">
+                                
+                            </div>
 
                             <br />
 
@@ -240,6 +243,7 @@
         }
 
         function click_extractText() {
+            document.getElementById('<%= WorkingDiv.ClientID %>').innerText = 'Working...';
             document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
             var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
             if (val != null && val != '')
