@@ -243,11 +243,12 @@
         }
 
         function click_extractText() {
-            document.getElementById('<%= WorkingDiv.ClientID %>').innerText = 'Working...';
             document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
             var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
-            if (val != null && val != '')
+            if (val != null && val != '') {
+                document.getElementById('<%= WorkingDiv.ClientID %>').innerText = 'Working...';
                 document.getElementById('<%= btnExtractText.ClientID %>').click();
+            }
         }
 
     </script>
