@@ -24,9 +24,16 @@ namespace WhatINoted
             {
                 Response.Redirect("./Notebooks.aspx");
             }
-            
-            NotebookTitle.InnerHtml = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
-            GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
+
+            try
+            {
+                NotebookTitle.InnerHtml = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
+                GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
+            }
+            catch (NotFoundException)
+            {
+                Response.Redirect("./Notebooks.aspx");
+            }
         }
 
         [WebMethod, ScriptMethod]
