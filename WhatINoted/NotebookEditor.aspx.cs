@@ -173,7 +173,7 @@ namespace WhatINoted
                 TableCell coverUrlCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
                 innerDiv.ID = volumeRow.ID + "_CoverUrl";
-                innerDiv.InnerHtml = "";
+                innerDiv.InnerHtml = "./CustomNotebook.png";
                 coverUrlCell.Controls.Add(innerDiv);
                 coverUrlCell.Style.Add("display", "none");
                 volumeRow.Controls.Add(coverUrlCell);
