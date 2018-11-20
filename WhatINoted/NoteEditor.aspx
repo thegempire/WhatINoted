@@ -16,6 +16,9 @@
                             <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_extractText()">
                                 Extract Text
                             </div>
+                            <div runat="server" id="WorkingDiv" class="display_inline-block fix_inline">
+                                
+                            </div>
                             <div runat="server" class="titled_field">
                                 <h4>Note Text</h4>
                                 <asp:TextBox runat="server" ID="NoteText" CssClass="full_width" TextMode="MultiLine" Columns="50" Rows="5"></asp:TextBox>
@@ -113,8 +116,10 @@
         function click_extractText() {
             document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
             var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
-            if (val != null && val != '')
+            if (val != null && val != '') {
                 document.getElementById('<%= btnExtractText.ClientID %>').click();
+                document.getElementById('<%= WorkingDiv.ClientID %>').innerText = 'Working...';
+            }
         }
     </script>
 </asp:Content>

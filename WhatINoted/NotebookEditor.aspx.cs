@@ -173,7 +173,7 @@ namespace WhatINoted
                 TableCell coverUrlCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
                 innerDiv.ID = volumeRow.ID + "_CoverUrl";
-                innerDiv.InnerHtml = "";
+                innerDiv.InnerHtml = "./CustomNotebook.png";
                 coverUrlCell.Controls.Add(innerDiv);
                 coverUrlCell.Style.Add("display", "none");
                 volumeRow.Controls.Add(coverUrlCell);
@@ -213,17 +213,25 @@ namespace WhatINoted
         [WebMethod, ScriptMethod]
         protected override void GenerateText(object o, EventArgs e)
         {
-            string image64 = ImageInBase64.Value.Split(',')[1];
-            byte[] byteBuffer = Convert.FromBase64String(image64);
-            System.Drawing.Image image;
-            using (MemoryStream mStream = new MemoryStream(byteBuffer))
+            try
             {
-                image = System.Drawing.Image.FromStream(mStream);
+                string image64 = ImageInBase64.Value.Split(',')[1];
+                byte[] byteBuffer = Convert.FromBase64String(image64);
+                System.Drawing.Image image;
+                using (MemoryStream mStream = new MemoryStream(byteBuffer))
+                {
+                    image = System.Drawing.Image.FromStream(mStream);
+                }
+                string text = GoogleVisionConnectionManager.ExtractText(image);
+                text = ParseIsbn(text);
+                if (text.Length > 0)
+                    IsbnBox.Text = text;
             }
-            string text = GoogleVisionConnectionManager.ExtractText(image);
-            text = ParseIsbn(text);
-            if (text.Length > 0)
-                IsbnBox.Text = text;
+            catch { }
+            finally
+            {
+                WorkingDiv.InnerText = "";
+            }
         }
 
         /// <summary>

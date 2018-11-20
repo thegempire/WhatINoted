@@ -24,12 +24,25 @@ namespace WhatINoted
             {
                 Response.Redirect("./Notebooks.aspx");
             }
-            Notebook notebook = GoogleFirestoreConnectionManager.GetNotebook(notebookID);
 
-            NotebookTitle.InnerHtml = notebook.Title;
-            if (IsPostBack)
+            try
             {
-                GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
+                Notebook notebook = GoogleFirestoreConnectionManager.GetNotebook(notebookID);
+                NotebookTitle.InnerHtml = notebook.Title;
+                
+                if (notebook.Title != "Unfiled Notes")
+                {
+                    DeleteNotebookButton.Visible = true;
+                }
+
+                if (IsPostBack)
+                {
+                    GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
+                }
+            }
+            catch (NotFoundException)
+            {
+                Response.Redirect("./Notebooks.aspx");
             }
         }
 
