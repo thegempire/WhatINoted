@@ -28,12 +28,6 @@ namespace WhatINoted
             if (NoteID != null && NoteID != "")
             {
                 IsEdit = true;
-                Note note = GoogleFirestoreConnectionManager.GetNote(NoteID);
-                if (HandleLoginUserID.Value != note.UserID)
-                {
-                    Response.Redirect("./Notebooks.aspx");
-                }
-
                 PageTitle.InnerText = "Edit Note";
                 HandleNoteButton.InnerText = "Edit Note";
             }
@@ -70,6 +64,10 @@ namespace WhatINoted
             if (IsEdit)
             {
                 note = GoogleFirestoreConnectionManager.GetNote(NoteID);
+                if (HandleLoginUserID.Value != note.UserID)
+                {
+                    Response.Redirect("./Notebooks.aspx");
+                }
                 NoteText.Text = note.Text;
                 NotebookID = note.NotebookID;
                 ExtractTextUpdatePanel.Update();
