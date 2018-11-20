@@ -8,7 +8,7 @@ namespace WhatINoted
     public class DebugMode
     {
 
-        public static readonly bool DEBUG = true; // MUST BE FALSE WHEN YOU DEPLOY
+        public static readonly bool DEBUG = false; // MUST BE FALSE WHEN YOU DEPLOY
 
     }
 }
