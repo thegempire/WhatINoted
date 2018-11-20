@@ -103,8 +103,8 @@ namespace WhatINoted
             {
                 TableRow noteRow = new TableRow();
                 TableCell textCell = new TableCell();
-                string display = note.Text.Replace("\n", "<br/>");
-                textCell.Text = display;
+                textCell.CssClass = "whitespace";
+                textCell.Text = note.Text;
                 TableCell editDeleteCell = new TableCell();
                 editDeleteCell.HorizontalAlign = HorizontalAlign.Right;
                 Button editButton = new Button();

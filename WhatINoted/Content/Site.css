@@ -325,3 +325,8 @@ img {
 {
     font-style: italic;
 }
+
+.whitespace
+{
+    white-space: pre-wrap;
+}
