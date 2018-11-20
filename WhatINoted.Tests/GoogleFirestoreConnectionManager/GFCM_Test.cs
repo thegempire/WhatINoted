@@ -62,11 +62,11 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
         protected static User user1 = new User(userID1, displayName1, email1, DateTime.Now, DateTime.Now);
         protected static User user2 = new User(userID2, displayName2, email2, DateTime.Now, DateTime.Now);
 
-        protected static Notebook notebook1 = new Notebook("", title1, author1, isbn1, publisher1, publishDate1, coverURL1, DateTime.Now, DateTime.Now);
-        protected static Notebook notebook2 = new Notebook("", title2, author2, isbn2, publisher2, publishDate2, coverURL2, DateTime.Now, DateTime.Now);
-        protected static Notebook notebook3 = new Notebook("", title3, author3, isbn3, publisher3, publishDate3, coverURL3, DateTime.Now, DateTime.Now);
-        protected static Notebook notebook4 = new Notebook("", title4, author4, isbn4, publisher4, publishDate4, coverURL4, DateTime.Now, DateTime.Now);
-        protected static Notebook notebook5 = new Notebook("", title5, author5, isbn5, publisher5, publishDate5, coverURL5, DateTime.Now, DateTime.Now);
+        protected static Notebook notebook1 = new Notebook("", title1, author1, isbn1, publisher1, publishDate1, coverURL1, userID1, DateTime.Now, DateTime.Now);
+        protected static Notebook notebook2 = new Notebook("", title2, author2, isbn2, publisher2, publishDate2, coverURL2, userID1, DateTime.Now, DateTime.Now);
+        protected static Notebook notebook3 = new Notebook("", title3, author3, isbn3, publisher3, publishDate3, coverURL3, userID1, DateTime.Now, DateTime.Now);
+        protected static Notebook notebook4 = new Notebook("", title4, author4, isbn4, publisher4, publishDate4, coverURL4, userID1, DateTime.Now, DateTime.Now);
+        protected static Notebook notebook5 = new Notebook("", title5, author5, isbn5, publisher5, publishDate5, coverURL5, userID1, DateTime.Now, DateTime.Now);
 
         protected static Note note1 = new Note("", userID1, notebookID1, text1, DateTime.Now, DateTime.Now);
         protected static Note note2 = new Note("", userID1, notebookID1, text2, DateTime.Now, DateTime.Now);

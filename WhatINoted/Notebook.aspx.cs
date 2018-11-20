@@ -24,8 +24,12 @@ namespace WhatINoted
             {
                 Response.Redirect("./Notebooks.aspx");
             }
-            
-            NotebookTitle.InnerHtml = GoogleFirestoreConnectionManager.GetNotebook(notebookID).Title;
+            Notebook notebook = GoogleFirestoreConnectionManager.GetNotebook(notebookID);
+            if (HandleLoginUserID.Value != notebook.UserID) {
+                Response.Redirect("./Notebooks.aspx");
+            }
+
+            NotebookTitle.InnerHtml = notebook.Title;
             GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
         }
 

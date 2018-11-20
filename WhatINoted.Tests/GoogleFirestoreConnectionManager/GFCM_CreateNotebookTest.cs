@@ -24,7 +24,7 @@ namespace WhatINoted.Tests.GoogleFirestoreConnectionManagerTests
 
         private void Setup()
         {
-            notebook1 = new Notebook(userID1, title1, author1, isbn1, publisher1, publishDate1, coverURL1, DateTime.Now, DateTime.Now);
+            notebook1 = new Notebook(userID1, title1, author1, isbn1, publisher1, publishDate1, coverURL1, userID1, DateTime.Now, DateTime.Now);
         }
 
         private bool CreateNotebookByDetails(StreamWriter sw)

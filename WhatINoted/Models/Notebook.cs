@@ -43,6 +43,8 @@ namespace WhatINoted.Models
         /// </summary>
         public readonly string CoverURL;
 
+        public readonly string UserID;
+
         /// <summary>
         /// The time that this Notebook was last modified.
         /// </summary>
@@ -70,7 +72,7 @@ namespace WhatINoted.Models
         /// <param name="coverURL">url for an image of the notebook's cover</param>
         /// <param name="modified">when this notebook was last modified</param>
         /// <param name="created">when this notebook was created</param>
-        public Notebook(string notebookID, string title, string author, string isbn, string publisher, string publishDate, string coverURL, DateTime modified, DateTime created)
+        public Notebook(string notebookID, string title, string author, string isbn, string publisher, string publishDate, string coverURL, string userID, DateTime modified, DateTime created)
         {
             ID = notebookID;
             Title = title;
@@ -79,6 +81,7 @@ namespace WhatINoted.Models
             Publisher = publisher;
             PublishDate = publishDate;
             CoverURL = coverURL;
+            UserID = userID;
             Modified = modified;
             Created = created;
             Notes = new List<Note>();
@@ -97,6 +100,7 @@ namespace WhatINoted.Models
             Publisher = jsonNotebook.Publisher;
             PublishDate = jsonNotebook.PublishDate;
             CoverURL = jsonNotebook.CoverURL;
+            UserID = jsonNotebook.UserID;
             Modified = jsonNotebook.Modified;
             Created = jsonNotebook.Created;
             Notes = new List<Note>();
@@ -118,7 +122,8 @@ namespace WhatINoted.Models
                 && Isbn == model.Isbn
                 && Publisher == model.Publisher
                 && PublishDate == model.PublishDate
-                && CoverURL == model.CoverURL;
+                && CoverURL == model.CoverURL
+                && UserID == model.UserID;
         }
 
         /// <summary>
@@ -134,6 +139,7 @@ namespace WhatINoted.Models
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Publisher);
             hashCode = hashCode * -1521134295 + PublishDate.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(CoverURL);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(UserID);
             return hashCode;
         }
     }
