@@ -160,6 +160,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CustomNotebook.png" />
     <Content Include="Default.aspx" />
     <Content Include="NoteEditor.aspx" />
     <Content Include="NotebookEditor.aspx" />

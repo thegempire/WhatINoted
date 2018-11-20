@@ -64,55 +64,60 @@
                 </div>
                 
                 <div runat="server" id="ByISBNGroupContainer" class="byISBNGroupContainer group_container">
-                    <img id="Image" class="display_block hidden" src="#" alt="Uploaded Image" />
+                    <asp:Panel runat="server" DefaultButton="btnISBNPostBack">
+                        <img id="Image" class="display_block hidden" src="#" alt="Uploaded Image" />
 
-                    <br />
+                        <br />
 
-                    <input type="file" id="ImageInput" class="small_button display_inline-block" name="ImageInput" accept="image/png, image/jpeg" />
+                        <input type="file" id="ImageInput" class="small_button display_inline-block" name="ImageInput" accept="image/png, image/jpeg" />
 
-                    <asp:UpdatePanel ID="ExtractTextUpdatePanel" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:HiddenField runat="server" ID="ImageInBase64" Value="" />
-                            <asp:Button runat="server" ID="btnExtractText" Style="display: none" OnClick="GenerateText" />
-                            <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_extractText()">
-                                Extract ISBN
-                            </div>
+                        <asp:UpdatePanel ID="ExtractTextUpdatePanel" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:HiddenField runat="server" ID="ImageInBase64" Value="" />
+                                <asp:Button runat="server" ID="btnExtractText" Style="display: none" OnClick="GenerateText" />
+                                <div runat="server" class="button small_button display_inline-block fix_inline" onclick="click_extractText()">
+                                    Extract ISBN
+                                </div>
+                                <div runat="server" id="WorkingDiv" class="display_inline-block fix_inline">
+                                    
+                                </div>
 
-                            <br />
+                                <br />
 
-                            <div runat="server" class="titled_field display_inline-block">
-                                <h4>ISBN</h4>
-                                <asp:TextBox runat="server" ID="IsbnBox" CssClass="full_width"></asp:TextBox>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    
-                    <br />
+                                <div runat="server" class="titled_field display_inline-block">
+                                    <h4>ISBN</h4>
+                                    <asp:TextBox runat="server" ID="IsbnBox" CssClass="full_width"></asp:TextBox>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        
+                        <br />
 
-                    <asp:UpdatePanel ID="SearchForNotebookPanel" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
-                            <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnISBNPostback.ClientID %>').click()">
-                                Search for Book
-                            </div>
-                            <div runat="server" class="search_grid">
-                                <asp:Table runat="server" ID="SearchGridISBN">
-                                    <asp:TableRow CssClass="search_header_row">
-                                        <asp:TableCell ColumnSpan="5">
-                                            Search Results
-                                        </asp:TableCell>
-                                    </asp:TableRow>
-                                    <asp:TableRow CssClass="search_fields_row">
-                                        <asp:TableCell>Title</asp:TableCell>
-                                        <asp:TableCell>Author</asp:TableCell>
-                                        <asp:TableCell>Publisher</asp:TableCell>
-                                        <asp:TableCell>Publication Date</asp:TableCell>
-                                        <asp:TableCell>ISBN</asp:TableCell>
-                                    </asp:TableRow>
-                                </asp:Table>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                        <asp:UpdatePanel ID="SearchForNotebookPanel" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
+                                <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnISBNPostback.ClientID %>').click()">
+                                    Search for Book
+                                </div>
+                                <div runat="server" class="search_grid">
+                                    <asp:Table runat="server" ID="SearchGridISBN">
+                                        <asp:TableRow CssClass="search_header_row">
+                                            <asp:TableCell ColumnSpan="5">
+                                                Search Results
+                                            </asp:TableCell>
+                                        </asp:TableRow>
+                                        <asp:TableRow CssClass="search_fields_row">
+                                            <asp:TableCell>Title</asp:TableCell>
+                                            <asp:TableCell>Author</asp:TableCell>
+                                            <asp:TableCell>Publisher</asp:TableCell>
+                                            <asp:TableCell>Publication Date</asp:TableCell>
+                                            <asp:TableCell>ISBN</asp:TableCell>
+                                        </asp:TableRow>
+                                    </asp:Table>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </asp:Panel>
                 </div>
             </div>
             <div runat="server" class="margin_top_bottom">
@@ -120,61 +125,63 @@
                     By Book Details
                 </div>
                 <div runat="server" id="ByBookDetailsGroupContainer" class="group_container byBookDetailsGroupContainer hidden">
-                    <asp:UpdatePanel runat="server" ID="ByDetailsGroupPanel" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <div class="titled_field display_inline-block">
-                                <h4>Title</h4>
-                                <asp:TextBox runat="server" ID="TitleEntry" class="full_width"></asp:TextBox>
-                            </div>
-                            <div class="titled_field display_inline-block">
-                                <h4>Author</h4>
-                                <asp:TextBox runat="server" ID="AuthorEntry" class="full_width"></asp:TextBox>
-                            </div>
-                            <div class="titled_field display_inline-block">
-                                <h4>Publisher</h4>
-                                <asp:TextBox runat="server" ID="PublisherEntry" class="full_width"></asp:TextBox>
-                            </div>
-                            <br />
-                            <asp:Button runat="server" ID="btnBookDetailsPostback" Style="display: none" OnClick="SearchForBook" />
-                            <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnBookDetailsPostback.ClientID %>').click()">
-                                Search for Book
-                            </div>
-                            <div runat="server" class="search_grid">
-                                <asp:Table runat="server" ID="SearchGridDetails">
-                                    <asp:TableRow CssClass="search_header_row">
-                                        <asp:TableCell ColumnSpan="5">
-                                            Search Results
-                                        </asp:TableCell>
-                                    </asp:TableRow>
-                                    <asp:TableRow CssClass="search_fields_row">
-                                        <asp:TableCell>Title</asp:TableCell>
-                                        <asp:TableCell>Author</asp:TableCell>
-                                        <asp:TableCell>Publisher</asp:TableCell>
-                                        <asp:TableCell>Publication Date</asp:TableCell>
-                                        <asp:TableCell>ISBN</asp:TableCell>
-                                    </asp:TableRow>
-                                </asp:Table>
-                            </div>
+                    <asp:Panel runat="server" DefaultButton="btnBookDetailsPostback">
+                        <asp:UpdatePanel runat="server" ID="ByDetailsGroupPanel" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <div class="titled_field display_inline-block">
+                                    <h4>Title</h4>
+                                    <asp:TextBox runat="server" ID="TitleEntry" class="full_width"></asp:TextBox>
+                                </div>
+                                <div class="titled_field display_inline-block">
+                                    <h4>Author</h4>
+                                    <asp:TextBox runat="server" ID="AuthorEntry" class="full_width"></asp:TextBox>
+                                </div>
+                                <div class="titled_field display_inline-block">
+                                    <h4>Publisher</h4>
+                                    <asp:TextBox runat="server" ID="PublisherEntry" class="full_width"></asp:TextBox>
+                                </div>
+                                <br />
+                                <asp:Button runat="server" ID="btnBookDetailsPostback" Style="display: none" OnClick="SearchForBook" />
+                                <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnBookDetailsPostback.ClientID %>').click()">
+                                    Search for Book
+                                </div>
+                                <div runat="server" class="search_grid">
+                                    <asp:Table runat="server" ID="SearchGridDetails">
+                                        <asp:TableRow CssClass="search_header_row">
+                                            <asp:TableCell ColumnSpan="5">
+                                                Search Results
+                                            </asp:TableCell>
+                                        </asp:TableRow>
+                                        <asp:TableRow CssClass="search_fields_row">
+                                            <asp:TableCell>Title</asp:TableCell>
+                                            <asp:TableCell>Author</asp:TableCell>
+                                            <asp:TableCell>Publisher</asp:TableCell>
+                                            <asp:TableCell>Publication Date</asp:TableCell>
+                                            <asp:TableCell>ISBN</asp:TableCell>
+                                        </asp:TableRow>
+                                    </asp:Table>
+                                </div>
 
-                            <br />
-                            <div runat="server" class="search_grid">
-                                <asp:Table runat="server" ID="SearchGridCustom">
-                                    <asp:TableRow CssClass="search_header_row">
-                                        <asp:TableCell ColumnSpan="5" >
-                                            Custom Book
-                                        </asp:TableCell>
-                                    </asp:TableRow>
-                                    <asp:TableRow CssClass="search_fields_row">
-                                        <asp:TableCell>Title</asp:TableCell>
-                                        <asp:TableCell>Author</asp:TableCell>
-                                        <asp:TableCell>Publisher</asp:TableCell>
-                                        <asp:TableCell>Publication Date</asp:TableCell>
-                                        <asp:TableCell>ISBN</asp:TableCell>
-                                    </asp:TableRow>
-                                </asp:Table>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                                <br />
+                                <div runat="server" class="search_grid">
+                                    <asp:Table runat="server" ID="SearchGridCustom">
+                                        <asp:TableRow CssClass="search_header_row">
+                                            <asp:TableCell ColumnSpan="5" >
+                                                Custom Book
+                                            </asp:TableCell>
+                                        </asp:TableRow>
+                                        <asp:TableRow CssClass="search_fields_row">
+                                            <asp:TableCell>Title</asp:TableCell>
+                                            <asp:TableCell>Author</asp:TableCell>
+                                            <asp:TableCell>Publisher</asp:TableCell>
+                                            <asp:TableCell>Publication Date</asp:TableCell>
+                                            <asp:TableCell>ISBN</asp:TableCell>
+                                        </asp:TableRow>
+                                    </asp:Table>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </asp:Panel>
                 </div>
             </div>
             
@@ -242,8 +249,10 @@
         function click_extractText() {
             document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
             var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
-            if (val != null && val != '')
+            if (val != null && val != '') {
+                document.getElementById('<%= WorkingDiv.ClientID %>').innerText = 'Working...';
                 document.getElementById('<%= btnExtractText.ClientID %>').click();
+            }
         }
 
     </script>
