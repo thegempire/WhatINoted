@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Runtime.InteropServices;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.WebControls;
@@ -98,17 +98,19 @@ namespace WhatINoted
             {
                 string image64 = ImageInBase64.Value.Split(',')[1];
                 byte[] byteBuffer = Convert.FromBase64String(image64);
-                System.Drawing.Image image;
-                using (MemoryStream mStream = new MemoryStream(byteBuffer))
-                {
-                    image = System.Drawing.Image.FromStream(mStream);
-                }
-                string text = GoogleVisionConnectionManager.ExtractText(image);
+                string text = GoogleVisionConnectionManager.ExtractText(byteBuffer);
 
                 if (text.Length > 0)
                     NoteText.Text = text;
             }
-            catch { }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (ExternalException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
             finally
             {
                 WorkingDiv.InnerText = "";

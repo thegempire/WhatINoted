@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Google.Cloud.Vision.V1;
-using System.IO;
+﻿using Google.Cloud.Vision.V1;
 using System;
-using System.Reflection;
-using System.Web;
-using System.Web.Hosting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WhatINoted.ConnectionManagers
 {
@@ -29,30 +25,24 @@ namespace WhatINoted.ConnectionManagers
         /// ***This is the location of the json credentials file for the Google Vision service account. Change this if the path is wrong or changes.***
         /// </summary>
 
-            /* 7/11/2018
-             * Ian Younghusband:
-             * The path to this resource is being calculated in a hack-y way to allow for both the main project
-             * and the test project to access the resource. There should be a better way to do this...
-             */
-        private static readonly string JsonPath = (AppDomain.CurrentDomain.BaseDirectory.IndexOf("\\bin\\") >= 0 ? 
+        /* 7/11/2018
+         * Ian Younghusband:
+         * The path to this resource is being calculated in a hack-y way to allow for both the main project
+         * and the test project to access the resource. There should be a better way to do this...
+         */
+        private static readonly string JsonPath = (AppDomain.CurrentDomain.BaseDirectory.IndexOf("\\bin\\") >= 0 ?
             AppDomain.CurrentDomain.BaseDirectory.Remove(AppDomain.CurrentDomain.BaseDirectory.IndexOf("\\bin\\")) :
             AppDomain.CurrentDomain.BaseDirectory)
             + "\\Resources\\WhatINoted-5bba0c1ecaf8.json";
         public const string GOOGLE_APPLICATION_CREDENTIALS = "GOOGLE_APPLICATION_CREDENTIALS";
 
         /// <summary>
-        /// Send a request to Google Vision to extract extract text from an image.
+        /// Send a request to Google Vision to extract extract text from an image represented as a series of bytes.
         /// </summary>
-        /// <param name="image">the image to analyze</param>
+        /// <param name="imageBytes">the image to analyze represented as a series of bytes</param>
         /// <returns>A string extracted from the image, or null if the call failed.</returns>
-        public static string ExtractText(System.Drawing.Image originalImage)
+        public static string ExtractText(byte[] imageBytes)
         {
-            if (originalImage == null)
-                throw new NullReferenceException("GoogleVisionConnectionManager.ExtractText(Image): Image provided is null");
-
-            //Convert originalImage to bytes
-            byte[] imageBytes = ImageToByteArray(originalImage);
-
             Image image = Image.FromBytes(imageBytes);
             System.Environment.SetEnvironmentVariable(GOOGLE_APPLICATION_CREDENTIALS, JsonPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
@@ -65,15 +55,6 @@ namespace WhatINoted.ConnectionManagers
             if (text.Last() == '\n')
                 text = text.Substring(0, text.Length - 1);
             return text.Replace('\n', ' ');
-        }
-
-        private static byte[] ImageToByteArray(System.Drawing.Image imageIn)
-        {
-            using (var ms = new MemoryStream())
-            {
-                imageIn.Save(ms, imageIn.RawFormat);
-                return ms.ToArray();
-            }
         }
     }
 }
