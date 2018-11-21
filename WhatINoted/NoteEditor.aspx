@@ -75,7 +75,6 @@
 
         upload.onchange = function () {
             if (upload.files[0] != null) {
-                console.log("file 0 not null");
                 file = upload.files[0];
                 getImageIn64(file);
             }
@@ -84,7 +83,6 @@
         function getImageIn64(file) {
             var reader = new FileReader();
             reader.onload = function () {
-                console.log("reader loaded");
                 let newImage = createImageElement();
                 newImage.src = reader.result;
                 document.getElementById('<%= ImageInBase64.ClientID %>').value = reader.result;
@@ -114,7 +112,7 @@
         }
 
         function click_extractText() {
-            document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceCanvas.toDataURL();
+            document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceImage._element.src;
             var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;
             if (val != null && val != '') {
                 document.getElementById('<%= btnExtractText.ClientID %>').click();
