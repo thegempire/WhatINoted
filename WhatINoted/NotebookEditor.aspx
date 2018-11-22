@@ -36,7 +36,7 @@
             <asp:HiddenField runat="server" ID="CoverUrlSelection" Value="" />
             <asp:Button ID="ShowButton" runat="server" Style="display: none" OnClientClick="showPopup()" />
             <div runat="server" class="margin_top_bottom">
-                <div id="stopFlash", style="visibility:hidden">
+                <div id="stopFlash", style="display: none">
                     <asp:Panel ID="CreationModal" runat="server" CssClass="notebook_creation_modal">
                         <asp:Table runat="server" CssClass="search_grid">
                             <asp:TableRow>
@@ -258,7 +258,7 @@
         }
 
         function showPopup() {
-            document.getElementById('stopFlash').style.visibility = 'visible';
+            document.getElementById('stopFlash').style.display = 'block';
         }
 
     </script>
