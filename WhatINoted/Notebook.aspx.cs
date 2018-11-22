@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using WhatINoted.ConnectionManagers;
 using WhatINoted.Models;
@@ -28,7 +30,7 @@ namespace WhatINoted
             try
             {
                 Notebook notebook = GoogleFirestoreConnectionManager.GetNotebook(notebookID);
-                NotebookTitle.InnerHtml = notebook.Title;
+                NotebookTitle.InnerText = HttpUtility.UrlDecode(notebook.Title);
                 
                 if (notebook.Title != "Unfiled Notes")
                 {
@@ -54,7 +56,7 @@ namespace WhatINoted
             {
                 Response.Redirect("./Notebooks.aspx");
             }
-            NotebookTitle.InnerHtml = notebook.Title;
+            NotebookTitle.InnerText = HttpUtility.UrlDecode(notebook.Title);
             GenerateNoteRows(GoogleFirestoreConnectionManager.GetNotebookNotes(notebookID));
         }
 
@@ -104,7 +106,9 @@ namespace WhatINoted
                 TableRow noteRow = new TableRow();
                 TableCell textCell = new TableCell();
                 textCell.CssClass = "whitespace";
-                textCell.Text = note.Text;
+                HtmlGenericControl div = new HtmlGenericControl("div");
+                div.InnerText = HttpUtility.UrlDecode(note.Text);
+                textCell.Controls.Add(div);
                 TableCell editDeleteCell = new TableCell();
                 editDeleteCell.HorizontalAlign = HorizontalAlign.Right;
                 Button editButton = new Button();

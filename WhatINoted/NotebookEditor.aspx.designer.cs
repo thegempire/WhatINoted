@@ -256,6 +256,33 @@ namespace WhatINoted {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ByBookDetailsGroupContainer;
         
         /// <summary>
+        /// HiddenTitleEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenTitleEntry;
+        
+        /// <summary>
+        /// HiddenAuthorEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenAuthorEntry;
+        
+        /// <summary>
+        /// HiddenPublisherEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenPublisherEntry;
+        
+        /// <summary>
         /// ByDetailsGroupPanel control.
         /// </summary>
         /// <remarks>
@@ -265,31 +292,13 @@ namespace WhatINoted {
         protected global::System.Web.UI.UpdatePanel ByDetailsGroupPanel;
         
         /// <summary>
-        /// TitleEntry control.
+        /// HiddenPanelButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TitleEntry;
-        
-        /// <summary>
-        /// AuthorEntry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AuthorEntry;
-        
-        /// <summary>
-        /// PublisherEntry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PublisherEntry;
+        protected global::System.Web.UI.WebControls.Button HiddenPanelButton;
         
         /// <summary>
         /// btnBookDetailsPostback control.

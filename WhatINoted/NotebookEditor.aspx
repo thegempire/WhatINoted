@@ -5,21 +5,21 @@
     <script>
         function rowClicked(el) {
             WebForm_GetElementById("MainContent_ModalTitle").innerText = WebForm_GetElementById(el.id + "_Title").innerText;
-            WebForm_GetElementById("MainContent_TitleSelection").value = WebForm_GetElementById(el.id + "_Title").innerText;
+            WebForm_GetElementById("MainContent_TitleSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Title").innerText);
 
             WebForm_GetElementById("MainContent_ModalAuthors").innerText = WebForm_GetElementById(el.id + "_Authors").innerText;
-            WebForm_GetElementById("MainContent_AuthorsSelection").value = WebForm_GetElementById(el.id + "_Authors").innerText;
+            WebForm_GetElementById("MainContent_AuthorsSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Authors").innerText);
 
             WebForm_GetElementById("MainContent_ModalPublisher").innerText = WebForm_GetElementById(el.id + "_Publisher").innerText;
-            WebForm_GetElementById("MainContent_PublisherSelection").value = WebForm_GetElementById(el.id + "_Publisher").innerText;
+            WebForm_GetElementById("MainContent_PublisherSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Publisher").innerText);
 
             WebForm_GetElementById("MainContent_ModalPublishDate").innerText = WebForm_GetElementById(el.id + "_PublishDate").innerText;
-            WebForm_GetElementById("MainContent_PublishDateSelection").value = WebForm_GetElementById(el.id + "_PublishDate").innerText;
+            WebForm_GetElementById("MainContent_PublishDateSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_PublishDate").innerText);
 
             WebForm_GetElementById("MainContent_ModalISBN").innerText = WebForm_GetElementById(el.id + "_ISBN").innerText;
-            WebForm_GetElementById("MainContent_IsbnSelection").value = WebForm_GetElementById(el.id + "_ISBN").innerText;
+            WebForm_GetElementById("MainContent_IsbnSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_ISBN").innerText);
 
-            WebForm_GetElementById("MainContent_CoverUrlSelection").value = WebForm_GetElementById(el.id + "_CoverUrl").innerText;
+            WebForm_GetElementById("MainContent_CoverUrlSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_CoverUrl").innerText);
 
             WebForm_GetElementById("MainContent_ShowButton").click();
         }
@@ -46,11 +46,11 @@
                             <asp:TableCell>ISBN</asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow runat="server" ID="ConfirmationRow">
-                            <asp:TableCell runat="server" ID="ModalTitle"></asp:TableCell>
-                            <asp:TableCell runat="server" ID="ModalAuthors"></asp:TableCell>
-                            <asp:TableCell runat="server" ID="ModalPublisher"></asp:TableCell>
-                            <asp:TableCell runat="server" ID="ModalPublishDate"></asp:TableCell>
-                            <asp:TableCell runat="server" ID="ModalISBN"></asp:TableCell>
+                            <asp:TableCell ID="ModalTitle"></asp:TableCell>
+                            <asp:TableCell ID="ModalAuthors"></asp:TableCell>
+                            <asp:TableCell ID="ModalPublisher"></asp:TableCell>
+                            <asp:TableCell ID="ModalPublishDate"></asp:TableCell>
+                            <asp:TableCell ID="ModalISBN"></asp:TableCell>
                         </asp:TableRow>
                     </asp:Table>
                     <asp:Button ID="CancelModal" runat="server" Text="Cancel" />
@@ -125,24 +125,28 @@
                     By Book Details
                 </div>
                 <div runat="server" id="ByBookDetailsGroupContainer" class="group_container byBookDetailsGroupContainer hidden">
-                    <asp:Panel runat="server" DefaultButton="btnBookDetailsPostback">
-                        <asp:UpdatePanel runat="server" ID="ByDetailsGroupPanel" UpdateMode="Conditional">
-                            <ContentTemplate>
+                    <asp:Panel runat="server" DefaultButton="HiddenPanelButton">
                                 <div class="titled_field display_inline-block">
                                     <h4>Title</h4>
-                                    <asp:TextBox runat="server" ID="TitleEntry" class="full_width"></asp:TextBox>
+                                    <input type="text" id="TitleEntry" class="full_width" maxlength="30" />
+                                    <asp:HiddenField runat="server" ID="HiddenTitleEntry"></asp:HiddenField>
                                 </div>
                                 <div class="titled_field display_inline-block">
                                     <h4>Author</h4>
-                                    <asp:TextBox runat="server" ID="AuthorEntry" class="full_width"></asp:TextBox>
+                                    <input type="text" id="AuthorEntry" class="full_width" maxlength="30" />
+                                    <asp:HiddenField runat="server" ID="HiddenAuthorEntry"></asp:HiddenField>
                                 </div>
                                 <div class="titled_field display_inline-block">
                                     <h4>Publisher</h4>
-                                    <asp:TextBox runat="server" ID="PublisherEntry" class="full_width"></asp:TextBox>
+                                    <input type="text" id="PublisherEntry" class="full_width" maxlength="30" />
+                                    <asp:HiddenField runat="server" ID="HiddenPublisherEntry"></asp:HiddenField>
                                 </div>
                                 <br />
+                        <asp:UpdatePanel runat="server" ID="ByDetailsGroupPanel" UpdateMode="Conditional">
+                            <ContentTemplate>
+                        <asp:Button runat="server" ID="HiddenPanelButton" OnClientClick="click_btnBookDetailsPostback" class="hidden"/>
                                 <asp:Button runat="server" ID="btnBookDetailsPostback" Style="display: none" OnClick="SearchForBook" />
-                                <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnBookDetailsPostback.ClientID %>').click()">
+                                <div class="button small_button display_inline-block fix_inline" onclick="click_btnBookDetailsPostback()">
                                     Search for Book
                                 </div>
                                 <div runat="server" class="search_grid">
@@ -254,6 +258,23 @@
                 document.getElementById('<%= btnExtractText.ClientID %>').click();
             }
         }
+
+        function click_btnBookDetailsPostback() {
+            var titleText = document.getElementById('TitleEntry').value;
+            titleText = encodeURIComponent(titleText);
+            document.getElementById('<%= HiddenTitleEntry.ClientID %>').value = titleText;
+            
+            var authorText = document.getElementById('AuthorEntry').value;
+            authorText = encodeURIComponent(authorText);
+            document.getElementById('<%= HiddenAuthorEntry.ClientID %>').value = authorText;
+            
+            var publisherText = document.getElementById('PublisherEntry').value;
+            publisherText = encodeURIComponent(publisherText);
+            document.getElementById('<%= HiddenPublisherEntry.ClientID %>').value = publisherText;
+
+            document.getElementById('<%= btnBookDetailsPostback.ClientID %>').click();
+        }
+
 
     </script>
 </asp:Content>

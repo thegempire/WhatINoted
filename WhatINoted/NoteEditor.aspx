@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Note" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NoteEditor.aspx.cs" Inherits="WhatINoted.CreateEditNoteView" %>
+﻿<%@ Page Title="Note" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NoteEditor.aspx.cs" Inherits="WhatINoted.CreateEditNoteView" validateRequest="false" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="AddNoteUpdatePanel" runat="server" UpdateMode="Conditional">
@@ -66,6 +66,8 @@
                 return;
             }
 
+            noteText = encodeURIComponent(noteText);
+            document.getElementById('<%= NoteText.ClientID %>').value = noteText;
             document.getElementById('<%= HandleNoteTrigger.ClientID %>').click();
         }
 
