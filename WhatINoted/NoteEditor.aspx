@@ -114,6 +114,7 @@
         function click_extractText() {
             if (darkroom.sourceImage._element.src.length > 3500000) {
                 alert("The image is too large. Please crop to the region you want.");
+                return;
             }
             document.getElementById('MainContent_ImageInBase64').value = darkroom.sourceImage._element.src;
             var val = document.getElementById('<%= ImageInBase64.ClientID %>').value;

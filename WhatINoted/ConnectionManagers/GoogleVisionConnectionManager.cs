@@ -43,6 +43,11 @@ namespace WhatINoted.ConnectionManagers
         /// <returns>A string extracted from the image, or null if the call failed.</returns>
         public static string ExtractText(byte[] imageBytes)
         {
+            if (imageBytes == null)
+            {
+                throw new NullReferenceException("GoogleVisionConnectionManager.ExtractText(Image): Image provided is null");
+            }
+
             Image image = Image.FromBytes(imageBytes);
             System.Environment.SetEnvironmentVariable(GOOGLE_APPLICATION_CREDENTIALS, JsonPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
