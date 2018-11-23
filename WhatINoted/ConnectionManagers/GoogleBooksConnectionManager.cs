@@ -47,7 +47,7 @@ namespace WhatINoted.ConnectionManagers
         {
             // Ensure we have some search parameter
             if ((title == null || title == "") && (author == null || author == "")
-                && (publisher == null || publisher == "") && isbn == null)
+                && (publisher == null || publisher == "") && (isbn == null || isbn == ""))
                     throw new ArgumentNullException();
 
             // Build a request based on the provided parameters

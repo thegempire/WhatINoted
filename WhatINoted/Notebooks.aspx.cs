@@ -49,7 +49,7 @@ namespace WhatINoted
                 imageDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookImageDiv";
                 HtmlGenericControl image = new HtmlGenericControl("img");
                 image.Attributes["src"] = notebook.CoverURL;
-                image.Attributes["alt"] = notebook.Title + " Cover Art";
+                image.Attributes["alt"] = HttpUtility.UrlDecode(notebook.Title) + " Cover Art";
                 image.Attributes["class"] = "mainNotebookImage";
                 imageDiv.Controls.Add(image);
                 notebookDiv.Controls.Add(imageDiv);
