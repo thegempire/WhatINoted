@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WhatINoted.Models;
 using System.Net;
+using System.Text;
 
 namespace WhatINoted.ConnectionManagers
 {
@@ -114,6 +115,9 @@ namespace WhatINoted.ConnectionManagers
 
         private static List<BookSearchResultsModel> SearchResultsFromJSON(String jsonString)
         {
+            //Change the character encoding
+            jsonString = Encoding.UTF8.GetString(Encoding.Convert(Encoding.UTF8, Encoding.Default, Encoding.UTF8.GetBytes(jsonString)));
+
             JObject resultObject = JObject.Parse(jsonString);
 
             // Check if any results were found

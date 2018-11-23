@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.IO;
+using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.HtmlControls;
@@ -51,7 +53,7 @@ namespace WhatINoted
             {
                 searchResults = searchKey == "ISBN" ?
                 GoogleBooksConnectionManager.SearchVolumes("", "", "", IsbnBox.Text) :
-                GoogleBooksConnectionManager.SearchVolumes(TitleEntry.Text, AuthorEntry.Text, PublisherEntry.Text, null);
+                GoogleBooksConnectionManager.SearchVolumes(HttpUtility.UrlDecode(HiddenTitleEntry.Value), HttpUtility.UrlDecode(HiddenAuthorEntry.Value), HttpUtility.UrlDecode(HiddenPublisherEntry.Value), null);
             }
             catch (ArgumentNullException ex)
             {
@@ -127,7 +129,7 @@ namespace WhatINoted
             foreach (TableRow volume in resultRows)
                 resultsTable.Controls.Add(volume);
 
-            if (searchKey == "details" && TitleEntry.Text != "")
+            if (searchKey == "details" && HiddenTitleEntry.Value != "")
             {
                 TableRow volumeRow = new TableRow();
                 volumeRow.CssClass = "search_result";
@@ -138,42 +140,42 @@ namespace WhatINoted
                 TableCell titleCell = new TableCell();
                 HtmlGenericControl innerDiv = new HtmlGenericControl("div");
                 innerDiv.ID = volumeRow.ID + "_Title";
-                innerDiv.InnerHtml = TitleEntry.Text;
+                innerDiv.InnerText = HttpUtility.UrlDecode(HiddenTitleEntry.Value);
                 titleCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(titleCell);
 
                 TableCell authorCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
                 innerDiv.ID = volumeRow.ID + "_Authors";
-                innerDiv.InnerHtml = AuthorEntry.Text;
+                innerDiv.InnerText = HttpUtility.UrlDecode(HiddenAuthorEntry.Value);
                 authorCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(authorCell);
 
                 TableCell publisherCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
                 innerDiv.ID = volumeRow.ID + "_Publisher";
-                innerDiv.InnerHtml = PublisherEntry.Text;
+                innerDiv.InnerText = HttpUtility.UrlDecode(HiddenPublisherEntry.Value);
                 publisherCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(publisherCell);
 
                 TableCell pubDateCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
                 innerDiv.ID = volumeRow.ID + "_PublishDate";
-                innerDiv.InnerHtml = "";
+                innerDiv.InnerText = "";
                 pubDateCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(pubDateCell);
 
                 TableCell isbnCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
                 innerDiv.ID = volumeRow.ID + "_ISBN";
-                innerDiv.InnerHtml = "";
+                innerDiv.InnerText = "";
                 isbnCell.Controls.Add(innerDiv);
                 volumeRow.Controls.Add(isbnCell);
 
                 TableCell coverUrlCell = new TableCell();
                 innerDiv = new HtmlGenericControl("div");
                 innerDiv.ID = volumeRow.ID + "_CoverUrl";
-                innerDiv.InnerHtml = "./CustomNotebook.png";
+                innerDiv.InnerText = "./CustomNotebook.png";
                 coverUrlCell.Controls.Add(innerDiv);
                 coverUrlCell.Style.Add("display", "none");
                 volumeRow.Controls.Add(coverUrlCell);

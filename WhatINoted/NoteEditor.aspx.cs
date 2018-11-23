@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.IO;
+using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.WebControls;
@@ -68,7 +70,7 @@ namespace WhatINoted
                 {
                     Response.Redirect("./Notebooks.aspx");
                 }
-                NoteText.Text = note.Text;
+                NoteText.Text = HttpUtility.UrlDecode(note.Text);
                 NotebookID = note.NotebookID;
                 ExtractTextUpdatePanel.Update();
             }
@@ -76,7 +78,7 @@ namespace WhatINoted
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
             foreach (Notebook notebook in Notebooks)
             {
-                NotebookList.Items.Add(new ListItem(notebook.Title, notebook.ID));
+                NotebookList.Items.Add(new ListItem(HttpUtility.UrlDecode(notebook.Title), notebook.ID));
             }
             NotebookList.DataBind();
             if (NotebookID != null)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI.HtmlControls;
@@ -41,14 +42,14 @@ namespace WhatINoted
 
                 HtmlGenericControl titleDiv = new HtmlGenericControl("div");
                 titleDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookTitleDiv";
-                titleDiv.InnerHtml = notebook.Title;
+                titleDiv.InnerText = HttpUtility.UrlDecode(notebook.Title);
                 notebookDiv.Controls.Add(titleDiv);
 
                 HtmlGenericControl imageDiv = new HtmlGenericControl("div");
                 imageDiv.Attributes["class"] = "mainNotebookInnerDiv mainNotebookImageDiv";
                 HtmlGenericControl image = new HtmlGenericControl("img");
                 image.Attributes["src"] = notebook.CoverURL;
-                image.Attributes["alt"] = notebook.Title + " Cover Art";
+                image.Attributes["alt"] = HttpUtility.UrlDecode(notebook.Title) + " Cover Art";
                 image.Attributes["class"] = "mainNotebookImage";
                 imageDiv.Controls.Add(image);
                 notebookDiv.Controls.Add(imageDiv);
