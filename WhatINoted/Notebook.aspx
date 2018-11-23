@@ -46,7 +46,7 @@
             }
         }
         function DeleteNotebook_Click() {
-            let title = document.getElementById('<%= NotebookTitle.ClientID %>').innerHTML;
+            let title = document.getElementById('<%= NotebookTitle.ClientID %>').innerText;
             if (confirm("Are you sure you want to delete " + title + "?")) {
                 let triggerButton = document.getElementsByClassName('deleteNotebookTrigger')[0];
                 triggerButton.click();
