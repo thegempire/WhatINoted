@@ -127,7 +127,7 @@ namespace WhatINoted
             foreach (TableRow volume in resultRows)
                 resultsTable.Controls.Add(volume);
 
-            if (searchKey == "details")
+            if (searchKey == "details" && TitleEntry.Text != "")
             {
                 TableRow volumeRow = new TableRow();
                 volumeRow.CssClass = "search_result";

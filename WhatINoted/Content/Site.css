@@ -310,10 +310,25 @@ img {
     margin-bottom: 1vh;
 }
 
-.creation_modal
+.notebook_creation_modal
 {
     background-color: white;
-    border: 2px solid black;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.notebook_creation_modal_bg
+{
+    height: 100%;
+    background-color: #000000;
+    filter: alpha(opacity = 50);
+    opacity: 0.5;
+}
+
+.modal_button
+{
+    margin: 10px 0px 5px 5px;
+    float: right;
 }
 
 .search_header_row
@@ -324,4 +339,9 @@ img {
 .search_fields_row
 {
     font-style: italic;
+}
+
+.whitespace
+{
+    white-space: pre-wrap;
 }

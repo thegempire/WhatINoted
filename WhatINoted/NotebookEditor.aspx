@@ -34,29 +34,31 @@
             <asp:HiddenField runat="server" ID="PublishDateSelection" Value="" />
             <asp:HiddenField runat="server" ID="IsbnSelection" Value="" />
             <asp:HiddenField runat="server" ID="CoverUrlSelection" Value="" />
-            <asp:Button ID="ShowButton" runat="server" Style="display: none" />
+            <asp:Button ID="ShowButton" runat="server" Style="display: none" OnClientClick="showPopup()" />
             <div runat="server" class="margin_top_bottom">
-                <asp:Panel ID="CreationModal" runat="server" CssClass="creation_modal">
-                    <asp:Table runat="server" CssClass="search_grid">
-                        <asp:TableRow>
-                            <asp:TableCell>Title</asp:TableCell>
-                            <asp:TableCell>Author</asp:TableCell>
-                            <asp:TableCell>Publisher</asp:TableCell>
-                            <asp:TableCell>Publication Date</asp:TableCell>
-                            <asp:TableCell>ISBN</asp:TableCell>
-                        </asp:TableRow>
-                        <asp:TableRow runat="server" ID="ConfirmationRow">
-                            <asp:TableCell runat="server" ID="ModalTitle"></asp:TableCell>
-                            <asp:TableCell runat="server" ID="ModalAuthors"></asp:TableCell>
-                            <asp:TableCell runat="server" ID="ModalPublisher"></asp:TableCell>
-                            <asp:TableCell runat="server" ID="ModalPublishDate"></asp:TableCell>
-                            <asp:TableCell runat="server" ID="ModalISBN"></asp:TableCell>
-                        </asp:TableRow>
-                    </asp:Table>
-                    <asp:Button ID="CancelModal" runat="server" Text="Cancel" />
-                    <asp:Button ID="SubmitModal" runat="server" Text="Create" OnClick="CreateNotebook" />
-                </asp:Panel>
-                <ajaxToolkit:ModalPopupExtender runat="server" TargetControlID="ShowButton" PopupControlID="CreationModal" OkControlID="CancelModal"></ajaxToolkit:ModalPopupExtender>
+                <div id="stopFlash", style="display: none">
+                    <asp:Panel ID="CreationModal" runat="server" CssClass="notebook_creation_modal">
+                        <asp:Table runat="server" CssClass="search_grid">
+                            <asp:TableRow>
+                                <asp:TableCell><i>Title</i></asp:TableCell>
+                                <asp:TableCell><i>Author</i></asp:TableCell>
+                                <asp:TableCell><i>Publisher</i></asp:TableCell>
+                                <asp:TableCell><i>Publication Date</i></asp:TableCell>
+                                <asp:TableCell><i>ISBN</i></asp:TableCell>
+                            </asp:TableRow>
+                            <asp:TableRow runat="server" ID="ConfirmationRow">
+                                <asp:TableCell runat="server" ID="ModalTitle"></asp:TableCell>
+                                <asp:TableCell runat="server" ID="ModalAuthors"></asp:TableCell>
+                                <asp:TableCell runat="server" ID="ModalPublisher"></asp:TableCell>
+                                <asp:TableCell runat="server" ID="ModalPublishDate"></asp:TableCell>
+                                <asp:TableCell runat="server" ID="ModalISBN"></asp:TableCell>
+                            </asp:TableRow>
+                        </asp:Table>
+                        <asp:Button ID="CancelModal" runat="server" Text="Cancel" CssClass="modal_button" />
+                        <asp:Button ID="SubmitModal" runat="server" Text="Create" CssClass="modal_button" OnClick="CreateNotebook" />
+                    </asp:Panel>
+                </div>
+                <ajaxToolkit:ModalPopupExtender runat="server" TargetControlID="ShowButton" PopupControlID="CreationModal" OkControlID="CancelModal" BackgroundCssClass="notebook_creation_modal_bg"></ajaxToolkit:ModalPopupExtender>
 
                 <h2>Create New Notebook</h2>
                 <div runat="server" class="button" onclick="ToggleElementHidden('byISBNGroupContainer');">
@@ -251,6 +253,10 @@
                 document.getElementById('<%= WorkingDiv.ClientID %>').innerText = 'Working...';
                 document.getElementById('<%= btnExtractText.ClientID %>').click();
             }
+        }
+
+        function showPopup() {
+            document.getElementById('stopFlash').style.display = 'block';
         }
 
     </script>
