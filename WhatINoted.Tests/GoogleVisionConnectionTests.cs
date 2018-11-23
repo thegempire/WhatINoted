@@ -34,10 +34,13 @@ namespace WhatINoted.Tests
 
             public bool Run(StreamWriter sw)
             {
-                if (GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE) == null)
-                {
-                    sw.WriteLine("GoogleVisionTestConnection failed: No response from API.");
-                    return false;
+                using (MemoryStream mStream = new MemoryStream()) {
+                    TEST_INPUT_IMAGE.Save(mStream, System.Drawing.Imaging.ImageFormat.Png);
+                    if (GoogleVisionConnectionManager.ExtractText(mStream.ToArray()) == null)
+                    {
+                        sw.WriteLine("GoogleVisionTestConnection failed: No response from API.");
+                        return false;
+                    }
                 }
 
                 return true;
@@ -78,10 +81,13 @@ namespace WhatINoted.Tests
 
             public bool Run(StreamWriter sw)
             {
-                if (GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE) != TEST_RESULT_TEXT)
-                {
-                    sw.WriteLine("GoogleVisionTestExtractText1 failed: Extracted text does not match expected result.");
-                    return false;
+                using (MemoryStream mStream = new MemoryStream()) {
+                    TEST_INPUT_IMAGE.Save(mStream, System.Drawing.Imaging.ImageFormat.Png);
+                    if (GoogleVisionConnectionManager.ExtractText(mStream.ToArray()) != TEST_RESULT_TEXT)
+                    {
+                        sw.WriteLine("GoogleVisionTestExtractText1 failed: Extracted text does not match expected result.");
+                        return false;
+                    }
                 }
 
                 return true;
@@ -99,10 +105,13 @@ namespace WhatINoted.Tests
 
             public bool Run(StreamWriter sw)
             {
-                if (GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE) != TEST_RESULT_TEXT)
-                {
-                    sw.WriteLine("GoogleVisionTestExtractText2 failed: Extracted text does not match expected result.");
-                    return false;
+                using (MemoryStream mStream = new MemoryStream()) {
+                    TEST_INPUT_IMAGE.Save(mStream, System.Drawing.Imaging.ImageFormat.Png);
+                    if (GoogleVisionConnectionManager.ExtractText(mStream.ToArray()) != TEST_RESULT_TEXT)
+                    {
+                        sw.WriteLine("GoogleVisionTestExtractText2 failed: Extracted text does not match expected result.");
+                        return false;
+                    }
                 }
 
                 return true;
@@ -120,10 +129,13 @@ namespace WhatINoted.Tests
 
             public bool Run(StreamWriter sw)
             {
-                if (GoogleVisionConnectionManager.ExtractText(TEST_INPUT_IMAGE) != TEST_RESULT_TEXT)
-                {
-                    sw.WriteLine("GoogleVisionTestExtractText3 failed: Extracted text does not match expected result.");
-                    return false;
+                using (MemoryStream mStream = new MemoryStream()) {
+                    TEST_INPUT_IMAGE.Save(mStream, System.Drawing.Imaging.ImageFormat.Png);
+                    if (GoogleVisionConnectionManager.ExtractText(mStream.ToArray()) != TEST_RESULT_TEXT)
+                    {
+                        sw.WriteLine("GoogleVisionTestExtractText3 failed: Extracted text does not match expected result.");
+                        return false;
+                    }
                 }
 
                 return true;
