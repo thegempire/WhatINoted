@@ -31,15 +31,6 @@ namespace WhatINoted {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl NotebookTitle;
         
         /// <summary>
-        /// DeleteNotebookButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DeleteNotebookButton;
-        
-        /// <summary>
         /// NotesTable control.
         /// </summary>
         /// <remarks>
@@ -56,6 +47,15 @@ namespace WhatINoted {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField NoteID;
+        
+        /// <summary>
+        /// DeleteNotebookButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DeleteNotebookButton;
         
         /// <summary>
         /// HandleLoginUserID control.
