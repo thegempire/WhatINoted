@@ -76,14 +76,22 @@ namespace WhatINoted
             }
 
             Notebooks = GoogleFirestoreConnectionManager.GetNotebooks(userID);
+            string unfiledId = null;
             foreach (Notebook notebook in Notebooks)
             {
                 NotebookList.Items.Add(new ListItem(HttpUtility.UrlDecode(notebook.Title), notebook.ID));
+                if (HttpUtility.UrlDecode(notebook.Title) == "Unfiled Notes")
+                {
+                    unfiledId = notebook.ID;
+                }
             }
             NotebookList.DataBind();
             if (NotebookID != null)
             {
                 NotebookList.SelectedValue = NotebookID;
+            } else if (unfiledId != null)
+            {
+                NotebookList.SelectedValue = unfiledId;
             }
             DropdownUpdatePanel.Update();
         }
