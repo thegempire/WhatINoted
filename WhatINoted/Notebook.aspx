@@ -40,9 +40,10 @@
             if (confirm("Are you sure you want to delete this Note?")) {
                 let hiddenField = document.getElementById('<%= NoteID.ClientID %>');
                 hiddenField.value = noteID;
-                let triggerButton = document.getElementsByClassName('deleteNoteTrigger')[0];
-                triggerButton.click();
-                window.location.reload(true);
+                var data = JSON.stringify({ noteID: noteID });
+                callCSMethod("Notebook.aspx/DeleteNote", data, function () {
+                    window.location.reload(true);
+                });
             }
         }
         function DeleteNotebook_Click() {
