@@ -12,7 +12,6 @@
                 <asp:Table runat="server" ID="NotesTable"></asp:Table>
                 <asp:HiddenField runat="server" ID="NoteID" Value="" />
                 <asp:Button runat="server" class="editNoteTrigger hidden" OnClick="EditNote" />
-                <asp:Button runat="server" class="deleteNoteTrigger hidden" OnClick="DeleteNote" />
             </div>
             <div runat="server" class="footer_1_column fixed">
                 <asp:Button runat="server" class="addNoteTrigger hidden" OnClick="AddNote" />
