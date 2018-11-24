@@ -69,6 +69,7 @@
             noteText = encodeURIComponent(noteText);
             document.getElementById('<%= NoteText.ClientID %>').value = noteText;
             document.getElementById('<%= HandleNoteTrigger.ClientID %>').click();
+            $('#<%= NoteText.ClientID %>').val(decodeURIComponent(noteText));
         }
 
         var file;
