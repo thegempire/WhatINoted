@@ -89,15 +89,24 @@
 
                                 <div runat="server" class="titled_field display_inline-block">
                                     <h4>ISBN</h4>
-                                    <asp:TextBox runat="server" ID="IsbnBox" CssClass="full_width"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="IsbnBox" TextChanged="ValidateIsbnField" CssClass="display_inline-block fix-inline full_width"></asp:TextBox>
+                                    <asp:CustomValidator runat="server"
+                                        ID="IsbnValidator"
+                                        OnServerValidate="ValidateIsbnField"
+                                        ControlToValidate="IsbnBox"
+                                        ErrorMessage="Not a valid ISBN"
+                                        CssClass="display_inline-block fix-inline required"
+                                        Enabled="true">
+                                    </asp:CustomValidator>
                                 </div>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+
+<%--                            </ContentTemplate>
+                        </asp:UpdatePanel>--%>
                         
                         <br />
 
-                        <asp:UpdatePanel ID="SearchForNotebookPanel" runat="server" UpdateMode="Conditional">
-                            <ContentTemplate>
+<%--                        <asp:UpdatePanel ID="SearchForNotebookPanel" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>--%>
                                 <asp:Button runat="server" ID="btnISBNPostback" Style="display: none" OnClick="SearchForBook" />
                                 <div class="button small_button display_inline-block fix_inline" onclick="document.getElementById('<%= btnISBNPostback.ClientID %>').click()">
                                     Search for Book

@@ -223,6 +223,7 @@ namespace WhatINoted
                 text = ParseIsbn(text);
                 if (text.Length > 0)
                     IsbnBox.Text = text;
+                IsbnValidator.Validate();
             }
             catch (ArgumentNullException ex)
             {
