@@ -128,60 +128,6 @@ namespace WhatINoted
 
             foreach (TableRow volume in resultRows)
                 resultsTable.Controls.Add(volume);
-
-            if (searchKey == "details" && HiddenTitleEntry.Value != "")
-            {
-                TableRow volumeRow = new TableRow();
-                volumeRow.CssClass = "search_result";
-                volumeRow.ID = "ResultRowCustom";
-
-                volumeRow.Attributes["onclick"] = "rowClicked(this)";
-
-                TableCell titleCell = new TableCell();
-                HtmlGenericControl innerDiv = new HtmlGenericControl("div");
-                innerDiv.ID = volumeRow.ID + "_Title";
-                innerDiv.InnerText = HttpUtility.UrlDecode(HiddenTitleEntry.Value);
-                titleCell.Controls.Add(innerDiv);
-                volumeRow.Controls.Add(titleCell);
-
-                TableCell authorCell = new TableCell();
-                innerDiv = new HtmlGenericControl("div");
-                innerDiv.ID = volumeRow.ID + "_Authors";
-                innerDiv.InnerText = HttpUtility.UrlDecode(HiddenAuthorEntry.Value);
-                authorCell.Controls.Add(innerDiv);
-                volumeRow.Controls.Add(authorCell);
-
-                TableCell publisherCell = new TableCell();
-                innerDiv = new HtmlGenericControl("div");
-                innerDiv.ID = volumeRow.ID + "_Publisher";
-                innerDiv.InnerText = HttpUtility.UrlDecode(HiddenPublisherEntry.Value);
-                publisherCell.Controls.Add(innerDiv);
-                volumeRow.Controls.Add(publisherCell);
-
-                TableCell pubDateCell = new TableCell();
-                innerDiv = new HtmlGenericControl("div");
-                innerDiv.ID = volumeRow.ID + "_PublishDate";
-                innerDiv.InnerText = "";
-                pubDateCell.Controls.Add(innerDiv);
-                volumeRow.Controls.Add(pubDateCell);
-
-                TableCell isbnCell = new TableCell();
-                innerDiv = new HtmlGenericControl("div");
-                innerDiv.ID = volumeRow.ID + "_ISBN";
-                innerDiv.InnerText = "";
-                isbnCell.Controls.Add(innerDiv);
-                volumeRow.Controls.Add(isbnCell);
-
-                TableCell coverUrlCell = new TableCell();
-                innerDiv = new HtmlGenericControl("div");
-                innerDiv.ID = volumeRow.ID + "_CoverUrl";
-                innerDiv.InnerText = "./CustomNotebook.png";
-                coverUrlCell.Controls.Add(innerDiv);
-                coverUrlCell.Style.Add("display", "none");
-                volumeRow.Controls.Add(coverUrlCell);
-
-                SearchGridCustom.Controls.Add(volumeRow);
-            }
         }
 
         [WebMethod, ScriptMethod]

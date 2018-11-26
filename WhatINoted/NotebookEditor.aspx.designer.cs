@@ -319,13 +319,58 @@ namespace WhatINoted {
         protected global::System.Web.UI.WebControls.Table SearchGridDetails;
         
         /// <summary>
-        /// SearchGridCustom control.
+        /// customBookGroupContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table SearchGridCustom;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl customBookGroupContainer;
+        
+        /// <summary>
+        /// HiddenCustomTitleEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenCustomTitleEntry;
+        
+        /// <summary>
+        /// HiddenCustomAuthorEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenCustomAuthorEntry;
+        
+        /// <summary>
+        /// HiddenCustomPublisherEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenCustomPublisherEntry;
+        
+        /// <summary>
+        /// HiddenCustomPublishDateEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenCustomPublishDateEntry;
+        
+        /// <summary>
+        /// HiddenCustomIsbnEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenCustomIsbnEntry;
         
         /// <summary>
         /// HiddenUpdatePanel control.

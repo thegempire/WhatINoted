@@ -3,26 +3,6 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <script>
-        function rowClicked(el) {
-            WebForm_GetElementById("MainContent_ModalTitle").innerText = WebForm_GetElementById(el.id + "_Title").innerText;
-            WebForm_GetElementById("MainContent_TitleSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Title").innerText);
-
-            WebForm_GetElementById("MainContent_ModalAuthors").innerText = WebForm_GetElementById(el.id + "_Authors").innerText;
-            WebForm_GetElementById("MainContent_AuthorsSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Authors").innerText);
-
-            WebForm_GetElementById("MainContent_ModalPublisher").innerText = WebForm_GetElementById(el.id + "_Publisher").innerText;
-            WebForm_GetElementById("MainContent_PublisherSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Publisher").innerText);
-
-            WebForm_GetElementById("MainContent_ModalPublishDate").innerText = WebForm_GetElementById(el.id + "_PublishDate").innerText;
-            WebForm_GetElementById("MainContent_PublishDateSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_PublishDate").innerText);
-
-            WebForm_GetElementById("MainContent_ModalISBN").innerText = WebForm_GetElementById(el.id + "_ISBN").innerText;
-            WebForm_GetElementById("MainContent_IsbnSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_ISBN").innerText);
-
-            WebForm_GetElementById("MainContent_CoverUrlSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_CoverUrl").innerText);
-
-            WebForm_GetElementById("MainContent_ShowButton").click();
-        }
     </script>
         
     <asp:UpdatePanel ID="AddNotebookUpdatePanel" runat="server" UpdateMode="Conditional">
@@ -177,26 +157,46 @@
                                         </asp:TableRow>
                                     </asp:Table>
                                 </div>
-
-                                <br />
-                                <div runat="server" class="search_grid">
-                                    <asp:Table runat="server" ID="SearchGridCustom">
-                                        <asp:TableRow CssClass="search_header_row">
-                                            <asp:TableCell ColumnSpan="5" >
-                                                Custom Book
-                                            </asp:TableCell>
-                                        </asp:TableRow>
-                                        <asp:TableRow CssClass="search_fields_row">
-                                            <asp:TableCell>Title</asp:TableCell>
-                                            <asp:TableCell>Author</asp:TableCell>
-                                            <asp:TableCell>Publisher</asp:TableCell>
-                                            <asp:TableCell>Publication Date</asp:TableCell>
-                                            <asp:TableCell>ISBN</asp:TableCell>
-                                        </asp:TableRow>
-                                    </asp:Table>
-                                </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
+                    </asp:Panel>
+                </div>
+            </div>
+            <div runat="server" class="margin_top_bottom">
+                <div runat="server" class="button" onclick="ToggleElementHidden('customBookGroupContainer');">
+                    Custom Book
+                </div>
+                <div runat="server" id="customBookGroupContainer" class="group_container customBookGroupContainer hidden">
+                    <asp:Panel runat="server" DefaultButton="HiddenPanelButton">
+                                <div class="titled_field display_inline-block">
+                                    <h4>Title</h4>
+                                    <input type="text" id="CustomTitleEntry" class="full_width" maxlength="30" />
+                                    <asp:HiddenField runat="server" ID="HiddenCustomTitleEntry"></asp:HiddenField>
+                                </div>
+                                <div class="titled_field display_inline-block">
+                                    <h4>Author</h4>
+                                    <input type="text" id="CustomAuthorEntry" class="full_width" maxlength="30" />
+                                    <asp:HiddenField runat="server" ID="HiddenCustomAuthorEntry"></asp:HiddenField>
+                                </div>
+                                <div class="titled_field display_inline-block">
+                                    <h4>Publisher</h4>
+                                    <input type="text" id="CustomPublisherEntry" class="full_width" maxlength="30" />
+                                    <asp:HiddenField runat="server" ID="HiddenCustomPublisherEntry"></asp:HiddenField>
+                                </div>
+                                <div class="titled_field display_inline-block">
+                                    <h4>Publish Date</h4>
+                                    <input type="text" id="CustomPublishDateEntry" class="full_width" maxlength="30" />
+                                    <asp:HiddenField runat="server" ID="HiddenCustomPublishDateEntry"></asp:HiddenField>
+                                </div>
+                                <div class="titled_field display_inline-block">
+                                    <h4>ISBN</h4>
+                                    <input type="text" id="CustomIsbnEntry" class="full_width" maxlength="30" />
+                                    <asp:HiddenField runat="server" ID="HiddenCustomIsbnEntry"></asp:HiddenField>
+                                </div>
+                            <br />
+                                <div class="button small_button display_inline-block fix_inline" onclick="click_btnCustomBookPostback()">
+                                    Create Book
+                                </div>
                     </asp:Panel>
                 </div>
             </div>
@@ -291,6 +291,49 @@
         
         function showPopup() {
             document.getElementById('stopFlash').style.display = 'block';
+        }
+
+        function click_btnCustomBookPostback() {
+            WebForm_GetElementById("MainContent_ModalTitle").innerText = WebForm_GetElementById("CustomTitleEntry").value;
+            WebForm_GetElementById("MainContent_TitleSelection").value = encodeURIComponent(WebForm_GetElementById("CustomTitleEntry").value);
+
+            WebForm_GetElementById("MainContent_ModalAuthors").innerText = WebForm_GetElementById("CustomAuthorEntry").value;
+            WebForm_GetElementById("MainContent_AuthorsSelection").value = encodeURIComponent(WebForm_GetElementById("CustomAuthorEntry").value);
+
+            WebForm_GetElementById("MainContent_ModalPublisher").innerText = WebForm_GetElementById("CustomPublisherEntry").value;
+            WebForm_GetElementById("MainContent_PublisherSelection").value = encodeURIComponent(WebForm_GetElementById("CustomPublisherEntry").value);
+
+            WebForm_GetElementById("MainContent_ModalPublishDate").innerText = WebForm_GetElementById("CustomPublishDateEntry").value;
+            WebForm_GetElementById("MainContent_PublishDateSelection").value = encodeURIComponent(WebForm_GetElementById("CustomPublishDateEntry").value);
+
+            WebForm_GetElementById("MainContent_ModalISBN").innerText = WebForm_GetElementById("CustomIsbnEntry").value;
+            WebForm_GetElementById("MainContent_IsbnSelection").value = encodeURIComponent(WebForm_GetElementById("CustomIsbnEntry").value);
+
+            WebForm_GetElementById("MainContent_CoverUrlSelection").value = "./CustomNotebook.png";
+
+            WebForm_GetElementById("MainContent_ShowButton").click();
+        }
+
+        function rowClicked(el) {
+            WebForm_GetElementById("MainContent_ModalTitle").innerText = WebForm_GetElementById(el.id + "_Title").innerText;
+            WebForm_GetElementById("MainContent_TitleSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Title").innerText);
+
+            WebForm_GetElementById("MainContent_ModalAuthors").innerText = WebForm_GetElementById(el.id + "_Authors").innerText;
+            WebForm_GetElementById("MainContent_AuthorsSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Authors").innerText);
+
+            WebForm_GetElementById("MainContent_ModalPublisher").innerText = WebForm_GetElementById(el.id + "_Publisher").innerText;
+            WebForm_GetElementById("MainContent_PublisherSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_Publisher").innerText);
+
+            WebForm_GetElementById("MainContent_ModalPublishDate").innerText = WebForm_GetElementById(el.id + "_PublishDate").innerText;
+            WebForm_GetElementById("MainContent_PublishDateSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_PublishDate").innerText);
+
+            WebForm_GetElementById("MainContent_ModalISBN").innerText = WebForm_GetElementById(el.id + "_ISBN").innerText;
+            WebForm_GetElementById("MainContent_IsbnSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_ISBN").innerText);
+
+            WebForm_GetElementById("MainContent_CoverUrlSelection").value = encodeURIComponent(WebForm_GetElementById(el.id + "_CoverUrl").innerText);
+
+            WebForm_GetElementById("MainContent_ShowButton").click();
+
         }
     </script>
 </asp:Content>
