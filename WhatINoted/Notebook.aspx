@@ -5,17 +5,18 @@
         <ContentTemplate>
             <div runat="server">
                 <h2 runat="server" id="NotebookTitle">Notebook Title</h2>
-                <asp:Button runat="server" class="deleteNotebookTrigger hidden" OnClick="DeleteNotebook" />
-                <div runat="server" id="DeleteNotebookButton" class="button small_button display_inline-block" visible="false" onclick="DeleteNotebook_Click();">
-                    Delete Notebook
-                </div>
+                
                 <asp:Table runat="server" ID="NotesTable"></asp:Table>
                 <asp:HiddenField runat="server" ID="NoteID" Value="" />
                 <asp:Button runat="server" class="editNoteTrigger hidden" OnClick="EditNote" />
             </div>
-            <div runat="server" class="footer_1_column fixed">
+            <div runat="server" class="footer_2_columns fixed">
+                <asp:Button runat="server" class="deleteNotebookTrigger hidden" OnClick="DeleteNotebook" />
+                <div runat="server" id="DeleteNotebookButton" class="footer_2_columns_left button" visible="false" onclick="DeleteNotebook_Click();">
+                    Delete Notebook
+                </div>
                 <asp:Button runat="server" class="addNoteTrigger hidden" OnClick="AddNote" />
-                <div runat="server" class="footer_1_column_middle button" onclick="NewNote_Click();">
+                <div runat="server" class="footer_2_columns_right button" onclick="NewNote_Click();">
                     New Note
                 </div>
             </div>
