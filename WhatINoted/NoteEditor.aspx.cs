@@ -31,7 +31,7 @@ namespace WhatINoted
             {
                 IsEdit = true;
                 PageTitle.InnerText = "Edit Note";
-                HandleNoteButton.InnerText = "Edit Note";
+                HandleNoteButton.InnerText = "Save Note";
             }
             else
             {
