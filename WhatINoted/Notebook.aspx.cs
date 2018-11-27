@@ -82,10 +82,9 @@ namespace WhatINoted
         /// <summary>
         /// Deletes the note corresponding to the delete button that was clicked.
         /// </summary>
-        [WebMethod, ScriptMethod]
-        public void DeleteNote(object sender, EventArgs e)
+        [WebMethod]
+        public static void DeleteNote(string noteID)
         {
-            string noteID = NoteID.Value;
             if (noteID != null && noteID != "")
             {
                 GoogleFirestoreConnectionManager.DeleteNote(noteID);

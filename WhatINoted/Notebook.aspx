@@ -9,7 +9,6 @@
                 <asp:Table runat="server" ID="NotesTable"></asp:Table>
                 <asp:HiddenField runat="server" ID="NoteID" Value="" />
                 <asp:Button runat="server" class="editNoteTrigger hidden" OnClick="EditNote" />
-                <asp:Button runat="server" class="deleteNoteTrigger hidden" OnClick="DeleteNote" />
             </div>
             <div runat="server" class="footer_2_columns fixed">
                 <asp:Button runat="server" class="deleteNotebookTrigger hidden" OnClick="DeleteNotebook" />
@@ -41,9 +40,10 @@
             if (confirm("Are you sure you want to delete this Note?")) {
                 let hiddenField = document.getElementById('<%= NoteID.ClientID %>');
                 hiddenField.value = noteID;
-                let triggerButton = document.getElementsByClassName('deleteNoteTrigger')[0];
-                triggerButton.click();
-                window.location.reload(true);
+                var data = JSON.stringify({ noteID: noteID });
+                callCSMethod("Notebook.aspx/DeleteNote", data, function () {
+                    window.location.reload(true);
+                });
             }
         }
         function DeleteNotebook_Click() {
