@@ -86,7 +86,7 @@ namespace WhatINoted.Models
 
             if (Int32.TryParse(Number.Substring(9, 1), out digit))
             {
-                sum += 10 * digit;
+                sum += digit;
             }
 
             else if (Number[9] == 'X')
